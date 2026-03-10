@@ -70,7 +70,7 @@ function readNamespaces(): string[] {
 
     return raw
       .split(',')
-      .map((x) => x.trim())
+      .map((x: string) => x.trim())
       .filter(Boolean);
   } catch {
     return [];

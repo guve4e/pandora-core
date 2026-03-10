@@ -20,21 +20,8 @@
               "^production"
             ],
             "outputs": [
-              "{projectRoot}/**/*.js",
-              "{projectRoot}/**/*.cjs",
-              "{projectRoot}/**/*.mjs",
-              "{projectRoot}/**/*.jsx",
-              "{projectRoot}/**/*.js.map",
-              "{projectRoot}/**/*.jsx.map",
-              "{projectRoot}/**/*.d.ts",
-              "{projectRoot}/**/*.d.cts",
-              "{projectRoot}/**/*.d.mts",
-              "{projectRoot}/**/*.d.ts.map",
-              "{projectRoot}/**/*.d.cts.map",
-              "{projectRoot}/**/*.d.mts.map",
-              "{projectRoot}/tsconfig.tsbuildinfo",
               "{projectRoot}/dist/**/*.d.ts",
-              "{projectRoot}/dist/tsconfig.lib.tsbuildinfo"
+              "{projectRoot}/*.tsbuildinfo"
             ],
             "syncGenerators": [
               "@nx/js:typescript-sync"
@@ -95,6 +82,18 @@
             "configurations": {},
             "parallelism": true
           },
+          "build": {
+            "executor": "nx:run-script",
+            "options": {
+              "script": "build"
+            },
+            "metadata": {
+              "scriptContent": "vue-tsc -b tsconfig.lib.json",
+              "runCommand": "npm run build"
+            },
+            "configurations": {},
+            "parallelism": true
+          },
           "nx-release-publish": {
             "executor": "@nx/js:release-publish",
             "dependsOn": [
@@ -110,7 +109,11 @@
           "npm:public"
         ],
         "metadata": {
-          "targetGroups": {},
+          "targetGroups": {
+            "NPM Scripts": [
+              "build"
+            ]
+          },
           "js": {
             "packageName": "@org/admin-core",
             "packageVersion": "0.0.1",
@@ -666,7 +669,7 @@
                   }
                 }
               },
-              "scriptContent": "vue-tsc -b && vite build",
+              "scriptContent": "vue-tsc -b tsconfig.app.json && vite build",
               "runCommand": "npm run build"
             },
             "configurations": {},
@@ -35462,5 +35465,5 @@
   },
   "version": "6.0",
   "errors": [],
-  "computedAt": 1773158873231
+  "computedAt": 1773162135750
 }

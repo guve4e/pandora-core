@@ -739,15 +739,6 @@ watch(
 
     startPolling();
   },
-
-  async function onDismissNotification(item: NotificationItem) {
-    if (!item.is_read) {
-      await markNotificationRead(item.id);
-    }
-
-    await loadNotifications('dismiss-item');
-    await loadUnreadCount('dismiss-item');
-  },
 );
 
 watch(

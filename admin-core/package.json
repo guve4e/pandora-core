@@ -13,5 +13,8 @@
   },
   "nx": {
     "name": "admin-core"
+  },
+  "scripts": {
+    "build": "vue-tsc -b tsconfig.lib.json"
   }
 }

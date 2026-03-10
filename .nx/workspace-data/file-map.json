@@ -209,51 +209,6 @@
       }
     ],
     "projectFileMap": {
-      "@org/admin-e2e": [
-        {
-          "file": "admin-e2e/cypress.config.ts",
-          "hash": "2214955953696462877",
-          "deps": [
-            "npm:@nx/cypress",
-            "npm:cypress"
-          ]
-        },
-        {
-          "file": "admin-e2e/eslint.config.mjs",
-          "hash": "17824390293590849408",
-          "deps": [
-            "npm:eslint-plugin-cypress"
-          ]
-        },
-        {
-          "file": "admin-e2e/package.json",
-          "hash": "1713496103980595864"
-        },
-        {
-          "file": "admin-e2e/src/e2e/app.cy.ts",
-          "hash": "2373377559005371476"
-        },
-        {
-          "file": "admin-e2e/src/fixtures/example.json",
-          "hash": "11785586596216172004"
-        },
-        {
-          "file": "admin-e2e/src/support/app.po.ts",
-          "hash": "11157016311132186162"
-        },
-        {
-          "file": "admin-e2e/src/support/commands.ts",
-          "hash": "5397443931564808659"
-        },
-        {
-          "file": "admin-e2e/src/support/e2e.ts",
-          "hash": "1054106023200826784"
-        },
-        {
-          "file": "admin-e2e/tsconfig.json",
-          "hash": "2222691385421840162"
-        }
-      ],
       "@org/api-e2e": [
         {
           "file": "api-e2e/.spec.swcrc",
@@ -304,101 +259,49 @@
           "hash": "10942403731839929261"
         }
       ],
-      "admin-core": [
+      "@org/admin-e2e": [
         {
-          "file": "admin-core/README.md",
-          "hash": "16992270412126538247"
-        },
-        {
-          "file": "admin-core/package.json",
-          "hash": "12581314204749652762"
-        },
-        {
-          "file": "admin-core/src/index.ts",
-          "hash": "6842760061412522500"
-        },
-        {
-          "file": "admin-core/src/lib/api/auth.ts",
-          "hash": "11318406965233817510"
-        },
-        {
-          "file": "admin-core/src/lib/api/http.ts",
-          "hash": "16522302011644387736",
+          "file": "admin-e2e/cypress.config.ts",
+          "hash": "2214955953696462877",
           "deps": [
-            "npm:axios"
+            "npm:@nx/cypress",
+            "npm:cypress"
           ]
         },
         {
-          "file": "admin-core/src/lib/api/notifications.ts",
-          "hash": "12747313465269836037"
-        },
-        {
-          "file": "admin-core/src/lib/auth/auth.storage.ts",
-          "hash": "13305742210765173858"
-        },
-        {
-          "file": "admin-core/src/lib/auth/auth.store.ts",
-          "hash": "8645465039432423283",
+          "file": "admin-e2e/eslint.config.mjs",
+          "hash": "17824390293590849408",
           "deps": [
-            "npm:pinia"
+            "npm:eslint-plugin-cypress"
           ]
         },
         {
-          "file": "admin-core/src/lib/components/PageHeader.vue",
-          "hash": "9709645479600087261"
+          "file": "admin-e2e/package.json",
+          "hash": "1713496103980595864"
         },
         {
-          "file": "admin-core/src/lib/debug.ts",
-          "hash": "5045700023184461101"
+          "file": "admin-e2e/src/e2e/app.cy.ts",
+          "hash": "2373377559005371476"
         },
         {
-          "file": "admin-core/src/lib/router/createAuthGuard.ts",
-          "hash": "13709675511686948774",
-          "deps": [
-            "npm:vue-router"
-          ]
+          "file": "admin-e2e/src/fixtures/example.json",
+          "hash": "11785586596216172004"
         },
         {
-          "file": "admin-core/src/lib/shell/AdminShell.vue",
-          "hash": "1224771477268997285",
-          "deps": [
-            "npm:vue",
-            "npm:vue-router"
-          ]
+          "file": "admin-e2e/src/support/app.po.ts",
+          "hash": "11157016311132186162"
         },
         {
-          "file": "admin-core/src/lib/shell/app-config.ts",
-          "hash": "15266111852853206845",
-          "deps": [
-            "npm:vue-router"
-          ]
+          "file": "admin-e2e/src/support/commands.ts",
+          "hash": "5397443931564808659"
         },
         {
-          "file": "admin-core/src/lib/shell/types.ts",
-          "hash": "6615538726483380064"
+          "file": "admin-e2e/src/support/e2e.ts",
+          "hash": "1054106023200826784"
         },
         {
-          "file": "admin-core/src/lib/views/LoginView.vue",
-          "hash": "5469014598032712531",
-          "deps": [
-            "npm:vue",
-            "npm:vue-router"
-          ]
-        },
-        {
-          "file": "admin-core/src/vue-shims.d.ts",
-          "hash": "1350740973621485859",
-          "deps": [
-            "npm:vue"
-          ]
-        },
-        {
-          "file": "admin-core/tsconfig.json",
-          "hash": "6774177574860209080"
-        },
-        {
-          "file": "admin-core/tsconfig.lib.json",
-          "hash": "9546865511804688660"
+          "file": "admin-e2e/tsconfig.json",
+          "hash": "2222691385421840162"
         }
       ],
       "@org/api": [
@@ -940,7 +843,7 @@
         },
         {
           "file": "api/src/main.ts",
-          "hash": "16695679122374740011",
+          "hash": "810114660884657372",
           "deps": [
             "npm:@nestjs/core"
           ]
@@ -983,7 +886,7 @@
         },
         {
           "file": "admin/package.json",
-          "hash": "14588822061253350647",
+          "hash": "9024189505868439045",
           "deps": [
             "npm:@types/node@24.10.13",
             "npm:@vitejs/plugin-vue",
@@ -1023,7 +926,7 @@
         },
         {
           "file": "admin/src/analytics/traffic.ts",
-          "hash": "13222984981267466413"
+          "hash": "12436292474936918648"
         },
         {
           "file": "admin/src/api/admin.ts",
@@ -1137,7 +1040,7 @@
         },
         {
           "file": "admin/tsconfig.app.json",
-          "hash": "17202674338940358470"
+          "hash": "17238309649886823827"
         },
         {
           "file": "admin/tsconfig.json",
@@ -1154,6 +1057,107 @@
             "npm:vite",
             "npm:@vitejs/plugin-vue"
           ]
+        }
+      ],
+      "admin-core": [
+        {
+          "file": "admin-core/README.md",
+          "hash": "16992270412126538247"
+        },
+        {
+          "file": "admin-core/package.json",
+          "hash": "12699562966229680653"
+        },
+        {
+          "file": "admin-core/src/index.ts",
+          "hash": "6842760061412522500"
+        },
+        {
+          "file": "admin-core/src/lib/api/auth.ts",
+          "hash": "11318406965233817510"
+        },
+        {
+          "file": "admin-core/src/lib/api/http.ts",
+          "hash": "16522302011644387736",
+          "deps": [
+            "npm:axios"
+          ]
+        },
+        {
+          "file": "admin-core/src/lib/api/notifications.ts",
+          "hash": "12747313465269836037"
+        },
+        {
+          "file": "admin-core/src/lib/auth/auth.storage.ts",
+          "hash": "13305742210765173858"
+        },
+        {
+          "file": "admin-core/src/lib/auth/auth.store.ts",
+          "hash": "8645465039432423283",
+          "deps": [
+            "npm:pinia"
+          ]
+        },
+        {
+          "file": "admin-core/src/lib/components/PageHeader.vue",
+          "hash": "9709645479600087261"
+        },
+        {
+          "file": "admin-core/src/lib/debug.ts",
+          "hash": "1995366865661832041"
+        },
+        {
+          "file": "admin-core/src/lib/router/createAuthGuard.ts",
+          "hash": "13709675511686948774",
+          "deps": [
+            "npm:vue-router"
+          ]
+        },
+        {
+          "file": "admin-core/src/lib/shell/AdminShell.vue",
+          "hash": "6474910394116815981",
+          "deps": [
+            "npm:vue",
+            "npm:vue-router"
+          ]
+        },
+        {
+          "file": "admin-core/src/lib/shell/app-config.ts",
+          "hash": "15266111852853206845",
+          "deps": [
+            "npm:vue-router"
+          ]
+        },
+        {
+          "file": "admin-core/src/lib/shell/types.ts",
+          "hash": "6615538726483380064"
+        },
+        {
+          "file": "admin-core/src/lib/views/LoginView.vue",
+          "hash": "5469014598032712531",
+          "deps": [
+            "npm:vue",
+            "npm:vue-router"
+          ]
+        },
+        {
+          "file": "admin-core/src/vue-shims.d.ts",
+          "hash": "1350740973621485859",
+          "deps": [
+            "npm:vue"
+          ]
+        },
+        {
+          "file": "admin-core/tsconfig.app.json",
+          "hash": "4762297532076512535"
+        },
+        {
+          "file": "admin-core/tsconfig.json",
+          "hash": "5081408092558665289"
+        },
+        {
+          "file": "admin-core/tsconfig.lib.json",
+          "hash": "13881233433877554904"
         }
       ]
     }

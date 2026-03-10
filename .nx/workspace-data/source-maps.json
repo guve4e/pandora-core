@@ -710,6 +710,14 @@
       "admin-core/package.json",
       "nx/core/package-json"
     ],
+    "metadata.targetGroups.NPM Scripts": [
+      "admin-core/package.json",
+      "nx/core/package-json"
+    ],
+    "metadata.targetGroups.NPM Scripts.0": [
+      "admin-core/package.json",
+      "nx/core/package-json"
+    ],
     "metadata.js": [
       "admin-core/package.json",
       "nx/core/package-json"
@@ -727,6 +735,34 @@
       "nx/core/package-json"
     ],
     "metadata.js.isInPackageManagerWorkspaces": [
+      "admin-core/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build": [
+      "admin-core/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.executor": [
+      "admin-core/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.options": [
+      "admin-core/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.metadata": [
+      "admin-core/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.options.script": [
+      "admin-core/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.metadata.scriptContent": [
+      "admin-core/package.json",
+      "nx/core/package-json"
+    ],
+    "targets.build.metadata.runCommand": [
       "admin-core/package.json",
       "nx/core/package-json"
     ],

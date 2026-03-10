@@ -1,22 +1,27 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
     "outDir": "dist",
-    "types": ["vite/client"],
     "rootDir": "src",
+    "types": ["vite/client"],
     "jsx": "preserve",
     "jsxImportSource": "vue",
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo"
+    "tsBuildInfoFile": "dist/tsconfig.lib.tsbuildinfo",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
   },
   "include": [
     "src/**/*.js",
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "src/**/*.d.ts"
   ],
-  "exclude": []
+  "exclude": ["dist", "node_modules"]
 }
