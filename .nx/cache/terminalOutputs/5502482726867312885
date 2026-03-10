@@ -1,0 +1,940 @@
+
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (34b358025e012027)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/59897ae6-e86d-405f-9b05-179fb8768c55
+Debugger listening on ws://localhost:9229/59897ae6-e86d-405f-9b05-179fb8768c55
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T10:23:22.546Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.547Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.552Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.552Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.553Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T10:23:22.554Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+[36m⠋[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠙[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠹[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠸[39m Calculating the project graph on the Nx Daemon[2K[1G
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (3cbf9fb62e6c7fb8)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/6f9e1a22-bc50-4a9f-b21c-803ddac1ea69
+Debugger listening on ws://localhost:9229/6f9e1a22-bc50-4a9f-b21c-803ddac1ea69
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T10:34:16.761Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.762Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.768Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.768Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.768Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.768Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.768Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.768Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.768Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.769Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:16.770Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+2026-03-10T10:34:59.908Z [31merror[39m: [ExceptionsHandler] this.users.findByEmailGlobal is not a function {"app":"api","job":"pandora-core"}
+TypeError: this.users.findByEmailGlobal is not a function
+    at AuthService.validateUser (/Users/valentinkormanov/www/pandora-core/api/src/app/core/auth/auth.service.ts:30:1)
+    at AuthController.login (/Users/valentinkormanov/www/pandora-core/api/src/app/core/auth/auth.controller.ts:22:1)
+    at /Users/valentinkormanov/www/pandora-core/node_modules/@nestjs/core/router/router-execution-context.js:38:29
+    at processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at /Users/valentinkormanov/www/pandora-core/node_modules/@nestjs/core/router/router-execution-context.js:46:28
+    at /Users/valentinkormanov/www/pandora-core/node_modules/@nestjs/core/router/router-proxy.js:9:17
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+[36m⠋[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠙[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠹[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠸[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠼[39m Calculating the project graph on the Nx Daemon[2K[1G
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (e73e06f3684604c8)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/1c868dec-c81e-43be-bb48-af6bf70b5c61
+Debugger listening on ws://localhost:9229/1c868dec-c81e-43be-bb48-af6bf70b5c61
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T10:38:04.795Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.796Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.803Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.803Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.803Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.803Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.803Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.803Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.803Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.804Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:04.805Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:22.502Z [32minfo[39m:  User login email:val.default@example.com tenant:83f5007f-3d2c-481a-a0f8-f72549ada0cb {"app":"api","job":"pandora-core"}
+2026-03-10T10:38:38.888Z [32minfo[39m:  User login email:val.default@example.com tenant:83f5007f-3d2c-481a-a0f8-f72549ada0cb {"app":"api","job":"pandora-core"}
+2026-03-10T10:56:54.167Z [32minfo[39m:  User login email:val.default@example.com tenant:83f5007f-3d2c-481a-a0f8-f72549ada0cb {"app":"api","job":"pandora-core"}
+2026-03-10T10:57:42.265Z [32minfo[39m:  User login email:val.default@example.com tenant:83f5007f-3d2c-481a-a0f8-f72549ada0cb {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (e73e06f3684604c8)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/95fa56a5-fe81-405e-9e95-7d326f4252b1
+Debugger listening on ws://localhost:9229/95fa56a5-fe81-405e-9e95-7d326f4252b1
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:00:24.035Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.036Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.041Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.041Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.042Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:24.043Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+[36m⠋[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠙[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠹[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠸[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠼[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠴[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠦[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠧[39m Calculating the project graph on the Nx Daemon[2K[1G
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (e73e06f3684604c8)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/b5567514-b9cf-48f2-aa95-2d34016061e3
+Debugger listening on ws://localhost:9229/b5567514-b9cf-48f2-aa95-2d34016061e3
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:00:27.791Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.793Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.800Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.800Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.800Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.801Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.802Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.802Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.802Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.802Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.802Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.802Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.802Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.802Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.802Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.802Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:00:27.802Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+[36m⠋[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠙[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠹[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠸[39m Calculating the project graph on the Nx Daemon[2K[1G
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (084b2b17ddf6fec6)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/b67b62ac-1b0a-471d-9903-fb91bb39e0ec
+Debugger listening on ws://localhost:9229/b67b62ac-1b0a-471d-9903-fb91bb39e0ec
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:01:08.072Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.073Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.079Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.079Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.079Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.079Z [32minfo[39m: [InstanceLoader] DiscoveryModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.079Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.079Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.079Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [InstanceLoader] ScheduleModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.080Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:08.081Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (084b2b17ddf6fec6)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/79fb17db-a16b-41fb-8950-ff6959521de1
+Debugger listening on ws://localhost:9229/79fb17db-a16b-41fb-8950-ff6959521de1
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:01:24.343Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.344Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.350Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.350Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.350Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.350Z [32minfo[39m: [InstanceLoader] DiscoveryModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.350Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [InstanceLoader] ScheduleModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.351Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.352Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:24.352Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+[36m⠋[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠙[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠹[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠸[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠼[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠴[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠦[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠧[39m Calculating the project graph on the Nx Daemon[2K[1G
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (084b2b17ddf6fec6)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/ade1739c-ef5e-489a-b8cc-d12315ec445c
+Debugger listening on ws://localhost:9229/ade1739c-ef5e-489a-b8cc-d12315ec445c
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:01:31.881Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.882Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.888Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.888Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.888Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.888Z [32minfo[39m: [InstanceLoader] DiscoveryModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.888Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.888Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.888Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [InstanceLoader] ScheduleModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.889Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:01:31.890Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (084b2b17ddf6fec6)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/6083172b-cc77-4a89-ac92-8d0a4747986e
+Debugger listening on ws://localhost:9229/6083172b-cc77-4a89-ac92-8d0a4747986e
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:24:26.939Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.940Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.946Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.946Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.946Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] DiscoveryModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] ScheduleModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.947Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.948Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.948Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.948Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.948Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.948Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.948Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.948Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.948Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:26.948Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (084b2b17ddf6fec6)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/efef1c69-e762-439b-88cf-11a6f771023a
+Debugger listening on ws://localhost:9229/efef1c69-e762-439b-88cf-11a6f771023a
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:24:39.897Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.898Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.903Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.904Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.904Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.904Z [32minfo[39m: [InstanceLoader] DiscoveryModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.904Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.904Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.904Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.904Z [32minfo[39m: [InstanceLoader] ScheduleModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.904Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.904Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.904Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:39.905Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (084b2b17ddf6fec6)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/4a08518f-9b40-49a0-a403-23d4273f7bc9
+Debugger listening on ws://localhost:9229/4a08518f-9b40-49a0-a403-23d4273f7bc9
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:24:44.893Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.894Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.900Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.900Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.900Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.900Z [32minfo[39m: [InstanceLoader] DiscoveryModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.900Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.900Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.900Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [InstanceLoader] ScheduleModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.901Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:44.902Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (084b2b17ddf6fec6)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/00b40561-7111-4855-99c7-a9341aff15e7
+Debugger listening on ws://localhost:9229/00b40561-7111-4855-99c7-a9341aff15e7
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:24:49.480Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.481Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.487Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.487Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.487Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.487Z [32minfo[39m: [InstanceLoader] DiscoveryModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.487Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.487Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.487Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [InstanceLoader] ScheduleModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:24:49.488Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+[36m⠋[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠙[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠹[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠸[39m Calculating the project graph on the Nx Daemon[2K[1G
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (e04410a44e36172f)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/a330b7dc-17e9-4fc5-aec8-621022349001
+Debugger listening on ws://localhost:9229/a330b7dc-17e9-4fc5-aec8-621022349001
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:25:21.104Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.105Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.111Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.111Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.112Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.112Z [32minfo[39m: [InstanceLoader] DiscoveryModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.112Z [32minfo[39m: [InstanceLoader] IntakeModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.112Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.112Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.112Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.112Z [32minfo[39m: [InstanceLoader] ScheduleModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RoutesResolver] IntakeController {/api/public/intake/sessions}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/public/intake/sessions, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [RouterExplorer] Mapped {/api/public/intake/sessions/:id/messages, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.113Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:25:21.114Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+[36m⠋[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠙[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠹[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠸[39m Calculating the project graph on the Nx Daemon[2K[1G
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (e04410a44e36172f)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/db1667c9-85cd-4fe8-a200-30197593afcb
+Debugger listening on ws://localhost:9229/db1667c9-85cd-4fe8-a200-30197593afcb
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:42:32.272Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.274Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.289Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.289Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.289Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.289Z [32minfo[39m: [InstanceLoader] DiscoveryModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.289Z [32minfo[39m: [InstanceLoader] IntakeModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.289Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.289Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [InstanceLoader] ScheduleModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RoutesResolver] IntakeController {/api/public/intake/sessions}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/public/intake/sessions, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [RouterExplorer] Mapped {/api/public/intake/sessions/:id/messages, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.290Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:32.291Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (e04410a44e36172f)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/53452ad9-dad5-4fba-95ff-353ab71890f7
+Debugger listening on ws://localhost:9229/53452ad9-dad5-4fba-95ff-353ab71890f7
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:42:34.602Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.603Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.609Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.609Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.609Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.609Z [32minfo[39m: [InstanceLoader] DiscoveryModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.609Z [32minfo[39m: [InstanceLoader] IntakeModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.609Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.609Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [InstanceLoader] ScheduleModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RoutesResolver] IntakeController {/api/public/intake/sessions}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/public/intake/sessions, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [RouterExplorer] Mapped {/api/public/intake/sessions/:id/messages, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.610Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:42:34.611Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+[36m⠋[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠙[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠹[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠸[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠼[39m Calculating the project graph on the Nx Daemon[2K[1G
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (399b80d39a32beb7)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/7ae9d2ce-a1c6-4c73-a8d2-af607d5e5ed9
+Debugger listening on ws://localhost:9229/7ae9d2ce-a1c6-4c73-a8d2-af607d5e5ed9
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+[32m[Nest] 91135  - [39m03/10/2026, 1:43:43 PM [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m
+[32m[Nest] 91135  - [39m03/10/2026, 1:43:43 PM [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantContextModule dependencies initialized[39m[38;5;3m +0ms[39m
+[1m[31m[31m[Nest] 91135  - [31m03/10/2026, 1:43:43 PM [31m  ERROR[31m [38;5;3m[ExceptionHandler] [31mUnknownDependenciesException [Error]: Nest can't resolve dependencies of the IntakeService (?). Please make sure that the argument IntakeExtractorService at index [0] is available in the IntakeModule context.
+
+Potential solutions:
+- Is IntakeModule a valid NestJS module?
+- If IntakeExtractorService is a provider, is it part of the current IntakeModule?
+- If IntakeExtractorService is exported from a separate @Module, is that module imported within IntakeModule?
+  @Module({
+    imports: [ /* the Module containing IntakeExtractorService */ ]
+  })
+
+For more common dependency resolution issues, see: https://docs.nestjs.com/faq/common-errors
+    at Injector.lookupComponentInParentModules [90m(/Users/valentinkormanov/www/pandora-core/[31mnode_modules/[4m@nestjs/core[24m/injector/injector.js:290:19[90m)[31m
+[90m    at processTicksAndRejections (node:internal/process/task_queues:105:5)[31m
+    at resolveParam [90m(/Users/valentinkormanov/www/pandora-core/[31mnode_modules/[4m@nestjs/core[24m/injector/injector.js:140:38[90m)[31m
+    at async Promise.all (index 0)
+    at Injector.resolveConstructorParams [90m(/Users/valentinkormanov/www/pandora-core/[31mnode_modules/[4m@nestjs/core[24m/injector/injector.js:169:27[90m)[31m
+    at Injector.loadInstance [90m(/Users/valentinkormanov/www/pandora-core/[31mnode_modules/[4m@nestjs/core[24m/injector/injector.js:75:13[90m)[31m
+    at Injector.loadProvider [90m(/Users/valentinkormanov/www/pandora-core/[31mnode_modules/[4m@nestjs/core[24m/injector/injector.js:103:9[90m)[31m
+    at [90m/Users/valentinkormanov/www/pandora-core/[31mnode_modules/[4m@nestjs/core[24m/injector/instance-loader.js:56:13
+    at async Promise.all (index 3)
+    at InstanceLoader.createInstancesOfProviders [90m(/Users/valentinkormanov/www/pandora-core/[31mnode_modules/[4m@nestjs/core[24m/injector/instance-loader.js:55:9[90m)[31m {
+  type: [32m'IntakeService'[31m,
+  context: {
+    index: [33m0[31m,
+    dependencies: [
+      [36m[class IntakeExtractorService][31m
+    ],
+    name: [36m[class IntakeExtractorService][31m
+  },
+  metadata: {
+    id: [32m'117aadb05f27c30e6af5c'[31m
+  },
+  moduleRef: {
+    id: [32m'7d1ed2ba89049286cfc95'[31m
+  }
+}
+[39m[22m
+
+[7m[1m[36m NX [39m[22m[27m [1mProcess exited with code 1, waiting for changes to restart...[22m
+
+
+[7m[1m[36m NX [39m[22m[27m [1mFile change detected. Restarting...[22m
+
+[36m⠋[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠙[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠹[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠸[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠼[39m Calculating the project graph on the Nx Daemon[2K[1G[36m⠴[39m Calculating the project graph on the Nx Daemon[2K[1G
+[2m> [22m[2mnx run[22m @org/api:build:development
+
+> webpack-cli build --node-env=development
+
+webpack compiled [1m[32msuccessfully[39m[22m (d2fb32acd488c024)
+
+[2m[32m—————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————————[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild[22m for project @org/api[39m
+
+
+[1m[31mDebugger listening on ws://localhost:9229/98da3c66-6976-441f-9415-126bc6703f5e
+Debugger listening on ws://localhost:9229/98da3c66-6976-441f-9415-126bc6703f5e
+For help, see: https://nodejs.org/en/docs/inspector
+[39m[22m
+2026-03-10T11:43:58.741Z [32minfo[39m:  Redis connections initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.742Z [32minfo[39m:  Log succeeded {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.748Z [32minfo[39m: [NestFactory] Starting Nest application... {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.748Z [32minfo[39m: [InstanceLoader] TenantContextModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.748Z [32minfo[39m: [InstanceLoader] ConfigHostModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.749Z [32minfo[39m: [InstanceLoader] DiscoveryModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.749Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.749Z [32minfo[39m: [InstanceLoader] ConfigModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.749Z [32minfo[39m: [InstanceLoader] LoggingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.749Z [32minfo[39m: [InstanceLoader] ScheduleModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.749Z [32minfo[39m: [InstanceLoader] IntakeModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.749Z [32minfo[39m: [InstanceLoader] AppModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.749Z [32minfo[39m: [InstanceLoader] PgModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [InstanceLoader] JwtModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [InstanceLoader] MessagingModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [InstanceLoader] AiModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [InstanceLoader] NotificationsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [InstanceLoader] AuthModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [InstanceLoader] TenantsModule dependencies initialized {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RoutesResolver] AuthController {/api/auth}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/register, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/login, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/refresh, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/auth/logout, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RoutesResolver] TenantsController {/api/tenants}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants/me, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/tenants, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RoutesResolver] NotificationsController {/api/notifications}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/unread-count, GET} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/:id/read, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/read-all, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/notifications/events, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RoutesResolver] IntakeController {/api/public/intake/sessions}: {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/public/intake/sessions, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [RouterExplorer] Mapped {/api/public/intake/sessions/:id/messages, POST} route {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m: [NestApplication] Nest application successfully started {"app":"api","job":"pandora-core"}
+2026-03-10T11:43:58.750Z [32minfo[39m:  Application is running on PORT:3000/api {"app":"api","job":"pandora-core"}

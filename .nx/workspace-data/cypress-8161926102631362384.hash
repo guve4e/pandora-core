@@ -1,0 +1,524 @@
+{
+  "16647729442184022502": {
+    "targets": {
+      "e2e": {
+        "command": "cypress run",
+        "options": {
+          "cwd": "admin-e2e",
+          "env": {
+            "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+          }
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "cypress"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/cypress/videos",
+          "{projectRoot}/test-output/cypress/screenshots"
+        ],
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Runs Cypress Tests",
+          "help": {
+            "command": "npx cypress run --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--headed"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          {
+            "projects": [
+              "@org/admin"
+            ],
+            "target": "dev"
+          }
+        ],
+        "configurations": {
+          "production": {
+            "command": "cypress run --env webServerCommand=\"npx nx run @org/admin:preview\""
+          }
+        }
+      },
+      "e2e-ci--src/e2e/app.cy.ts": {
+        "outputs": [
+          "{projectRoot}/test-output/cypress/videos/src-e2e-app-cy-ts",
+          "{projectRoot}/test-output/cypress/screenshots/src-e2e-app-cy-ts"
+        ],
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "cypress"
+            ]
+          }
+        ],
+        "cache": true,
+        "command": "cypress run --env webServerCommand=\"npx nx run @org/admin:preview\" --spec src/e2e/app.cy.ts --config=\"{\\\"baseUrl\\\":\\\"http://localhost:4300\\\",\\\"e2e\\\":{\\\"videosFolder\\\":\\\"test-output/cypress/videos/src-e2e-app-cy-ts\\\",\\\"screenshotsFolder\\\":\\\"test-output/cypress/screenshots/src-e2e-app-cy-ts\\\"}}\"",
+        "options": {
+          "cwd": "admin-e2e",
+          "env": {
+            "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+          }
+        },
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Runs Cypress Tests in src/e2e/app.cy.ts in CI",
+          "help": {
+            "command": "npx cypress run --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--headed"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          {
+            "target": "preview",
+            "projects": [
+              "@org/admin"
+            ]
+          }
+        ]
+      },
+      "e2e-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "cypress"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/cypress/videos",
+          "{projectRoot}/test-output/cypress/screenshots"
+        ],
+        "dependsOn": [
+          {
+            "target": "e2e-ci--src/e2e/app.cy.ts",
+            "projects": "self",
+            "params": "forward",
+            "options": "forward"
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Runs Cypress Tests in CI",
+          "nonAtomizedTarget": "e2e",
+          "help": {
+            "command": "npx cypress run --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--headed"
+              ]
+            }
+          }
+        }
+      },
+      "open-cypress": {
+        "command": "cypress open",
+        "options": {
+          "cwd": "admin-e2e",
+          "env": {
+            "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+          }
+        },
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Opens Cypress",
+          "help": {
+            "command": "npx cypress open --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--e2e"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "E2E (CI)": [
+          "e2e-ci--src/e2e/app.cy.ts",
+          "e2e-ci"
+        ]
+      }
+    }
+  },
+  "18249357245397880356": {
+    "targets": {
+      "e2e": {
+        "command": "cypress run",
+        "options": {
+          "cwd": "admin-e2e",
+          "env": {
+            "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+          }
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "cypress"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/cypress/videos",
+          "{projectRoot}/test-output/cypress/screenshots"
+        ],
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Runs Cypress Tests",
+          "help": {
+            "command": "npx cypress run --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--headed"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          {
+            "projects": [
+              "@org/admin"
+            ],
+            "target": "dev"
+          }
+        ],
+        "configurations": {
+          "production": {
+            "command": "cypress run --env webServerCommand=\"npx nx run @org/admin:preview\""
+          }
+        }
+      },
+      "e2e-ci--src/e2e/app.cy.ts": {
+        "outputs": [
+          "{projectRoot}/test-output/cypress/videos/src-e2e-app-cy-ts",
+          "{projectRoot}/test-output/cypress/screenshots/src-e2e-app-cy-ts"
+        ],
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "cypress"
+            ]
+          }
+        ],
+        "cache": true,
+        "command": "cypress run --env webServerCommand=\"npx nx run @org/admin:preview\" --spec src/e2e/app.cy.ts --config=\"{\\\"baseUrl\\\":\\\"http://localhost:4300\\\",\\\"e2e\\\":{\\\"videosFolder\\\":\\\"test-output/cypress/videos/src-e2e-app-cy-ts\\\",\\\"screenshotsFolder\\\":\\\"test-output/cypress/screenshots/src-e2e-app-cy-ts\\\"}}\"",
+        "options": {
+          "cwd": "admin-e2e",
+          "env": {
+            "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+          }
+        },
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Runs Cypress Tests in src/e2e/app.cy.ts in CI",
+          "help": {
+            "command": "npx cypress run --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--headed"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          {
+            "target": "preview",
+            "projects": [
+              "@org/admin"
+            ]
+          }
+        ]
+      },
+      "e2e-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "cypress"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/cypress/videos",
+          "{projectRoot}/test-output/cypress/screenshots"
+        ],
+        "dependsOn": [
+          {
+            "target": "e2e-ci--src/e2e/app.cy.ts",
+            "projects": "self",
+            "params": "forward",
+            "options": "forward"
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Runs Cypress Tests in CI",
+          "nonAtomizedTarget": "e2e",
+          "help": {
+            "command": "npx cypress run --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--headed"
+              ]
+            }
+          }
+        }
+      },
+      "open-cypress": {
+        "command": "cypress open",
+        "options": {
+          "cwd": "admin-e2e",
+          "env": {
+            "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+          }
+        },
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Opens Cypress",
+          "help": {
+            "command": "npx cypress open --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--e2e"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "E2E (CI)": [
+          "e2e-ci--src/e2e/app.cy.ts",
+          "e2e-ci"
+        ]
+      }
+    }
+  },
+  "9643149389050536307": {
+    "targets": {
+      "e2e": {
+        "command": "cypress run",
+        "options": {
+          "cwd": "admin-e2e",
+          "env": {
+            "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+          }
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "cypress"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/cypress/videos",
+          "{projectRoot}/test-output/cypress/screenshots"
+        ],
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Runs Cypress Tests",
+          "help": {
+            "command": "npx cypress run --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--headed"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          {
+            "projects": [
+              "@org/admin"
+            ],
+            "target": "dev"
+          }
+        ],
+        "configurations": {
+          "production": {
+            "command": "cypress run --env webServerCommand=\"npx nx run @org/admin:preview\""
+          }
+        }
+      },
+      "e2e-ci--src/e2e/app.cy.ts": {
+        "outputs": [
+          "{projectRoot}/test-output/cypress/videos/src-e2e-app-cy-ts",
+          "{projectRoot}/test-output/cypress/screenshots/src-e2e-app-cy-ts"
+        ],
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "cypress"
+            ]
+          }
+        ],
+        "cache": true,
+        "command": "cypress run --env webServerCommand=\"npx nx run @org/admin:preview\" --spec src/e2e/app.cy.ts --config=\"{\\\"baseUrl\\\":\\\"http://localhost:4300\\\",\\\"e2e\\\":{\\\"videosFolder\\\":\\\"test-output/cypress/videos/src-e2e-app-cy-ts\\\",\\\"screenshotsFolder\\\":\\\"test-output/cypress/screenshots/src-e2e-app-cy-ts\\\"}}\"",
+        "options": {
+          "cwd": "admin-e2e",
+          "env": {
+            "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+          }
+        },
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Runs Cypress Tests in src/e2e/app.cy.ts in CI",
+          "help": {
+            "command": "npx cypress run --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--headed"
+              ]
+            }
+          }
+        },
+        "dependsOn": [
+          {
+            "target": "preview",
+            "projects": [
+              "@org/admin"
+            ]
+          }
+        ]
+      },
+      "e2e-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "cypress"
+            ]
+          }
+        ],
+        "outputs": [
+          "{projectRoot}/test-output/cypress/videos",
+          "{projectRoot}/test-output/cypress/screenshots"
+        ],
+        "dependsOn": [
+          {
+            "target": "e2e-ci--src/e2e/app.cy.ts",
+            "projects": "self",
+            "params": "forward",
+            "options": "forward"
+          }
+        ],
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Runs Cypress Tests in CI",
+          "nonAtomizedTarget": "e2e",
+          "help": {
+            "command": "npx cypress run --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--headed"
+              ]
+            }
+          }
+        }
+      },
+      "open-cypress": {
+        "command": "cypress open",
+        "options": {
+          "cwd": "admin-e2e",
+          "env": {
+            "TS_NODE_COMPILER_OPTIONS": "{\"customConditions\":null}"
+          }
+        },
+        "metadata": {
+          "technologies": [
+            "cypress"
+          ],
+          "description": "Opens Cypress",
+          "help": {
+            "command": "npx cypress open --help",
+            "example": {
+              "args": [
+                "--dev",
+                "--e2e"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "E2E (CI)": [
+          "e2e-ci--src/e2e/app.cy.ts",
+          "e2e-ci"
+        ]
+      }
+    }
+  }
+}
