@@ -36,7 +36,7 @@
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.vue"],
   "references": [
     {
-      "path": "../admin-core/tsconfig.app.json"
+      "path": "../admin-core/tsconfig.lib.json"
     }
   ]
 }
