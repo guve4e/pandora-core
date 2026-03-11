@@ -1,4 +1,3 @@
-import type { AdminAppConfig } from '@org/admin-core';
 import DashboardView from './views/DashboardView.vue';
 import AiUsageView from './views/AiUsageView.vue';
 import ConversationsView from './views/ConversationsView.vue';
@@ -10,14 +9,14 @@ import PlatformUsersView from './views/PlatformUsersView.vue';
 import PlatformLeadsView from './views/PlatformLeadsView.vue';
 import PlatformNotificationsView from './views/PlatformNotificationsView.vue';
 
-export const adminModule: AdminAppConfig = {
+export const adminModule = {
   appName: 'AIAdvocate',
   appSubtitle: 'Internal tools for AIAdvocate.',
   shellTitle: 'Internal system console',
   footerText: 'v0.1 · internal',
   userInitials: 'VK',
 
-  menu: [
+  platformMenu: [
     { to: '/', label: 'Dashboard' },
     { to: '/ai-usage', label: 'AI Usage' },
     { to: '/conversations', label: 'Conversations' },
@@ -29,56 +28,73 @@ export const adminModule: AdminAppConfig = {
     { to: '/settings', label: 'Settings' },
   ],
 
+  tenantMenu: [
+    { to: '/', label: 'Dashboard' },
+    { to: '/conversations', label: 'Conversations' },
+    { to: '/visitors', label: 'Visitors' },
+    { to: '/settings', label: 'Settings' },
+  ],
+
   routes: [
     {
       path: '/',
       name: 'dashboard',
       component: DashboardView,
+      meta: { tenantOnly: true, platformOnly: false },
     },
     {
       path: '/ai-usage',
       name: 'ai-usage',
       component: AiUsageView,
+      meta: { tenantOnly: false, platformOnly: true },
     },
     {
       path: '/conversations',
       name: 'conversations',
       component: ConversationsView,
+      meta: { tenantOnly: true, platformOnly: false },
     },
     {
       path: '/visitors',
       name: 'visitors',
       component: VisitorsView,
+      meta: { tenantOnly: true, platformOnly: false },
     },
     {
       path: '/platform/tenants',
       name: 'platform-tenants',
       component: PlatformTenantsView,
+      meta: { tenantOnly: false, platformOnly: true },
     },
     {
       path: '/platform/tenants/:slug',
       name: 'platform-tenant-detail',
       component: PlatformTenantDetailView,
+      meta: { tenantOnly: false, platformOnly: true },
     },
     {
       path: '/platform/users',
       name: 'platform-users',
       component: PlatformUsersView,
+      meta: { tenantOnly: false, platformOnly: true },
     },
     {
       path: '/platform/leads',
       name: 'platform-leads',
       component: PlatformLeadsView,
+      meta: { tenantOnly: false, platformOnly: true },
     },
     {
       path: '/platform/notifications',
       name: 'platform-notifications',
       component: PlatformNotificationsView,
+      meta: { tenantOnly: false, platformOnly: true },
     },
     {
       path: '/settings',
       name: 'settings',
       component: SettingsView,
+      meta: { tenantOnly: true, platformOnly: false },
     },
   ],
 };

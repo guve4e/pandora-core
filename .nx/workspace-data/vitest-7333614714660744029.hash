@@ -2581,5 +2581,1727 @@
       }
     },
     "projectType": "library"
+  },
+  "348307115909600924admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "12618423263296457008admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "17702867766412872327admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "9502651018655457990admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "17547323888032782493admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "10400701794964025270admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "4504403559413106699admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "2236488362735489491admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "5957171063350261957admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "18287881291548286859admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "10446442999504877881admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "10723751842741827563admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "2903330480863866886admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
+  },
+  "12428412003847684664admin/vite.config.mts": {
+    "targets": {
+      "test": {
+        "command": "vitest",
+        "options": {
+          "cwd": "admin"
+        },
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest tests",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "bail": 1,
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci--src/app/App.spec.ts": {
+        "command": "vitest run src/app/App.spec.ts",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "options": {
+          "cwd": "admin"
+        },
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in src/app/App.spec.ts",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      },
+      "test-ci": {
+        "executor": "nx:noop",
+        "cache": true,
+        "inputs": [
+          "default",
+          "^production",
+          {
+            "externalDependencies": [
+              "vitest"
+            ]
+          },
+          {
+            "env": "CI"
+          }
+        ],
+        "outputs": [
+          "{workspaceRoot}/admin/test-output/vitest/coverage"
+        ],
+        "dependsOn": [
+          "test-ci--src/app/App.spec.ts"
+        ],
+        "metadata": {
+          "technologies": [
+            "vitest"
+          ],
+          "description": "Run Vitest Tests in CI",
+          "nonAtomizedTarget": "test",
+          "help": {
+            "command": "npx vitest --help",
+            "example": {
+              "options": {
+                "coverage": true
+              }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "targetGroups": {
+        "TEST (CI)": [
+          "test-ci",
+          "test-ci--src/app/App.spec.ts"
+        ]
+      }
+    },
+    "projectType": "library"
   }
 }

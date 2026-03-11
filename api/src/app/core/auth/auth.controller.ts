@@ -1,14 +1,18 @@
 import { Controller, Post, Body, Inject, Request, Get } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { AuthInvitesService } from './auth-invites.service';
 import type { LoggerService } from '../logging/types';
 import { RegisterDto } from '../common/dto/auth.register.dto';
 import { LoginDto } from '../common/dto/auth.login.dto';
+import { ValidateInviteDto } from '../common/dto/validate-invite.dto';
+import { AcceptInviteDto } from '../common/dto/accept-invite.dto';
 import { Public } from '../common/lib/decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
+    private readonly authInvites: AuthInvitesService,
     @Inject('LOGGER_SERVICE') private readonly logger: LoggerService,
   ) {}
 
@@ -43,6 +47,18 @@ export class AuthController {
   @Post('refresh')
   async refresh(@Body() body: { refresh_token: string }) {
     return this.authService.refreshToken(body.refresh_token);
+  }
+
+  @Public()
+  @Post('invites/validate')
+  async validateInvite(@Body() dto: ValidateInviteDto) {
+    return this.authInvites.validateInviteToken(dto.token);
+  }
+
+  @Public()
+  @Post('invites/accept')
+  async acceptInvite(@Body() dto: AcceptInviteDto) {
+    return this.authInvites.acceptInvite(dto);
   }
 
   @Get('me')

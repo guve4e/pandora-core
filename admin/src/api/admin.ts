@@ -1,4 +1,3 @@
-// admin/src/api/admin.ts
 import { http } from '@org/admin-core';
 
 // --- AI Usage ---
@@ -56,6 +55,7 @@ export async function getDailyTraffic(
   });
   return data;
 }
+
 // --- Platform Owner Debug Views ---
 export interface PlatformTenantRow {
   id: string;
@@ -133,7 +133,9 @@ export async function getPlatformNotifications(
 export async function getPlatformTenantBySlug(
   slug: string,
 ): Promise<PlatformTenantRow> {
-  const { data } = await http.get<PlatformTenantRow>(`/admin/platform/tenants/${slug}`);
+  const { data } = await http.get<PlatformTenantRow>(
+    `/admin/platform/tenants/${slug}`,
+  );
   return data;
 }
 
@@ -162,6 +164,41 @@ export async function getPlatformTenantNotifications(
   const { data } = await http.get<PlatformNotificationRow[]>(
     `/admin/platform/tenants/${slug}/notifications`,
     { params },
+  );
+  return data;
+}
+
+export interface CreatePlatformInvitePayload {
+  email: string;
+  role?: string;
+}
+
+export interface CreatePlatformInviteResponse {
+  invite: {
+    id: string;
+    tenant_id: string;
+    email: string;
+    role: string;
+    expires_at: string;
+    created_at: string;
+  };
+  invite_url: string;
+  raw_token: string;
+  tenant: {
+    id: string;
+    name: string;
+    slug: string;
+    created_at: string;
+  };
+}
+
+export async function createPlatformTenantInvite(
+  slug: string,
+  payload: CreatePlatformInvitePayload,
+): Promise<CreatePlatformInviteResponse> {
+  const { data } = await http.post<CreatePlatformInviteResponse>(
+    `/admin/platform/tenants/${slug}/invites`,
+    payload,
   );
   return data;
 }

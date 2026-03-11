@@ -76,144 +76,144 @@
   "fileMap": {
     "nonProjectFiles": [
       {
-        "file": "jest.config.ts",
-        "hash": "6870352021923392442"
-      },
-      {
-        "file": ".github/workflows/ci.yml",
-        "hash": "13310162846883450580"
+        "file": ".vscode/launch.json",
+        "hash": "14019033738878481103"
       },
       {
         "file": ".idea/codeStyles/Project.xml",
         "hash": "18097235675007435210"
       },
       {
-        "file": ".idea/nx-angular-config.xml",
-        "hash": "11747644467998611843"
-      },
-      {
-        "file": "graph.html",
-        "hash": "6986935609089304540"
-      },
-      {
-        "file": ".idea/inspectionProfiles/Project_Default.xml",
-        "hash": "8912173605315939135"
-      },
-      {
-        "file": ".prettierignore",
-        "hash": "14688272390704683536"
-      },
-      {
-        "file": "README.md",
-        "hash": "7361467479597954846"
-      },
-      {
-        "file": "static/environment.js",
-        "hash": "13863310240596063842"
-      },
-      {
-        "file": ".vscode/extensions.json",
-        "hash": "4637156562308165301"
-      },
-      {
-        "file": ".gitignore",
-        "hash": "17401290115870967249"
-      },
-      {
-        "file": "package.json",
-        "hash": "16134521934127929977"
-      },
-      {
-        "file": ".idea/modules.xml",
-        "hash": "13979769697285494537"
-      },
-      {
-        "file": "tsconfig.base.json",
-        "hash": "501499671418974141"
-      },
-      {
-        "file": "nx.json",
-        "hash": "13752693429326833105"
+        "file": ".idea/.gitignore",
+        "hash": "18109907959344192685"
       },
       {
         "file": "eslint.config.mjs",
         "hash": "8265929868680170462"
       },
       {
-        "file": ".idea/codeStyles/codeStyleConfig.xml",
-        "hash": "4690022301721055948"
-      },
-      {
-        "file": ".idea/vcs.xml",
-        "hash": "14600148892634157659"
-      },
-      {
-        "file": ".idea/prettier.xml",
-        "hash": "13711802271405639796"
-      },
-      {
-        "file": "vitest.workspace.ts",
-        "hash": "4665328684042819579"
-      },
-      {
-        "file": ".idea/pandora-core.iml",
-        "hash": "11872286644273118759"
-      },
-      {
-        "file": "AGENTS.md",
-        "hash": "9692141264778725580"
-      },
-      {
-        "file": ".vscode/launch.json",
-        "hash": "14019033738878481103"
-      },
-      {
-        "file": "CLAUDE.md",
-        "hash": "9692141264778725580"
-      },
-      {
         "file": "error.log",
         "hash": "3537019111692895134"
-      },
-      {
-        "file": "package-lock.json",
-        "hash": "10837057841248120279"
-      },
-      {
-        "file": "packages/.gitkeep",
-        "hash": "3244421341483603138"
-      },
-      {
-        "file": ".gemini/settings.json",
-        "hash": "14337936512237811016"
-      },
-      {
-        "file": ".idea/.gitignore",
-        "hash": "18109907959344192685"
-      },
-      {
-        "file": ".prettierrc",
-        "hash": "16267754514737964994"
-      },
-      {
-        "file": ".idea/compiler.xml",
-        "hash": "17222771692129793234"
-      },
-      {
-        "file": ".mcp.json",
-        "hash": "12425082089842124725"
       },
       {
         "file": "tsconfig.json",
         "hash": "5686769921138523488"
       },
       {
-        "file": "jest.preset.js",
-        "hash": "9430166341120122740"
+        "file": "AGENTS.md",
+        "hash": "9692141264778725580"
+      },
+      {
+        "file": ".idea/pandora-core.iml",
+        "hash": "11872286644273118759"
+      },
+      {
+        "file": "package.json",
+        "hash": "16134521934127929977"
+      },
+      {
+        "file": "README.md",
+        "hash": "7361467479597954846"
+      },
+      {
+        "file": ".vscode/extensions.json",
+        "hash": "4637156562308165301"
+      },
+      {
+        "file": "graph.html",
+        "hash": "6986935609089304540"
+      },
+      {
+        "file": ".idea/nx-angular-config.xml",
+        "hash": "11747644467998611843"
+      },
+      {
+        "file": ".idea/vcs.xml",
+        "hash": "14600148892634157659"
+      },
+      {
+        "file": "packages/.gitkeep",
+        "hash": "3244421341483603138"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "10837057841248120279"
+      },
+      {
+        "file": ".mcp.json",
+        "hash": "12425082089842124725"
+      },
+      {
+        "file": ".idea/compiler.xml",
+        "hash": "17222771692129793234"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "501499671418974141"
+      },
+      {
+        "file": ".gemini/settings.json",
+        "hash": "14337936512237811016"
+      },
+      {
+        "file": ".idea/modules.xml",
+        "hash": "13979769697285494537"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "6870352021923392442"
       },
       {
         "file": ".env.example",
         "hash": "6188573342945869999"
+      },
+      {
+        "file": "vitest.workspace.ts",
+        "hash": "4665328684042819579"
+      },
+      {
+        "file": ".idea/prettier.xml",
+        "hash": "13711802271405639796"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "17401290115870967249"
+      },
+      {
+        "file": "nx.json",
+        "hash": "13752693429326833105"
+      },
+      {
+        "file": ".idea/codeStyles/codeStyleConfig.xml",
+        "hash": "4690022301721055948"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "9430166341120122740"
+      },
+      {
+        "file": "CLAUDE.md",
+        "hash": "9692141264778725580"
+      },
+      {
+        "file": "static/environment.js",
+        "hash": "13863310240596063842"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "14688272390704683536"
+      },
+      {
+        "file": ".github/workflows/ci.yml",
+        "hash": "13310162846883450580"
+      },
+      {
+        "file": ".idea/inspectionProfiles/Project_Default.xml",
+        "hash": "8912173605315939135"
       }
     ],
     "projectFileMap": {
@@ -354,6 +354,10 @@
           "hash": "11470290270921524605"
         },
         {
+          "file": "api/migrations/1773200000000_create-auth-invites.js",
+          "hash": "17413811788895599531"
+        },
+        {
           "file": "api/package.json",
           "hash": "5958970147197977601",
           "deps": [
@@ -434,6 +438,22 @@
           "hash": "7965624652560209515"
         },
         {
+          "file": "api/src/app/core/auth/auth-invites.repository.ts",
+          "hash": "15236572082431001591",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:pg"
+          ]
+        },
+        {
+          "file": "api/src/app/core/auth/auth-invites.service.ts",
+          "hash": "6845678448980461776",
+          "deps": [
+            "npm:@nestjs/common",
+            "npm:bcryptjs"
+          ]
+        },
+        {
           "file": "api/src/app/core/auth/auth-subscriber.ts",
           "hash": "6319955505630967786",
           "deps": [
@@ -451,14 +471,14 @@
         },
         {
           "file": "api/src/app/core/auth/auth.controller.ts",
-          "hash": "7362212449849924992",
+          "hash": "9492165371055746450",
           "deps": [
             "npm:@nestjs/common"
           ]
         },
         {
           "file": "api/src/app/core/auth/auth.module.ts",
-          "hash": "13094794133138463542",
+          "hash": "8939977954235779955",
           "deps": [
             "npm:@nestjs/common",
             "npm:@nestjs/jwt",
@@ -467,7 +487,7 @@
         },
         {
           "file": "api/src/app/core/auth/auth.service.ts",
-          "hash": "12612665395506399486",
+          "hash": "11957695584606576197",
           "deps": [
             "npm:@nestjs/common",
             "npm:@nestjs/jwt",
@@ -494,6 +514,13 @@
             "npm:@nestjs/common",
             "npm:@nestjs/passport",
             "npm:passport-jwt"
+          ]
+        },
+        {
+          "file": "api/src/app/core/common/dto/accept-invite.dto.ts",
+          "hash": "17769180377974393632",
+          "deps": [
+            "npm:class-validator"
           ]
         },
         {
@@ -525,6 +552,13 @@
           ]
         },
         {
+          "file": "api/src/app/core/common/dto/create-auth-invite.dto.ts",
+          "hash": "8713720936956857701",
+          "deps": [
+            "npm:class-validator"
+          ]
+        },
+        {
           "file": "api/src/app/core/common/dto/create-auth-user.dto.ts",
           "hash": "6091794227291745469",
           "deps": [
@@ -548,6 +582,13 @@
         {
           "file": "api/src/app/core/common/dto/user.dto.ts",
           "hash": "13609630036145708576",
+          "deps": [
+            "npm:class-validator"
+          ]
+        },
+        {
+          "file": "api/src/app/core/common/dto/validate-invite.dto.ts",
+          "hash": "14568282134833602391",
           "deps": [
             "npm:class-validator"
           ]
@@ -840,7 +881,14 @@
         },
         {
           "file": "api/src/app/modules/platform/platform.controller.ts",
-          "hash": "6677123930058242011",
+          "hash": "12363361031250741282",
+          "deps": [
+            "npm:@nestjs/common"
+          ]
+        },
+        {
+          "file": "api/src/app/modules/platform/platform.module.ts",
+          "hash": "16192005507777192587",
           "deps": [
             "npm:@nestjs/common"
           ]
@@ -934,18 +982,16 @@
         },
         {
           "file": "admin/src/App.vue",
-          "hash": "2368626200352592276",
+          "hash": "7924867807767125996",
           "deps": [
+            "npm:vue",
             "npm:vue-router",
             "admin-core"
           ]
         },
         {
           "file": "admin/src/admin.module.ts",
-          "hash": "8473861441576664521",
-          "deps": [
-            "admin-core"
-          ]
+          "hash": "9060028381811544260"
         },
         {
           "file": "admin/src/analytics/traffic.ts",
@@ -953,7 +999,7 @@
         },
         {
           "file": "admin/src/api/admin.ts",
-          "hash": "17686728957517160200",
+          "hash": "13714898005465918112",
           "deps": [
             "admin-core"
           ]
@@ -995,7 +1041,7 @@
         },
         {
           "file": "admin/src/router/index.ts",
-          "hash": "3537979169050064282",
+          "hash": "18124955711933058104",
           "deps": [
             "npm:vue-router",
             "admin-core"
@@ -1053,7 +1099,7 @@
         },
         {
           "file": "admin/src/views/PlatformTenantDetailView.vue",
-          "hash": "13035206560859615696",
+          "hash": "17650328716543116466",
           "deps": [
             "npm:vue",
             "npm:vue-router",
@@ -1135,7 +1181,7 @@
         },
         {
           "file": "admin-core/src/index.ts",
-          "hash": "6842760061412522500"
+          "hash": "9639082207156347620"
         },
         {
           "file": "admin-core/src/lib/api/auth.ts",
@@ -1147,6 +1193,10 @@
           "deps": [
             "npm:axios"
           ]
+        },
+        {
+          "file": "admin-core/src/lib/api/invites.ts",
+          "hash": "13647567149860357936"
         },
         {
           "file": "admin-core/src/lib/api/notifications.ts",
@@ -1196,6 +1246,14 @@
         {
           "file": "admin-core/src/lib/shell/types.ts",
           "hash": "6615538726483380064"
+        },
+        {
+          "file": "admin-core/src/lib/views/AcceptInviteView.vue",
+          "hash": "5060481278878610732",
+          "deps": [
+            "npm:vue",
+            "npm:vue-router"
+          ]
         },
         {
           "file": "admin-core/src/lib/views/LoginView.vue",

@@ -30,6 +30,7 @@ export class AuthService {
       id: user.id,
       tenant_id: user.tenant_id,
       username: user.username,
+      email: user.email,
       role: user.role,
     };
   }
@@ -85,7 +86,8 @@ export class AuthService {
 
     await this.users.createUser({
       tenantId: tenant.id,
-      username: dto.username,
+      email: dto.email,
+      username: dto.email,
       passwordHash,
       role: dto.role ?? 'owner',
     });

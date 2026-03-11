@@ -6,7 +6,9 @@ import { PgModule } from '../db/pg.module';
 import { LoggingModule } from '../logging/logging.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { AuthInvitesService } from './auth-invites.service';
 import { AuthUserRepository } from './auth-user.repository';
+import { AuthInvitesRepository } from './auth-invites.repository';
 import { JwtStrategy } from './jwt.strategy';
 
 @Module({
@@ -25,7 +27,13 @@ import { JwtStrategy } from './jwt.strategy';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, AuthUserRepository, JwtStrategy],
-  exports: [AuthService],
+  providers: [
+    AuthService,
+    AuthInvitesService,
+    AuthUserRepository,
+    AuthInvitesRepository,
+    JwtStrategy,
+  ],
+  exports: [AuthService, AuthInvitesService],
 })
 export class AuthModule {}
