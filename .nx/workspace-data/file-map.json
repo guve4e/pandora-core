@@ -76,6 +76,10 @@
   "fileMap": {
     "nonProjectFiles": [
       {
+        "file": ".vscode/extensions.json",
+        "hash": "4637156562308165301"
+      },
+      {
         "file": ".env.example",
         "hash": "6188573342945869999"
       },
@@ -84,112 +88,16 @@
         "hash": "14337936512237811016"
       },
       {
-        "file": ".github/workflows/ci.yml",
-        "hash": "13310162846883450580"
-      },
-      {
-        "file": ".gitignore",
-        "hash": "17401290115870967249"
-      },
-      {
-        "file": ".idea/.gitignore",
-        "hash": "18109907959344192685"
-      },
-      {
-        "file": ".idea/codeStyles/Project.xml",
-        "hash": "18097235675007435210"
-      },
-      {
-        "file": ".idea/codeStyles/codeStyleConfig.xml",
-        "hash": "4690022301721055948"
+        "file": "error.log",
+        "hash": "3537019111692895134"
       },
       {
         "file": ".idea/compiler.xml",
         "hash": "17222771692129793234"
       },
       {
-        "file": ".idea/inspectionProfiles/Project_Default.xml",
-        "hash": "8912173605315939135"
-      },
-      {
-        "file": ".idea/modules.xml",
-        "hash": "13979769697285494537"
-      },
-      {
-        "file": ".idea/nx-angular-config.xml",
-        "hash": "11747644467998611843"
-      },
-      {
-        "file": ".idea/pandora-core.iml",
-        "hash": "11872286644273118759"
-      },
-      {
-        "file": ".idea/prettier.xml",
-        "hash": "13711802271405639796"
-      },
-      {
         "file": ".idea/vcs.xml",
         "hash": "14600148892634157659"
-      },
-      {
-        "file": ".mcp.json",
-        "hash": "12425082089842124725"
-      },
-      {
-        "file": ".prettierignore",
-        "hash": "14688272390704683536"
-      },
-      {
-        "file": ".prettierrc",
-        "hash": "16267754514737964994"
-      },
-      {
-        "file": ".vscode/extensions.json",
-        "hash": "4637156562308165301"
-      },
-      {
-        "file": ".vscode/launch.json",
-        "hash": "14019033738878481103"
-      },
-      {
-        "file": "AGENTS.md",
-        "hash": "9692141264778725580"
-      },
-      {
-        "file": "CLAUDE.md",
-        "hash": "9692141264778725580"
-      },
-      {
-        "file": "README.md",
-        "hash": "7361467479597954846"
-      },
-      {
-        "file": "error.log",
-        "hash": "3537019111692895134"
-      },
-      {
-        "file": "eslint.config.mjs",
-        "hash": "8265929868680170462"
-      },
-      {
-        "file": "jest.config.ts",
-        "hash": "6870352021923392442"
-      },
-      {
-        "file": "jest.preset.js",
-        "hash": "9430166341120122740"
-      },
-      {
-        "file": "nx.json",
-        "hash": "13752693429326833105"
-      },
-      {
-        "file": "package-lock.json",
-        "hash": "10837057841248120279"
-      },
-      {
-        "file": "package.json",
-        "hash": "16134521934127929977"
       },
       {
         "file": "packages/.gitkeep",
@@ -200,12 +108,104 @@
         "hash": "501499671418974141"
       },
       {
+        "file": ".idea/codeStyles/codeStyleConfig.xml",
+        "hash": "4690022301721055948"
+      },
+      {
+        "file": ".vscode/launch.json",
+        "hash": "14019033738878481103"
+      },
+      {
+        "file": ".github/workflows/ci.yml",
+        "hash": "13310162846883450580"
+      },
+      {
+        "file": "package.json",
+        "hash": "16134521934127929977"
+      },
+      {
+        "file": "package-lock.json",
+        "hash": "10837057841248120279"
+      },
+      {
+        "file": "README.md",
+        "hash": "7361467479597954846"
+      },
+      {
+        "file": "CLAUDE.md",
+        "hash": "9692141264778725580"
+      },
+      {
+        "file": "eslint.config.mjs",
+        "hash": "8265929868680170462"
+      },
+      {
+        "file": "jest.config.ts",
+        "hash": "6870352021923392442"
+      },
+      {
+        "file": ".mcp.json",
+        "hash": "12425082089842124725"
+      },
+      {
+        "file": ".idea/codeStyles/Project.xml",
+        "hash": "18097235675007435210"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "14688272390704683536"
+      },
+      {
+        "file": "jest.preset.js",
+        "hash": "9430166341120122740"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "17401290115870967249"
+      },
+      {
+        "file": ".idea/.gitignore",
+        "hash": "18109907959344192685"
+      },
+      {
+        "file": ".idea/modules.xml",
+        "hash": "13979769697285494537"
+      },
+      {
+        "file": ".idea/pandora-core.iml",
+        "hash": "11872286644273118759"
+      },
+      {
         "file": "tsconfig.json",
         "hash": "5686769921138523488"
       },
       {
+        "file": ".idea/prettier.xml",
+        "hash": "13711802271405639796"
+      },
+      {
+        "file": ".idea/inspectionProfiles/Project_Default.xml",
+        "hash": "8912173605315939135"
+      },
+      {
         "file": "vitest.workspace.ts",
         "hash": "4665328684042819579"
+      },
+      {
+        "file": ".prettierrc",
+        "hash": "16267754514737964994"
+      },
+      {
+        "file": ".idea/nx-angular-config.xml",
+        "hash": "11747644467998611843"
+      },
+      {
+        "file": "AGENTS.md",
+        "hash": "9692141264778725580"
+      },
+      {
+        "file": "nx.json",
+        "hash": "13752693429326833105"
       }
     ],
     "projectFileMap": {
@@ -1040,7 +1040,7 @@
         },
         {
           "file": "admin/tsconfig.app.json",
-          "hash": "17238309649886823827"
+          "hash": "2227114199943783137"
         },
         {
           "file": "admin/tsconfig.json",
@@ -1052,7 +1052,7 @@
         },
         {
           "file": "admin/vite.config.mts",
-          "hash": "2532533008226776664",
+          "hash": "9530990718867313084",
           "deps": [
             "npm:vite",
             "npm:@vitejs/plugin-vue"

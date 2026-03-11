@@ -1,21 +1,21 @@
 {
   "run": {
-    "command": "nx build admin",
-    "startTime": "2026-03-10T17:00:10.696Z",
-    "endTime": "2026-03-10T17:00:12.668Z",
+    "command": "nx run @org/api:build:development",
+    "startTime": "2026-03-10T17:05:51.817Z",
+    "endTime": "2026-03-10T17:05:52.873Z",
     "inner": false
   },
   "tasks": [
     {
-      "taskId": "admin:build",
+      "taskId": "@org/api:build:development",
       "target": "build",
-      "projectName": "admin",
-      "hash": "17304946693796971535",
-      "startTime": "2026-03-10T17:00:10.720Z",
-      "endTime": "2026-03-10T17:00:12.664Z",
+      "projectName": "@org/api",
+      "hash": "147455091149962574",
+      "startTime": "2026-03-10T17:05:51.840Z",
+      "endTime": "2026-03-10T17:05:52.869Z",
       "params": "",
       "cacheStatus": "cache-miss",
-      "status": 1
+      "status": 0
     }
   ]
 }
