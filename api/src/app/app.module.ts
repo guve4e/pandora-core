@@ -14,6 +14,7 @@ import { JwtTenantGuard } from './core/auth/jwt-tenant.guard';
 import { TenantContextModule } from './core/tenants/tenant-context.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { IntakeModule } from './modules/intake/intake.module';
+import { PlatformModule } from './modules/platform/platform.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { IntakeModule } from './modules/intake/intake.module';
     TenantsModule,
     NotificationsModule,
     IntakeModule,
+    PlatformModule,
 
   ],
   providers: [

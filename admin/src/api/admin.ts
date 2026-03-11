@@ -56,3 +56,112 @@ export async function getDailyTraffic(
   });
   return data;
 }
+// --- Platform Owner Debug Views ---
+export interface PlatformTenantRow {
+  id: string;
+  name: string;
+  slug: string;
+  created_at: string;
+}
+
+export interface PlatformUserRow {
+  id: string;
+  email: string;
+  username: string | null;
+  role: string;
+  tenant_id: string;
+  tenant_slug: string | null;
+  tenant_name: string | null;
+  created_at: string;
+}
+
+export interface PlatformLeadRow {
+  id: string;
+  tenant_slug: string;
+  name: string | null;
+  phone: string;
+  city: string | null;
+  service_type: string | null;
+  summary: string | null;
+  source: string | null;
+  status: string | null;
+  created_at: string;
+}
+
+export interface PlatformNotificationRow {
+  id: string;
+  tenant_id: string;
+  tenant_slug: string | null;
+  user_id: string | null;
+  type: string;
+  title: string;
+  message: string;
+  severity: string;
+  entity_type: string | null;
+  entity_id: string | null;
+  link: string | null;
+  is_read: boolean;
+  read_at: string | null;
+  created_at: string;
+}
+
+export async function getPlatformTenants(): Promise<PlatformTenantRow[]> {
+  const { data } = await http.get<PlatformTenantRow[]>('/admin/platform/tenants');
+  return data;
+}
+
+export async function getPlatformUsers(): Promise<PlatformUserRow[]> {
+  const { data } = await http.get<PlatformUserRow[]>('/admin/platform/users');
+  return data;
+}
+
+export async function getPlatformLeads(): Promise<PlatformLeadRow[]> {
+  const { data } = await http.get<PlatformLeadRow[]>('/admin/platform/leads');
+  return data;
+}
+
+export async function getPlatformNotifications(
+  params: { limit?: number } = {},
+): Promise<PlatformNotificationRow[]> {
+  const { data } = await http.get<PlatformNotificationRow[]>(
+    '/admin/platform/notifications',
+    { params },
+  );
+  return data;
+}
+
+export async function getPlatformTenantBySlug(
+  slug: string,
+): Promise<PlatformTenantRow> {
+  const { data } = await http.get<PlatformTenantRow>(`/admin/platform/tenants/${slug}`);
+  return data;
+}
+
+export async function getPlatformTenantUsers(
+  slug: string,
+): Promise<PlatformUserRow[]> {
+  const { data } = await http.get<PlatformUserRow[]>(
+    `/admin/platform/tenants/${slug}/users`,
+  );
+  return data;
+}
+
+export async function getPlatformTenantLeads(
+  slug: string,
+): Promise<PlatformLeadRow[]> {
+  const { data } = await http.get<PlatformLeadRow[]>(
+    `/admin/platform/tenants/${slug}/leads`,
+  );
+  return data;
+}
+
+export async function getPlatformTenantNotifications(
+  slug: string,
+  params: { limit?: number } = {},
+): Promise<PlatformNotificationRow[]> {
+  const { data } = await http.get<PlatformNotificationRow[]>(
+    `/admin/platform/tenants/${slug}/notifications`,
+    { params },
+  );
+  return data;
+}
