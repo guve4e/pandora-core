@@ -202,3 +202,43 @@ export async function createPlatformTenantInvite(
   );
   return data;
 }
+
+export interface TenantLeadRow {
+  id: string;
+  tenant_slug: string;
+  name: string | null;
+  phone: string;
+  city: string | null;
+  service_type: string | null;
+  summary: string | null;
+  source: string | null;
+  status: string | null;
+  created_at: string;
+}
+
+export async function getTenantLeads(): Promise<TenantLeadRow[]> {
+  const { data } = await http.get<TenantLeadRow[]>('/admin/leads');
+  return data;
+}
+
+export interface TenantLeadMessageRow {
+  id: string;
+  lead_id: string;
+  role: 'user' | 'assistant';
+  text: string;
+  created_at: string;
+}
+
+export async function getTenantLeadById(id: string): Promise<TenantLeadRow> {
+  const { data } = await http.get<TenantLeadRow>(`/admin/leads/${id}`);
+  return data;
+}
+
+export async function getTenantLeadMessages(
+  id: string,
+): Promise<TenantLeadMessageRow[]> {
+  const { data } = await http.get<TenantLeadMessageRow[]>(
+    `/admin/leads/${id}/messages`,
+  );
+  return data;
+}

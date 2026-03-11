@@ -8,6 +8,8 @@ import PlatformTenantDetailView from './views/PlatformTenantDetailView.vue';
 import PlatformUsersView from './views/PlatformUsersView.vue';
 import PlatformLeadsView from './views/PlatformLeadsView.vue';
 import PlatformNotificationsView from './views/PlatformNotificationsView.vue';
+import TenantLeadsView from './views/TenantLeadsView.vue';
+import LeadDetailView from './views/LeadDetailView.vue';
 
 export const adminModule = {
   appName: 'AIAdvocate',
@@ -30,6 +32,7 @@ export const adminModule = {
 
   tenantMenu: [
     { to: '/', label: 'Dashboard' },
+    { to: '/leads', label: 'Leads' },
     { to: '/conversations', label: 'Conversations' },
     { to: '/visitors', label: 'Visitors' },
     { to: '/settings', label: 'Settings' },
@@ -47,6 +50,18 @@ export const adminModule = {
       name: 'ai-usage',
       component: AiUsageView,
       meta: { tenantOnly: false, platformOnly: true },
+    },
+    {
+      path: '/leads',
+      name: 'tenant-leads',
+      component: TenantLeadsView,
+      meta: { tenantOnly: true, platformOnly: false },
+    },
+    {
+      path: '/leads/:id',
+      name: 'tenant-lead-detail',
+      component: LeadDetailView,
+      meta: { tenantOnly: true, platformOnly: false },
     },
     {
       path: '/conversations',

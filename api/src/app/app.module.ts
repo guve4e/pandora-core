@@ -15,6 +15,7 @@ import { TenantContextModule } from './core/tenants/tenant-context.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { IntakeModule } from './modules/intake/intake.module';
 import { PlatformModule } from './modules/platform/platform.module';
+import { TenantLeadsModule } from './modules/tenant-leads/tenant-leads.module';
 
 @Module({
   imports: [
@@ -29,7 +30,7 @@ import { PlatformModule } from './modules/platform/platform.module';
     NotificationsModule,
     IntakeModule,
     PlatformModule,
-
+    TenantLeadsModule,
   ],
   providers: [
     {

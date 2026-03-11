@@ -1,18 +1,18 @@
 {
   "run": {
-    "command": "nx run @org/api:build:development",
-    "startTime": "2026-03-11T08:39:29.621Z",
-    "endTime": "2026-03-11T08:39:30.684Z",
+    "command": "nx serve api --skip-nx-cache",
+    "startTime": "2026-03-11T11:52:31.187Z",
+    "endTime": "2026-03-11T12:13:45.011Z",
     "inner": false
   },
   "tasks": [
     {
-      "taskId": "@org/api:build:development",
+      "taskId": "@org/api:build",
       "target": "build",
       "projectName": "@org/api",
-      "hash": "2279398974325175495",
-      "startTime": "2026-03-11T08:39:29.643Z",
-      "endTime": "2026-03-11T08:39:30.679Z",
+      "hash": "11722616998703239942",
+      "startTime": "2026-03-11T11:52:31.212Z",
+      "endTime": "2026-03-11T11:52:32.303Z",
       "params": "",
       "cacheStatus": "cache-miss",
       "status": 0

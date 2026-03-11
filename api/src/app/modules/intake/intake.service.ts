@@ -117,6 +117,15 @@ export class IntakeService {
 
         session.lead_id = lead.id;
 
+        await this.leads.saveLeadMessages(
+          lead.id,
+          session.messages.map((m) => ({
+            role: m.role,
+            text: m.text,
+            created_at: m.created_at,
+          })),
+        );
+
         console.log('[intake] creating notification for tenant', session.tenant_id);
 
         await this.notifications.create({
@@ -129,7 +138,7 @@ export class IntakeService {
           channels: ['in_app'],
           entityType: 'lead',
           entityId: lead.id,
-          link: '/leads',
+          link: `/leads/${lead.id}`,
           meta: {
             source: 'chat',
             tenantSlug: session.tenant_slug,
@@ -147,6 +156,17 @@ export class IntakeService {
       text: reply,
       created_at: new Date().toISOString(),
     });
+
+    if (session.status === 'completed' && session.lead_id) {
+      const lastAssistant = session.messages[session.messages.length - 1];
+      await this.leads.saveLeadMessages(session.lead_id, [
+        {
+          role: lastAssistant.role,
+          text: lastAssistant.text,
+          created_at: lastAssistant.created_at,
+        },
+      ]);
+    }
 
     return session;
   }
