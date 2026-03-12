@@ -5,6 +5,10 @@ export interface LoginResponse {
   refresh_token: string;
 }
 
+export interface RefreshResponse {
+  access_token: string;
+}
+
 export interface MeResponse {
   id: string;
   tenant_id: string;
@@ -18,6 +22,15 @@ export async function loginRequest(payload: {
   password: string;
 }): Promise<LoginResponse> {
   const { data } = await http.post<LoginResponse>('/auth/login', payload);
+  return data;
+}
+
+export async function refreshRequest(payload: {
+  refresh_token: string;
+}): Promise<RefreshResponse> {
+  const { data } = await http.post<RefreshResponse>('/auth/refresh', payload, {
+    skipAuthRefresh: true as any,
+  } as any);
   return data;
 }
 

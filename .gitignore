@@ -1,5 +1,48 @@
-node_modules
-dist
+# =========================
+# Node / Package managers
+# =========================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# =========================
+# Build outputs
+# =========================
+dist/
+build/
+out/
+coverage/
+
+# Nx
+.nx/
+nx-cache/
+tmp/
+
+# Vite / Vue
+admin/dist/
+admin/out-tsc/
+
+# TypeScript
+*.tsbuildinfo
+
+# Logs
+*.log
+logs/
+
+# Environment files
 .env
 .env.*
 !.env.example
+
+# MacOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+
+# Misc
+graph.html
+static/

@@ -1,7 +1,12 @@
 import { defineStore } from 'pinia';
-import { loginRequest, meRequest, logoutRequest } from '../api/auth';
+import {
+  loginRequest,
+  meRequest,
+  logoutRequest,
+  refreshRequest,
+} from '../api/auth';
 import type { LoginResponse, MeResponse } from '../api/auth';
-import { clearTokens } from './auth.storage';
+import { clearTokens, getRefreshToken, setAccessToken } from './auth.storage';
 
 interface AuthState {
   accessToken: string | null;
@@ -11,6 +16,7 @@ interface AuthState {
   userId: string | null;
   tenantId: string | null;
   role: string | null;
+  refreshPromise: Promise<boolean> | null;
 }
 
 const STORAGE_KEY = 'aiadvocate_auth';
@@ -24,6 +30,7 @@ export const useAuthStore = defineStore('auth', {
     userId: null,
     tenantId: null,
     role: null,
+    refreshPromise: null,
   }),
 
   getters: {
@@ -73,6 +80,11 @@ export const useAuthStore = defineStore('auth', {
       this.saveToStorage();
     },
 
+    setAccessTokenOnly(accessToken: string | null) {
+      this.accessToken = accessToken;
+      setAccessToken(accessToken);
+    },
+
     clear() {
       this.accessToken = null;
       this.refreshToken = null;
@@ -81,6 +93,7 @@ export const useAuthStore = defineStore('auth', {
       this.userId = null;
       this.tenantId = null;
       this.role = null;
+      this.refreshPromise = null;
 
       clearTokens();
     },
@@ -98,6 +111,39 @@ export const useAuthStore = defineStore('auth', {
       this.setUser(me);
     },
 
+    async refreshAccessToken(): Promise<boolean> {
+      if (this.refreshPromise) {
+        return this.refreshPromise;
+      }
+
+      this.refreshPromise = (async () => {
+        const refreshToken = this.refreshToken || getRefreshToken();
+        if (!refreshToken) {
+          this.clear();
+          return false;
+        }
+
+        try {
+          const res = await refreshRequest({
+            refresh_token: refreshToken,
+          });
+
+          this.accessToken = res.access_token;
+          this.refreshToken = refreshToken;
+          this.saveToStorage();
+
+          return true;
+        } catch {
+          this.clear();
+          return false;
+        } finally {
+          this.refreshPromise = null;
+        }
+      })();
+
+      return this.refreshPromise;
+    },
+
     async hydrateFromServer(): Promise<boolean> {
       if (!this.accessToken) return false;
 
@@ -106,8 +152,20 @@ export const useAuthStore = defineStore('auth', {
         this.setUser(me);
         return true;
       } catch {
-        this.clear();
-        return false;
+        const refreshed = await this.refreshAccessToken();
+        if (!refreshed) {
+          this.clear();
+          return false;
+        }
+
+        try {
+          const me = await meRequest();
+          this.setUser(me);
+          return true;
+        } catch {
+          this.clear();
+          return false;
+        }
       }
     },
 

@@ -21,12 +21,42 @@ function read(): StoredAuth | null {
   }
 }
 
+function write(data: StoredAuth) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+export function getStoredAuth(): StoredAuth | null {
+  return read();
+}
+
 export function getAccessToken(): string | null {
   return read()?.accessToken ?? null;
 }
 
 export function getRefreshToken(): string | null {
   return read()?.refreshToken ?? null;
+}
+
+export function setAccessToken(accessToken: string | null) {
+  const current = read() ?? {};
+  write({
+    ...current,
+    accessToken,
+  });
+}
+
+export function setStoredTokens(input: {
+  accessToken?: string | null;
+  refreshToken?: string | null;
+}) {
+  const current = read() ?? {};
+  write({
+    ...current,
+    accessToken:
+      input.accessToken === undefined ? current.accessToken ?? null : input.accessToken,
+    refreshToken:
+      input.refreshToken === undefined ? current.refreshToken ?? null : input.refreshToken,
+  });
 }
 
 export function clearTokens() {

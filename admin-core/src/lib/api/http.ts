@@ -1,11 +1,14 @@
 import axios from 'axios';
+import type { InternalAxiosRequestConfig } from 'axios';
 import { getAccessToken } from '../auth/auth.storage';
 import { debug, debugError } from '../debug';
 
-type TimedRequestConfig = {
+type TimedRequestConfig = InternalAxiosRequestConfig & {
   metadata?: {
     startedAt: number;
   };
+  _retry?: boolean;
+  skipAuthRefresh?: boolean;
 };
 
 export const http = axios.create({
@@ -50,21 +53,52 @@ http.interceptors.response.use(
 
     return res;
   },
-  (err) => {
-    const startedAt = err?.config?.metadata?.startedAt;
+  async (err) => {
+    const original = err?.config as TimedRequestConfig | undefined;
+    const startedAt = original?.metadata?.startedAt;
     const durationMs = startedAt ? Date.now() - startedAt : undefined;
 
     debugError('http', 'response-error', {
-      method: err?.config?.method?.toUpperCase(),
-      url: err?.config?.url,
+      method: original?.method?.toUpperCase(),
+      url: original?.url,
       status: err?.response?.status,
       durationMs,
       message: err?.message,
       data: err?.response?.data,
     });
 
-    // DO NOT clear tokens here.
-    // A random 401 should not silently corrupt auth state.
+    const status = err?.response?.status;
+
+    if (
+      status === 401 &&
+      original &&
+      !original._retry &&
+      !original.skipAuthRefresh &&
+      !String(original.url || '').includes('/auth/login') &&
+      !String(original.url || '').includes('/auth/refresh')
+    ) {
+      original._retry = true;
+
+      try {
+        const { useAuthStore } = await import('../auth/auth.store');
+        const auth = useAuthStore();
+
+        auth.loadFromStorage();
+
+        const refreshed = await auth.refreshAccessToken();
+        if (!refreshed) {
+          return Promise.reject(err);
+        }
+
+        original.headers = original.headers ?? {};
+        (original.headers as any).Authorization = `Bearer ${auth.accessToken}`;
+
+        return http(original);
+      } catch (refreshErr) {
+        return Promise.reject(refreshErr);
+      }
+    }
+
     return Promise.reject(err);
   },
 );
