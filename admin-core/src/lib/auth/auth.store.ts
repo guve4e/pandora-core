@@ -19,7 +19,7 @@ interface AuthState {
   refreshPromise: Promise<boolean> | null;
 }
 
-const STORAGE_KEY = 'aiadvocate_auth';
+const STORAGE_KEY = 'pandora_auth';
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({

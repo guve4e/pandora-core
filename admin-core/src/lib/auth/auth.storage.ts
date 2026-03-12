@@ -1,4 +1,4 @@
-const STORAGE_KEY = 'aiadvocate_auth';
+const STORAGE_KEY = 'pandora_auth';
 
 type StoredAuth = {
   accessToken?: string | null;

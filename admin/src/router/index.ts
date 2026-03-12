@@ -4,8 +4,8 @@ import {
   LoginView,
   AcceptInviteView,
   installAdminAuthGuard,
+  useAuthStore,
 } from '@org/admin-core';
-
 import { adminModule } from '../admin.module';
 
 const routes: RouteRecordRaw[] = [
@@ -31,22 +31,13 @@ export const router = createRouter({
 
 installAdminAuthGuard(router);
 
-function getStoredRole(): string | null {
-  try {
-    const raw = localStorage.getItem('aiadvocate_auth');
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    return parsed?.role ?? null;
-  } catch {
-    return null;
-  }
-}
-
 router.beforeEach((to) => {
   if (to.meta?.public) return true;
 
-  const role = getStoredRole();
-  const isPlatformOwner = role === 'platform_owner';
+  const auth = useAuthStore();
+  auth.loadFromStorage();
+
+  const isPlatformOwner = auth.role === 'platform_owner';
 
   if (to.meta?.platformOnly && !isPlatformOwner) {
     return '/';
