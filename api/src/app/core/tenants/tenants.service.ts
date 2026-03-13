@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TenantDb } from '../db/tenant-db';
+import { TenantDb } from '@org/backend-db';
 
 export type TenantRow = {
   id: string;

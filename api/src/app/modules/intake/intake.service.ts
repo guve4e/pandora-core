@@ -9,7 +9,7 @@ import { IntakeExtractorService } from './intake-extractor.service';
 import { AiService } from '../../core/ai/ai.service';
 import { LeadsService } from '../leads/leads.service';
 import { NotificationsService } from '../../core/notifications/notifications.service';
-import { PG_POOL } from '../../core/db/pg.tokens';
+import { PG_POOL } from '@org/backend-db';
 
 @Injectable()
 export class IntakeService {

@@ -5,7 +5,7 @@ import { IntakeExtractorService } from './intake-extractor.service';
 import { AiModule } from '../../core/ai/ai.module';
 import { LeadsModule } from '../leads/leads.module';
 import { NotificationsModule } from '../../core/notifications/notifications.module';
-import { PgModule } from '../../core/db/pg.module';
+import { PgModule } from '@org/backend-db';
 
 @Module({
   imports: [PgModule, AiModule, LeadsModule, NotificationsModule],

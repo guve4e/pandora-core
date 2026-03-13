@@ -17,6 +17,18 @@
     },
     {
       "path": "./admin-core"
+    },
+    {
+      "path": "./libs/backend/logging"
+    },
+    {
+      "path": "./libs/backend/db"
+    },
+    {
+      "path": "./libs/shared/contracts"
+    },
+    {
+      "path": "./apps"
     }
   ]
 }

@@ -1,19 +1,19 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { Pool, QueryResult } from 'pg';
-import { PG_POOL } from './pg.tokens';
+import type { Pool, QueryResult, QueryResultRow } from 'pg';
+import { PG_POOL } from './pg.tokens.js';
 
 @Injectable()
 export class TenantDb {
   constructor(@Inject(PG_POOL) private readonly pool: Pool) {}
 
-  async systemQuery<T = any>(
+  async systemQuery<T extends QueryResultRow = QueryResultRow>(
     sql: string,
     params: any[] = [],
   ): Promise<QueryResult<T>> {
     return this.pool.query<T>(sql, params);
   }
 
-  async tenantQuery<T = any>(
+  async tenantQuery<T extends QueryResultRow = QueryResultRow>(
     tenantId: string,
     sql: string,
     params: any[] = [],

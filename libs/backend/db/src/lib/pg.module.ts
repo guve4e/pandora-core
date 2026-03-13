@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Pool } from 'pg';
-import { TenantDb } from './tenant-db';
-import { TenantContextModule } from '../tenants/tenant-context.module';
-import { PG_POOL } from './pg.tokens';
+
+import { PG_POOL } from './pg.tokens.js';
+import { TenantDb } from './tenant-db.js';
 
 @Module({
-  imports: [ConfigModule, TenantContextModule],
+  imports: [ConfigModule],
   providers: [
     {
       provide: PG_POOL,

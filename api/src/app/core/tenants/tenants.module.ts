@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TenantsController } from './tenants.controller';
 import { TenantsService } from './tenants.service';
-import { PgModule } from '../db/pg.module';
+import { PgModule } from '@org/backend-db';
 import { RolesGuard } from '../common/lib/guards/roles.guard';
 
 @Module({

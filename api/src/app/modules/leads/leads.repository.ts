@@ -1,6 +1,6 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { Pool } from 'pg';
-import { PG_POOL } from '../../core/db/pg.tokens';
+import { PG_POOL } from '@org/backend-db';
 
 @Injectable()
 export class LeadsRepository {

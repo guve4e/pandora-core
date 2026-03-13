@@ -55,6 +55,7 @@
     "jest-util": "^30.0.2",
     "jiti": "2.4.2",
     "jsdom": "~22.1.0",
+    "jsonc-eslint-parser": "^2.1.0",
     "nx": "22.5.0",
     "postcss": "^8.5.6",
     "prettier": "^3.8.1",
@@ -75,7 +76,10 @@
     "api-e2e",
     "admin",
     "libs",
-    "admin-core"
+    "admin-core",
+    "libs/backend/*",
+    "libs/shared/*",
+    "apps"
   ],
   "dependencies": {
     "@nestjs/common": "^11.0.0",

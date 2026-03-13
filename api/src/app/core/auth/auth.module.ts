@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TenantsModule } from '../tenants/tenants.module';
-import { PgModule } from '../db/pg.module';
+import { PgModule } from '@org/backend-db';
 import { LoggingModule } from '@org/backend-logging';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';

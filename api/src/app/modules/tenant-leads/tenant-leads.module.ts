@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { PgModule } from '../../core/db/pg.module';
+import { PgModule } from '@org/backend-db';
 import { LeadsModule } from '../leads/leads.module';
 import { TenantLeadsController } from './tenant-leads.controller';
 import { TenantLeadsService } from './tenant-leads.service';

@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import winston, { createLogger, transports } from 'winston';
 import LokiTransport from 'winston-loki';
-import type { AppLoggerService, RedactedRequest } from './types';
+import type { AppLoggerService, RedactedRequest } from './types.js';
 
 type LogMeta = Record<string, unknown>;
 

@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { Pool } from 'pg';
-import { PG_POOL } from '../../core/db/pg.tokens';
+import { PG_POOL } from '@org/backend-db';
 
 export type LeadMessageRow = {
   id: string;

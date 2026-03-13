@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { TenantDb } from '../db/tenant-db';
+import { TenantDb } from '@org/backend-db';
 
 export interface AiUsageLogInput {
   kind: string;

@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import type { Pool } from 'pg';
-import { TenantDb } from '../db/tenant-db';
-import { PG_POOL } from '../db/pg.tokens';
+import { TenantDb } from '@org/backend-db';
+import { PG_POOL } from '@org/backend-db';
 
 export type AuthUserRow = {
   id: string;
