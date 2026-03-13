@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "migrate:create": "node ../node_modules/.bin/node-pg-migrate create -m migrations",
-    "migrate:up": "DATABASE_URL=$(node scripts/db-url.js) node ../node_modules/.bin/node-pg-migrate up -m migrations --database-url-var DATABASE_URL",
-    "migrate:down": "DATABASE_URL=$(node scripts/db-url.js) node ../node_modules/.bin/node-pg-migrate down -m migrations --database-url-var DATABASE_URL",
-    "migrate:status": "DATABASE_URL=$(node scripts/db-url.js) node ../node_modules/.bin/node-pg-migrate --help | head -n 60 && echo \"(No status command in node-pg-migrate. Use psql to inspect pgmigrations.)\""
+    "migrate:create": "node ../../node_modules/.bin/node-pg-migrate create -m migrations",
+    "migrate:up": "DATABASE_URL=$(node scripts/db-url.js) node ../../node_modules/.bin/node-pg-migrate up -m migrations --database-url-var DATABASE_URL",
+    "migrate:down": "DATABASE_URL=$(node scripts/db-url.js) node ../../node_modules/.bin/node-pg-migrate down -m migrations --database-url-var DATABASE_URL",
+    "migrate:status": "DATABASE_URL=$(node scripts/db-url.js) node ../../node_modules/.bin/node-pg-migrate --help | head -n 60 && echo \"(No status command in node-pg-migrate. Use psql to inspect pgmigrations.)\""
   },
   "nx": {
     "targets": {
@@ -17,7 +17,7 @@
           "args": [
             "--node-env=production"
           ],
-          "cwd": "api"
+          "cwd": "apps/api"
         },
         "configurations": {
           "development": {
@@ -34,8 +34,8 @@
         "cache": true,
         "executor": "@nx/js:prune-lockfile",
         "outputs": [
-          "{workspaceRoot}/api/dist/package.json",
-          "{workspaceRoot}/api/dist/package-lock.json"
+          "{workspaceRoot}/apps/api/dist/package.json",
+          "{workspaceRoot}/apps/api/dist/package-lock.json"
         ],
         "options": {
           "buildTarget": "build"
@@ -47,7 +47,7 @@
         ],
         "cache": true,
         "outputs": [
-          "{workspaceRoot}/api/dist/workspace_modules"
+          "{workspaceRoot}/apps/api/dist/workspace_modules"
         ],
         "executor": "@nx/js:copy-workspace-modules",
         "options": {

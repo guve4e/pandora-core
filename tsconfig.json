@@ -7,13 +7,7 @@
       "path": "./api-e2e"
     },
     {
-      "path": "./api"
-    },
-    {
       "path": "./admin-e2e"
-    },
-    {
-      "path": "./admin"
     },
     {
       "path": "./admin-core"

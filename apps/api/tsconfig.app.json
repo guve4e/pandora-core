@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
     "types": ["node"],
@@ -23,10 +23,13 @@
   ],
   "references": [
     {
-      "path": "../libs/backend/db/tsconfig.lib.json"
+      "path": "../../libs/backend/db/tsconfig.lib.json"
     },
     {
-      "path": "../libs/backend/logging/tsconfig.lib.json"
+      "path": "../../libs/backend/logging/tsconfig.lib.json"
+    },
+    {
+      "path": "../tsconfig.app.json"
     }
   ]
 }

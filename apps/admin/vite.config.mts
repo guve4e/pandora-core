@@ -8,7 +8,7 @@ const rootDir = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig(() => ({
   root: rootDir,
-  cacheDir: resolve(rootDir, '../node_modules/.vite/admin'),
+  cacheDir: resolve(rootDir, '../../node_modules/.vite/admin'),
 
   server: {
     port: 4201,

@@ -72,10 +72,8 @@
   },
   "workspaces": [
     "packages/*",
-    "api",
+    "apps/*",
     "api-e2e",
-    "admin",
-    "libs",
     "admin-core",
     "libs/backend/*",
     "libs/shared/*",

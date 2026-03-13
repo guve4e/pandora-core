@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "dist",
     "types": ["vite/client"],
@@ -36,7 +36,10 @@
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.vue"],
   "references": [
     {
-      "path": "../admin-core/tsconfig.app.json"
+      "path": "../../admin-core/tsconfig.app.json"
+    },
+    {
+      "path": "../tsconfig.app.json"
     }
   ]
 }
