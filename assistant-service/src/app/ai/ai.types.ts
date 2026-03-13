@@ -18,4 +18,7 @@ export interface BusinessProfile {
   businessName: string;
   businessDescription: string;
   knownFacts: string[];
+  services: string[];
+  contactPrompt: string | null;
+  tone: string | null;
 }
