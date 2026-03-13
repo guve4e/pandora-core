@@ -4,12 +4,6 @@
   "files": [],
   "references": [
     {
-      "path": "./api-e2e"
-    },
-    {
-      "path": "./admin-e2e"
-    },
-    {
       "path": "./admin-core"
     },
     {
@@ -22,7 +16,10 @@
       "path": "./libs/shared/contracts"
     },
     {
-      "path": "./apps"
+      "path": "./assistant-service"
+    },
+    {
+      "path": "./apps/admin"
     }
   ]
 }

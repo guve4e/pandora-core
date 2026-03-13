@@ -1,5 +1,5 @@
 {
-  "name": "@org/apps",
+  "name": "@org/assistant-service",
   "version": "0.0.1",
   "private": true,
   "nx": {
@@ -11,7 +11,7 @@
           "args": [
             "--node-env=production"
           ],
-          "cwd": "apps"
+          "cwd": "assistant-service"
         },
         "configurations": {
           "development": {
@@ -28,8 +28,8 @@
         "cache": true,
         "executor": "@nx/js:prune-lockfile",
         "outputs": [
-          "{workspaceRoot}/apps/dist/package.json",
-          "{workspaceRoot}/apps/dist/package-lock.json"
+          "{workspaceRoot}/assistant-service/dist/package.json",
+          "{workspaceRoot}/assistant-service/dist/package-lock.json"
         ],
         "options": {
           "buildTarget": "build"
@@ -41,7 +41,7 @@
         ],
         "cache": true,
         "outputs": [
-          "{workspaceRoot}/apps/dist/workspace_modules"
+          "{workspaceRoot}/assistant-service/dist/workspace_modules"
         ],
         "executor": "@nx/js:copy-workspace-modules",
         "options": {
@@ -63,21 +63,16 @@
           "build"
         ],
         "options": {
-          "buildTarget": "@org/apps:build",
+          "buildTarget": "@org/assistant-service:build",
           "runBuildTargetDependencies": false
         },
         "configurations": {
           "development": {
-            "buildTarget": "@org/apps:build:development"
+            "buildTarget": "@org/assistant-service:build:development"
           },
           "production": {
-            "buildTarget": "@org/apps:build:production"
+            "buildTarget": "@org/assistant-service:build:production"
           }
-        }
-      },
-      "test": {
-        "options": {
-          "passWithNoTests": true
         }
       }
     }

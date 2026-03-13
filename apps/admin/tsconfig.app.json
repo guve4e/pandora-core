@@ -37,9 +37,6 @@
   "references": [
     {
       "path": "../../admin-core/tsconfig.app.json"
-    },
-    {
-      "path": "../tsconfig.app.json"
     }
   ]
 }

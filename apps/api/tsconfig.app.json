@@ -27,9 +27,6 @@
     },
     {
       "path": "../../libs/backend/logging/tsconfig.lib.json"
-    },
-    {
-      "path": "../tsconfig.app.json"
     }
   ]
 }

@@ -58,7 +58,8 @@
         "targetName": "test"
       },
       "exclude": [
-        "api-e2e/**/*"
+        "api-e2e/**/*",
+        "assistant-service-e2e/**/*"
       ]
     },
     {

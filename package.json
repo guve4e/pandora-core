@@ -77,7 +77,8 @@
     "admin-core",
     "libs/backend/*",
     "libs/shared/*",
-    "apps"
+    "apps",
+    "assistant-service"
   ],
   "dependencies": {
     "@nestjs/common": "^11.0.0",
