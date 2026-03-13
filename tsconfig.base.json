@@ -1,5 +1,12 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@org/backend-logging": ["libs/backend/logging/src/index.ts"],
+      "@org/backend-db": ["libs/backend/db/src/index.ts"],
+      "@org/backend-messaging": ["libs/backend/messaging/src/index.ts"],
+      "@org/shared-contracts": ["libs/shared/contracts/src/index.ts"]
+    },
     "composite": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,

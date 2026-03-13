@@ -5,12 +5,12 @@ import {
 } from '@nestjs/common';
 import winston, { createLogger, transports } from 'winston';
 import LokiTransport from 'winston-loki';
-import type { LoggerService, RedactedRequest } from './types';
+import type { AppLoggerService, RedactedRequest } from './types';
 
 type LogMeta = Record<string, unknown>;
 
 @Injectable()
-export class LokiLoggerService implements LoggerService, NestLoggerService {
+export class LokiLoggerService implements AppLoggerService, NestLoggerService {
   private readonly logger: winston.Logger;
 
   constructor(
@@ -25,11 +25,6 @@ export class LokiLoggerService implements LoggerService, NestLoggerService {
     return this.appName;
   }
 
-  // App usage:
-  // logger.log('User created', { userId })
-  //
-  // Nest usage:
-  // logger.log('AppModule dependencies initialized', 'InstanceLoader')
   public log(message: string, metaOrContext?: LogMeta | string): void {
     this.logger.info(message, this.baseMeta(this.normalizeMeta(metaOrContext)));
   }
@@ -46,11 +41,6 @@ export class LokiLoggerService implements LoggerService, NestLoggerService {
     );
   }
 
-  // App usage:
-  // logger.error('Failed', err.stack, request, { userId })
-  //
-  // Nest usage:
-  // logger.error('Failed to start', stack, 'NestApplication')
   public error(
     message: string,
     stackOrMeta?: string | LogMeta,
@@ -87,7 +77,6 @@ export class LokiLoggerService implements LoggerService, NestLoggerService {
     );
   }
 
-  // Optional Nest methods
   public verbose(message: string, metaOrContext?: LogMeta | string): void {
     if (!this.isDevelopmentEnvironment()) return;
     this.logger.verbose(

@@ -7,7 +7,7 @@ import { AiModule } from './core/ai/ai.module';
 import { TenantsModule } from './core/tenants/tenants.module';
 import { NotificationsModule } from './core/notifications/notifications.module';
 
-import { LoggingModule } from './core/logging/logging.module';
+import { LoggingModule } from '@org/backend-logging';
 import { MessagingModule } from './core/common/lib/messaging-service/messaging.module';
 
 import { JwtTenantGuard } from './core/auth/jwt-tenant.guard';

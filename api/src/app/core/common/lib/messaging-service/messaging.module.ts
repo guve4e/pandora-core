@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { LoggingModule } from '../../../logging/logging.module'; // <-- import it
+import { LoggingModule } from '@org/backend-logging'; // <-- import it
 import { MessagingService, MessagingTransport } from './messaging.service';
 import { RedisMessagingStrategy } from './redis.messaging.strategy';
 import { KafkaMessagingStrategy } from './kafka.messaging.strategy';

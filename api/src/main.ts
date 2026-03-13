@@ -5,7 +5,7 @@
 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
-import { LokiLoggerService } from './app/core/logging/loki-logger.service';
+import { LokiLoggerService } from '@org/backend-logging';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
