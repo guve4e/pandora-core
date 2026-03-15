@@ -7,7 +7,7 @@ declare global {
 }
 
 const defaults: AssistantWidgetConfig = {
-  apiBaseUrl: 'http://localhost:3002/assistant',
+  apiBaseUrl: 'http://localhost:3010/assistant',
   tenantSlug: 'energrid',
   title: 'Energrid Assistant',
   welcomeMessage: 'Здравейте! С какво можем да помогнем?',
