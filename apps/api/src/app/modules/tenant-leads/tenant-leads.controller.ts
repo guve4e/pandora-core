@@ -1,22 +1,22 @@
-import { Controller, Get, Param, Request } from '@nestjs/common';
+import { Controller, Get, Param, Req } from '@nestjs/common';
 import { TenantLeadsService } from './tenant-leads.service';
 
-@Controller('admin/leads')
+@Controller('tenant/leads')
 export class TenantLeadsController {
   constructor(private readonly tenantLeads: TenantLeadsService) {}
 
   @Get()
-  async list(@Request() req: any) {
+  async list(@Req() req: any) {
     return this.tenantLeads.listForTenant(req.user.tenant_id);
   }
 
   @Get(':id')
-  async getOne(@Request() req: any, @Param('id') id: string) {
+  async getOne(@Req() req: any, @Param('id') id: string) {
     return this.tenantLeads.getOneForTenant(req.user.tenant_id, id);
   }
 
   @Get(':id/messages')
-  async getMessages(@Request() req: any, @Param('id') id: string) {
+  async getMessages(@Req() req: any, @Param('id') id: string) {
     return this.tenantLeads.getMessagesForTenant(req.user.tenant_id, id);
   }
 }

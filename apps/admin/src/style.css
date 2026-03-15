@@ -2,9 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-@source "../admin-core/src";
+@source "../../admin-core/src";
 
 html.dark {
-    background-color: #0f0f0f;
-    color-scheme: dark;
+  background-color: #0f0f0f;
+  color-scheme: dark;
 }

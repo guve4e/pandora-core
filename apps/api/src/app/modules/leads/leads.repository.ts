@@ -6,21 +6,38 @@ import { PG_POOL } from '@org/backend-db';
 export class LeadsRepository {
   constructor(@Inject(PG_POOL) private readonly pool: Pool) {}
 
+  async findRecentByPhone(tenantSlug: string, phone: string) {
+    const { rows } = await this.pool.query(
+      `
+    SELECT *
+    FROM leads
+    WHERE tenant_slug = $1
+      AND phone = $2
+      AND created_at > now() - interval '24 hours'
+    LIMIT 1
+    `,
+      [tenantSlug, phone],
+    );
+
+    return rows[0] ?? null;
+  }
+
   async create(data: any) {
     const { rows } = await this.pool.query(
       `
       INSERT INTO leads
-      (tenant_slug, name, phone, city, service_type, summary)
-      VALUES ($1,$2,$3,$4,$5,$6)
+      (tenant_slug, name, phone, city, service_type, summary, source)
+      VALUES ($1,$2,$3,$4,$5,$6,$7)
       RETURNING *
       `,
       [
         data.tenantSlug,
         data.name ?? null,
-        data.phone,
+        data.phone ?? null,
         data.city ?? null,
         data.serviceType ?? null,
         data.summary ?? null,
+        data.source ?? 'manual',
       ],
     );
 

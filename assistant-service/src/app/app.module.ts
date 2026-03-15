@@ -4,6 +4,7 @@ import { LoggingModule } from '@org/backend-logging';
 import { PgModule } from '@org/backend-db';
 import { HealthController } from './health.controller';
 import { ChatModule } from './chat/chat.module';
+import { ConversationsModule } from './conversations/conversations.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { ChatModule } from './chat/chat.module';
     LoggingModule,
     PgModule,
     ChatModule,
+    ConversationsModule,
   ],
   controllers: [HealthController],
 })

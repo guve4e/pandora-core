@@ -8,5 +8,6 @@ import { ChatService } from './chat.service';
   imports: [AiModule, KnowledgeModule],
   controllers: [ChatController],
   providers: [ChatService],
+  exports: [ChatService]
 })
 export class ChatModule {}

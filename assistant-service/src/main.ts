@@ -13,7 +13,7 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   app.enableCors({
-    origin: true,
+    origin: ['http://localhost:4301'],
     credentials: false,
   });
 

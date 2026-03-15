@@ -1,47 +1,86 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject } from '@nestjs/common';
 import type { Pool } from 'pg';
 import { PG_POOL } from '@org/backend-db';
-import { LeadsService } from '../leads/leads.service';
 
 @Injectable()
 export class TenantLeadsService {
-  constructor(
-    @Inject(PG_POOL) private readonly pool: Pool,
-    private readonly leads: LeadsService,
-  ) {}
+  constructor(@Inject(PG_POOL) private readonly pool: Pool) {}
 
-  private async getTenantSlug(tenantId: string): Promise<string> {
-    const tenantRes = await this.pool.query<{ slug: string }>(
+  async listForTenant(tenantId: string) {
+    const { rows } = await this.pool.query(
       `
-      SELECT slug
-      FROM tenants
-      WHERE id = $1
-      LIMIT 1
+      SELECT
+        l.id,
+        l.tenant_slug,
+        l.name,
+        l.phone,
+        l.city,
+        l.service_type,
+        l.summary,
+        l.source,
+        l.status,
+        l.created_at
+      FROM leads l
+      INNER JOIN tenants t ON t.slug = l.tenant_slug
+      WHERE t.id = $1
+      ORDER BY l.created_at DESC
       `,
       [tenantId],
     );
 
-    const tenant = tenantRes.rows[0];
-    if (!tenant) {
-      throw new NotFoundException('Tenant not found');
-    }
-
-    return tenant.slug;
-  }
-
-  async listForTenant(tenantId: string) {
-    const slug = await this.getTenantSlug(tenantId);
-    return this.leads.listLeads(slug);
+    return rows;
   }
 
   async getOneForTenant(tenantId: string, leadId: string) {
-    const slug = await this.getTenantSlug(tenantId);
-    return this.leads.getLeadByIdForTenantSlug(leadId, slug);
+    const { rows } = await this.pool.query(
+      `
+      SELECT
+        l.id,
+        l.tenant_slug,
+        l.name,
+        l.phone,
+        l.city,
+        l.service_type,
+        l.summary,
+        l.source,
+        l.status,
+        l.created_at
+      FROM leads l
+      INNER JOIN tenants t ON t.slug = l.tenant_slug
+      WHERE t.id = $1
+        AND l.id = $2
+      LIMIT 1
+      `,
+      [tenantId, leadId],
+    );
+
+    const row = rows[0];
+    if (!row) {
+      throw new NotFoundException('Lead not found');
+    }
+
+    return row;
   }
 
   async getMessagesForTenant(tenantId: string, leadId: string) {
-    const slug = await this.getTenantSlug(tenantId);
-    await this.leads.getLeadByIdForTenantSlug(leadId, slug);
-    return this.leads.getLeadMessages(leadId);
+    const lead = await this.getOneForTenant(tenantId, leadId);
+
+    const { rows } = await this.pool.query(
+      `
+      SELECT
+        id,
+        lead_id,
+        role,
+        text,
+        created_at
+      FROM lead_messages
+      WHERE lead_id = $1
+      ORDER BY created_at ASC
+      `,
+      [lead.id],
+    );
+
+    return rows;
   }
 }

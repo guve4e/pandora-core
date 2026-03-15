@@ -1,130 +1,74 @@
 <template>
-  <div class="space-y-6">
-    <PageHeader
-      title="Lead Detail"
-      description="Lead information and conversation transcript."
-    />
-
-    <div v-if="loading" class="text-xs text-slate-400">
-      Loading lead...
-    </div>
-
-    <div
-      v-else-if="error"
-      class="text-[11px] text-red-400 border border-red-500/40 bg-red-950/30 rounded-md px-3 py-2"
-    >
-      {{ error }}
-    </div>
-
-    <template v-else-if="lead">
-      <div class="grid gap-4 xl:grid-cols-[360px_minmax(0,1fr)]">
-        <section class="space-y-4">
-          <div class="rounded-lg border border-slate-800 bg-slate-900/40 p-4">
-            <div class="text-xs text-slate-400">Phone</div>
-            <div class="mt-2 text-lg font-semibold text-slate-100">
-              <a :href="`tel:${lead.phone}`" class="hover:underline">
-                {{ lead.phone }}
-              </a>
-            </div>
-          </div>
-
-          <div class="rounded-lg border border-slate-800 bg-slate-900/40 p-4">
-            <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-1">
-              <div>
-                <div class="text-xs text-slate-400">City</div>
-                <div class="mt-1 text-sm text-slate-100">{{ lead.city || '—' }}</div>
-              </div>
-
-              <div>
-                <div class="text-xs text-slate-400">Service</div>
-                <div class="mt-1 text-sm text-slate-100">{{ lead.service_type || '—' }}</div>
-              </div>
-
-              <div>
-                <div class="text-xs text-slate-400">Status</div>
-                <div class="mt-1 text-sm text-slate-100">{{ lead.status || '—' }}</div>
-              </div>
-
-              <div>
-                <div class="text-xs text-slate-400">Created</div>
-                <div class="mt-1 text-sm text-slate-100">{{ formatDate(lead.created_at) }}</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="rounded-lg border border-slate-800 bg-slate-900/40 p-4">
-            <div class="text-xs text-slate-400">Summary</div>
-            <div class="mt-2 text-sm leading-6 text-slate-100 whitespace-pre-wrap">
-              {{ lead.summary || '—' }}
-            </div>
-          </div>
-        </section>
-
-        <section class="rounded-lg border border-slate-800 bg-slate-900/40 p-4">
-          <div class="flex items-center justify-between">
-            <h2 class="text-sm font-semibold text-slate-100">Conversation</h2>
-            <div class="text-[11px] text-slate-500">
-              {{ messages.length }} message{{ messages.length === 1 ? '' : 's' }}
-            </div>
-          </div>
-
-          <div
-            v-if="!messages.length"
-            class="mt-4 text-xs text-slate-500"
-          >
-            No transcript found.
-          </div>
-
-          <div v-else class="mt-4 space-y-3">
-            <div
-              v-for="m in messages"
-              :key="m.id"
-              :class="m.role === 'user' ? 'items-end' : 'items-start'"
-              class="flex flex-col"
-            >
-              <div class="mb-1 text-[11px] uppercase tracking-wide text-slate-500">
-                {{ m.role === 'user' ? 'Client' : 'Assistant' }}
-              </div>
-
-              <div
-                class="max-w-[85%] rounded-xl px-3 py-2 text-sm leading-6"
-                :class="
-                  m.role === 'user'
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-slate-800 text-slate-100'
-                "
-              >
-                {{ m.text }}
-              </div>
-
-              <div class="mt-1 text-[10px] text-slate-500">
-                {{ formatDate(m.created_at) }}
-              </div>
-            </div>
-          </div>
-        </section>
+  <div class="page">
+    <div class="page-header">
+      <div>
+        <h1>Lead Detail</h1>
+        <p>View lead data and captured conversation.</p>
       </div>
-    </template>
+
+      <router-link class="back-link" to="/tenant-leads">← Back to leads</router-link>
+    </div>
+
+    <div v-if="loading" class="card">Loading lead...</div>
+
+    <div v-else-if="error" class="card error">{{ error }}</div>
+
+    <div v-else class="layout">
+      <div class="card">
+        <h2>Lead Info</h2>
+
+        <div class="field"><strong>Phone:</strong> {{ lead?.phone || '—' }}</div>
+        <div class="field"><strong>Name:</strong> {{ lead?.name || '—' }}</div>
+        <div class="field"><strong>City:</strong> {{ lead?.city || '—' }}</div>
+        <div class="field"><strong>Service:</strong> {{ lead?.service_type || '—' }}</div>
+        <div class="field"><strong>Source:</strong> {{ lead?.source || '—' }}</div>
+        <div class="field"><strong>Status:</strong> {{ lead?.status || '—' }}</div>
+        <div class="field"><strong>Created:</strong> {{ formatDate(lead?.created_at || '') }}</div>
+
+        <div class="field summary">
+          <strong>Summary:</strong>
+          <div>{{ lead?.summary || '—' }}</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Conversation</h2>
+
+        <div class="messages">
+          <div
+            v-for="msg in messages"
+            :key="msg.id"
+            :class="['msg', msg.role]"
+          >
+            <div class="msg-role">{{ msg.role }}</div>
+            <div class="msg-text">{{ msg.text }}</div>
+            <div class="msg-time">{{ formatDate(msg.created_at) }}</div>
+          </div>
+
+          <div v-if="messages.length === 0" class="empty">No messages.</div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { PageHeader } from '@org/admin-core';
 import {
-  getTenantLeadById,
+  getTenantLead,
   getTenantLeadMessages,
-  type TenantLeadRow,
-  type TenantLeadMessageRow,
-} from '../api/admin';
+  type LeadMessageRow,
+  type LeadRow,
+} from '../api/leads';
 
 const route = useRoute();
+const id = route.params.id as string;
 
 const loading = ref(true);
-const error = ref<string | null>(null);
-const lead = ref<TenantLeadRow | null>(null);
-const messages = ref<TenantLeadMessageRow[]>([]);
+const error = ref('');
+const lead = ref<LeadRow | null>(null);
+const messages = ref<LeadMessageRow[]>([]);
 
 function formatDate(value: string) {
   try {
@@ -134,23 +78,134 @@ function formatDate(value: string) {
   }
 }
 
-function normalizeError(e: any): string {
-  const apiMsg = e?.response?.data?.message;
-  if (typeof apiMsg === 'string' && apiMsg.trim()) return apiMsg;
-  if (Array.isArray(apiMsg) && apiMsg.length) return apiMsg.join(', ');
-  return e?.message || 'Failed to load lead.';
-}
-
-onMounted(async () => {
-  const id = String(route.params.id || '');
+async function load() {
+  loading.value = true;
+  error.value = '';
 
   try {
-    lead.value = await getTenantLeadById(id);
-    messages.value = await getTenantLeadMessages(id);
+    const [leadData, messageData] = await Promise.all([
+      getTenantLead(id),
+      getTenantLeadMessages(id),
+    ]);
+
+    lead.value = leadData;
+    messages.value = messageData;
   } catch (e: any) {
-    error.value = normalizeError(e);
+    error.value = e?.message || 'Failed to load lead';
   } finally {
     loading.value = false;
   }
-});
+}
+
+onMounted(load);
 </script>
+
+<style scoped>
+.page {
+  padding: 24px;
+  color: #e5e7eb;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.page-header h1 {
+  margin: 0 0 6px 0;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.page-header p {
+  margin: 0;
+  color: #94a3b8;
+}
+
+.back-link {
+  color: #93c5fd;
+  text-decoration: none;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 16px;
+}
+
+.card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(51, 65, 85, 0.9);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.error {
+  color: #f87171;
+}
+
+h2 {
+  margin: 0 0 16px 0;
+  font-size: 18px;
+}
+
+.field {
+  margin-bottom: 12px;
+  color: #cbd5e1;
+}
+
+.summary {
+  margin-top: 20px;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.msg {
+  border-radius: 12px;
+  padding: 12px;
+  border: 1px solid #334155;
+}
+
+.msg.user {
+  background: #0f172a;
+}
+
+.msg.assistant {
+  background: #111827;
+}
+
+.msg-role {
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+
+.msg-text {
+  color: #e2e8f0;
+  white-space: pre-wrap;
+}
+
+.msg-time {
+  margin-top: 8px;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.empty {
+  color: #94a3b8;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

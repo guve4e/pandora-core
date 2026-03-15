@@ -4,9 +4,12 @@ import {
   LoginView,
   AcceptInviteView,
   installAdminAuthGuard,
-  useAuthStore,
 } from '@org/admin-core';
+
 import { adminModule } from '../admin.module';
+import AssistantConfigView from '../views/AssistantConfigView.vue';
+import TenantLeadsView from '../views/TenantLeadsView.vue';
+import LeadDetailView from '../views/LeadDetailView.vue';
 
 const routes: RouteRecordRaw[] = [
   {
@@ -21,6 +24,21 @@ const routes: RouteRecordRaw[] = [
     component: AcceptInviteView,
     meta: { public: true },
   },
+  {
+    path: '/assistant-config',
+    name: 'assistantConfig',
+    component: AssistantConfigView,
+  },
+  {
+    path: '/tenant-leads',
+    name: 'tenantLeads',
+    component: TenantLeadsView,
+  },
+  {
+    path: '/tenant-leads/:id',
+    name: 'tenantLeadDetail',
+    component: LeadDetailView,
+  },
   ...adminModule.routes,
 ];
 
@@ -31,13 +49,22 @@ export const router = createRouter({
 
 installAdminAuthGuard(router);
 
+function getStoredRole(): string | null {
+  try {
+    const raw = localStorage.getItem('pandora_auth');
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return parsed?.role ?? null;
+  } catch {
+    return null;
+  }
+}
+
 router.beforeEach((to) => {
   if (to.meta?.public) return true;
 
-  const auth = useAuthStore();
-  auth.loadFromStorage();
-
-  const isPlatformOwner = auth.role === 'platform_owner';
+  const role = getStoredRole();
+  const isPlatformOwner = role === 'platform_owner';
 
   if (to.meta?.platformOnly && !isPlatformOwner) {
     return '/';

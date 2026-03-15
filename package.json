@@ -78,7 +78,8 @@
     "libs/backend/*",
     "libs/shared/*",
     "apps",
-    "assistant-service"
+    "assistant-service",
+    "assistant-widget"
   ],
   "dependencies": {
     "@nestjs/common": "^11.0.0",
