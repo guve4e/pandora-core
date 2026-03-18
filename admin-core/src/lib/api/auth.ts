@@ -9,9 +9,21 @@ export interface RefreshResponse {
   access_token: string;
 }
 
+export interface TenantFeatures {
+  assistant_enabled: boolean;
+  lead_forms_enabled: boolean;
+  analytics_enabled: boolean;
+  conversations_enabled: boolean;
+  visitors_enabled: boolean;
+}
+
 export interface MeResponse {
   id: string;
   tenant_id: string;
+  tenant_slug: string | null;
+  tenant_name: string | null;
+  tenant_tier: string | null;
+  tenant_features: TenantFeatures;
   username: string | null;
   email: string;
   role: string;

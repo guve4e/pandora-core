@@ -95,6 +95,17 @@ export class ConversationsRepository {
     return res.rows[0] ?? null;
   }
 
+  async setLeadId(conversationId: string, leadId: string): Promise<void> {
+    await this.db.systemQuery(
+      `
+      UPDATE assistant.conversations
+      SET lead_id = $2
+      WHERE id = $1
+      `,
+      [conversationId, leadId],
+    );
+  }
+
   async insertMessage(input: {
     conversationId: string;
     role: 'user' | 'assistant';

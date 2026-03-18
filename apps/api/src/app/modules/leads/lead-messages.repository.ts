@@ -14,22 +14,32 @@ export type LeadMessageRow = {
 export class LeadMessagesRepository {
   constructor(@Inject(PG_POOL) private readonly pool: Pool) {}
 
+  async exists(leadId: string, role: 'user' | 'assistant', text: string): Promise<boolean> {
+    const { rows } = await this.pool.query(
+      `
+      SELECT 1
+      FROM lead_messages
+      WHERE lead_id = $1
+        AND role = $2
+        AND text = $3
+      LIMIT 1
+      `,
+      [leadId, role, text],
+    );
+
+    return rows.length > 0;
+  }
+
   async createMany(
     leadId: string,
     messages: Array<{ role: 'user' | 'assistant'; text: string; created_at?: string }>,
   ): Promise<void> {
-    console.log('[lead-messages] createMany start', {
-      leadId,
-      count: messages.length,
-    });
-
     for (const m of messages) {
-      console.log('[lead-messages] inserting', {
-        leadId,
-        role: m.role,
-        text: m.text,
-        created_at: m.created_at ?? null,
-      });
+      const alreadyExists = await this.exists(leadId, m.role, m.text);
+
+      if (alreadyExists) {
+        continue;
+      }
 
       await this.pool.query(
         `
@@ -39,11 +49,6 @@ export class LeadMessagesRepository {
         [leadId, m.role, m.text, m.created_at ?? null],
       );
     }
-
-    console.log('[lead-messages] createMany done', {
-      leadId,
-      count: messages.length,
-    });
   }
 
   async listByLeadId(leadId: string): Promise<LeadMessageRow[]> {

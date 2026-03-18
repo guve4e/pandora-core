@@ -6,22 +6,6 @@ import { PG_POOL } from '@org/backend-db';
 export class LeadsRepository {
   constructor(@Inject(PG_POOL) private readonly pool: Pool) {}
 
-  async findRecentByPhone(tenantSlug: string, phone: string) {
-    const { rows } = await this.pool.query(
-      `
-    SELECT *
-    FROM leads
-    WHERE tenant_slug = $1
-      AND phone = $2
-      AND created_at > now() - interval '24 hours'
-    LIMIT 1
-    `,
-      [tenantSlug, phone],
-    );
-
-    return rows[0] ?? null;
-  }
-
   async create(data: any) {
     const { rows } = await this.pool.query(
       `
@@ -38,6 +22,64 @@ export class LeadsRepository {
         data.serviceType ?? null,
         data.summary ?? null,
         data.source ?? 'manual',
+      ],
+    );
+
+    return rows[0];
+  }
+
+  async findRecentByPhone(tenantSlug: string, phone: string) {
+    const { rows } = await this.pool.query(
+      `
+      SELECT
+        id,
+        tenant_slug,
+        name,
+        phone,
+        city,
+        service_type,
+        summary,
+        source,
+        status,
+        created_at
+      FROM leads
+      WHERE tenant_slug = $1
+        AND phone = $2
+      ORDER BY created_at DESC
+      LIMIT 1
+      `,
+      [tenantSlug, phone],
+    );
+
+    return rows[0] ?? null;
+  }
+
+  async updatePartial(
+    leadId: string,
+    data: {
+      name?: string | null;
+      city?: string | null;
+      serviceType?: string | null;
+      summary?: string | null;
+    },
+  ) {
+    const { rows } = await this.pool.query(
+      `
+      UPDATE leads
+      SET
+        name = COALESCE($2, name),
+        city = COALESCE($3, city),
+        service_type = COALESCE($4, service_type),
+        summary = COALESCE($5, summary)
+      WHERE id = $1
+      RETURNING *
+      `,
+      [
+        leadId,
+        data.name ?? null,
+        data.city ?? null,
+        data.serviceType ?? null,
+        data.summary ?? null,
       ],
     );
 

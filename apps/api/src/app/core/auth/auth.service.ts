@@ -26,9 +26,21 @@ export class AuthService {
       throw new UnauthorizedException('User not found');
     }
 
+    const tenant = await this.tenants.getById(user.tenant_id);
+
     return {
       id: user.id,
       tenant_id: user.tenant_id,
+      tenant_slug: tenant?.slug ?? null,
+      tenant_name: tenant?.name ?? null,
+      tenant_tier: tenant?.tier ?? null,
+      tenant_features: {
+        assistant_enabled: tenant?.assistant_enabled ?? false,
+        lead_forms_enabled: tenant?.lead_forms_enabled ?? false,
+        analytics_enabled: tenant?.analytics_enabled ?? false,
+        conversations_enabled: tenant?.conversations_enabled ?? false,
+        visitors_enabled: tenant?.visitors_enabled ?? false,
+      },
       username: user.username,
       email: user.email,
       role: user.role,

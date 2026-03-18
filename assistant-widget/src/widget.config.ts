@@ -8,9 +8,14 @@ declare global {
 
 const defaults: AssistantWidgetConfig = {
   apiBaseUrl: 'http://localhost:3010/assistant',
-  tenantSlug: 'energrid',
-  title: 'Energrid Assistant',
-  welcomeMessage: 'Здравейте! С какво можем да помогнем?',
+  tenantSlug: 'voltura',
+  title: 'Voltura Assistant',
+  subtitle: 'AI асистент за запитвания, огледи и оферти',
+  welcomeMessage:
+    'Здравейте! Аз съм AI асистентът на Voltura. Мога да помогна със запитвания за електроинсталации, табла, огледи и оферти.',
+  disclaimer:
+    'Оставете телефон и кратко описание, за да се свържем с вас по-бързо.',
+  launcherLabel: 'Запитване',
 };
 
 export function getWidgetConfig(): AssistantWidgetConfig {
@@ -20,6 +25,9 @@ export function getWidgetConfig(): AssistantWidgetConfig {
     apiBaseUrl: runtime.apiBaseUrl || defaults.apiBaseUrl,
     tenantSlug: runtime.tenantSlug || defaults.tenantSlug,
     title: runtime.title || defaults.title,
+    subtitle: runtime.subtitle || defaults.subtitle,
     welcomeMessage: runtime.welcomeMessage || defaults.welcomeMessage,
+    disclaimer: runtime.disclaimer || defaults.disclaimer,
+    launcherLabel: runtime.launcherLabel || defaults.launcherLabel,
   };
 }

@@ -35,3 +35,13 @@ export async function getTenantLeadMessages(id: string): Promise<LeadMessageRow[
   const { data } = await http.get<LeadMessageRow[]>(`/tenant/leads/${id}/messages`);
   return data;
 }
+
+export async function updateTenantLeadStatus(
+  id: string,
+  status: 'new' | 'contacted' | 'scheduled' | 'won' | 'lost',
+): Promise<LeadRow> {
+  const { data } = await http.patch<LeadRow>(`/tenant/leads/${id}/status`, {
+    status,
+  });
+  return data;
+}

@@ -35,6 +35,7 @@ export const adminModule = {
     { to: '/leads', label: 'Leads' },
     { to: '/conversations', label: 'Conversations' },
     { to: '/visitors', label: 'Visitors' },
+    { to: '/assistant-config', label: 'Assistant' },
     { to: '/settings', label: 'Settings' },
   ],
 

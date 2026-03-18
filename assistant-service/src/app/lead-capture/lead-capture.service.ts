@@ -15,6 +15,11 @@ type ExtractedLead = {
   summary?: string | null;
 };
 
+type CapturedLeadResult = {
+  leadId: string | null;
+  extracted: ExtractedLead | null;
+};
+
 @Injectable()
 export class LeadCaptureService {
   private readonly logger = new Logger(LeadCaptureService.name);
@@ -28,14 +33,17 @@ export class LeadCaptureService {
     tenantSlug: string;
     conversationId: string;
     messages: ChatMsg[];
-  }): Promise<void> {
+  }): Promise<CapturedLeadResult> {
     const extracted = await this.extractLead(input.messages);
 
     if (!extracted?.phone?.trim()) {
       this.logger.log(
         `Lead not created for conversation ${input.conversationId}: phone missing`,
       );
-      return;
+      return {
+        leadId: null,
+        extracted,
+      };
     }
 
     const apiBase = process.env.CORE_API_BASE_URL || 'http://localhost:3001/api';
@@ -60,12 +68,22 @@ export class LeadCaptureService {
       this.logger.error(
         `Lead capture failed for conversation ${input.conversationId}: ${res.status} ${text}`,
       );
-      return;
+      return {
+        leadId: null,
+        extracted,
+      };
     }
 
+    const lead = (await res.json()) as { id?: string };
+
     this.logger.log(
-      `Lead captured for conversation ${input.conversationId}`,
+      `Lead captured for conversation ${input.conversationId}: ${lead.id ?? 'unknown-id'}`,
     );
+
+    return {
+      leadId: lead.id ?? null,
+      extracted,
+    };
   }
 
   private async extractLead(messages: ChatMsg[]): Promise<ExtractedLead | null> {

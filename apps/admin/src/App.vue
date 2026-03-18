@@ -1,6 +1,8 @@
 <template>
-  <component :is="isPublicRoute ? 'div' : AdminShell"
-    v-bind="isPublicRoute ? {} : shellProps">
+  <component
+    :is="isPublicRoute ? 'div' : AdminShell"
+    v-bind="isPublicRoute ? {} : shellProps"
+  >
     <RouterView />
   </component>
 </template>
@@ -14,6 +16,7 @@ import { adminModule } from './admin.module';
 const route = useRoute();
 const auth = useAuthStore();
 auth.loadFromStorage();
+auth.hydrateFromServer();
 
 const isPlatformOwner = computed(() => auth.role === 'platform_owner');
 const isPublicRoute = computed(() => !!route.meta.public);
@@ -22,17 +25,26 @@ const currentMenu = computed(() =>
   isPlatformOwner.value ? adminModule.platformMenu : adminModule.tenantMenu,
 );
 
+const tenantDisplayName = computed(() => auth.tenantName || 'Business');
+const currentAppName = computed(() =>
+  isPlatformOwner.value ? adminModule.appName : tenantDisplayName.value,
+);
+
+const currentShellTitle = computed(() =>
+  isPlatformOwner.value ? adminModule.shellTitle : tenantDisplayName.value,
+);
+
 const currentSubtitle = computed(() =>
   isPlatformOwner.value
     ? 'Platform owner control plane.'
-    : 'Tenant workspace.',
+    : 'Business dashboard',
 );
 
 const shellProps = computed(() => ({
   menu: currentMenu.value,
-  appName: adminModule.appName,
+  appName: currentAppName.value,
   appSubtitle: currentSubtitle.value,
-  shellTitle: adminModule.shellTitle,
+  shellTitle: currentShellTitle.value,
   footerText: adminModule.footerText,
   userInitials: adminModule.userInitials,
 }));

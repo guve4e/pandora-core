@@ -1,7 +1,9 @@
 import { http } from '@org/admin-core';
 
 export interface AssistantConfigDto {
+  tenantId: string;
   tenantSlug: string;
+  tenantName: string;
   businessName: string;
   businessDescription: string;
   services: string[];
@@ -18,7 +20,7 @@ export async function getAssistantConfig(): Promise<AssistantConfigDto> {
 }
 
 export async function updateAssistantConfig(
-  payload: Omit<AssistantConfigDto, 'tenantSlug'>,
+  payload: Omit<AssistantConfigDto, 'tenantId' | 'tenantSlug' | 'tenantName'>,
 ): Promise<AssistantConfigDto> {
   const { data } = await http.put<AssistantConfigDto>(
     '/admin/assistant-config',

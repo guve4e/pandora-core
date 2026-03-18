@@ -1,22 +1,60 @@
 <template>
   <div class="widget-shell">
     <button v-if="!isOpen" class="launcher" @click="isOpen = true">
-      Chat
+      <span class="launcher-dot"></span>
+      <span>{{ config.launcherLabel }}</span>
     </button>
 
     <div v-else class="panel">
       <div class="header">
-        <strong>{{ config.title }}</strong>
-        <button class="close-btn" @click="isOpen = false">×</button>
+        <div class="header-text">
+          <div class="title-row">
+            <strong>{{ config.title }}</strong>
+            <span class="ai-badge">AI</span>
+          </div>
+          <div class="subtitle">{{ config.subtitle }}</div>
+        </div>
+
+        <button class="close-btn" @click="isOpen = false" aria-label="Close">
+          ×
+        </button>
       </div>
 
-      <div class="messages">
+      <div class="messages" ref="messagesEl">
+        <div class="intro-card" v-if="messages.length === 1">
+          <div class="intro-title">Как можем да помогнем</div>
+          <ul>
+            <li>електроинсталации</li>
+            <li>електрически табла</li>
+            <li>огледи и оферти</li>
+            <li>консултация за обект</li>
+          </ul>
+          <div class="intro-note">{{ config.disclaimer }}</div>
+        </div>
+
         <div
           v-for="(item, index) in messages"
           :key="index"
-          :class="['message', item.role]"
+          :class="['message-row', item.role]"
         >
-          {{ item.text }}
+          <div v-if="item.role === 'assistant'" class="avatar">AI</div>
+
+          <div :class="['message', item.role]">
+            <div class="message-label">
+              {{ item.role === 'assistant' ? config.title : 'Вие' }}
+            </div>
+            <div class="message-text">{{ item.text }}</div>
+          </div>
+        </div>
+
+        <div v-if="loading" class="message-row assistant">
+          <div class="avatar">AI</div>
+          <div class="message assistant typing">
+            <div class="message-label">{{ config.title }}</div>
+            <div class="typing-dots">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -24,19 +62,23 @@
         <input
           v-model="draft"
           type="text"
-          placeholder="Type a message..."
+          placeholder="Напишете запитване..."
           :disabled="loading"
         />
         <button type="submit" :disabled="loading || !draft.trim()">
-          {{ loading ? '...' : 'Send' }}
+          Изпрати
         </button>
       </form>
+
+      <div class="footer-note">
+        AI асистент за първоначални запитвания. При нужда екипът ще се свърже с вас.
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { nextTick, ref, watch } from 'vue';
 import { getWidgetConfig } from './widget.config';
 
 type ChatMessage = {
@@ -50,12 +92,25 @@ const isOpen = ref(true);
 const loading = ref(false);
 const draft = ref('');
 const conversationId = ref<string | null>(null);
+const messagesEl = ref<HTMLElement | null>(null);
+
 const messages = ref<ChatMessage[]>([
   {
     role: 'assistant',
     text: config.welcomeMessage,
   },
 ]);
+
+function scrollToBottom() {
+  nextTick(() => {
+    if (messagesEl.value) {
+      messagesEl.value.scrollTop = messagesEl.value.scrollHeight;
+    }
+  });
+}
+
+watch(messages, scrollToBottom, { deep: true });
+watch(loading, scrollToBottom);
 
 async function ensureConversation(): Promise<string> {
   if (conversationId.value) return conversationId.value;
@@ -73,7 +128,8 @@ async function ensureConversation(): Promise<string> {
   });
 
   if (!res.ok) {
-    throw new Error(`Create conversation failed: ${res.status}`);
+    const text = await res.text();
+    throw new Error(`Create conversation failed: ${res.status} ${text}`);
   }
 
   const data = await res.json();
@@ -105,19 +161,23 @@ async function sendMessage() {
     });
 
     if (!res.ok) {
-      throw new Error(`Send message failed: ${res.status}`);
+      const body = await res.text();
+      throw new Error(`Send message failed: ${res.status} ${body}`);
     }
 
     const data = await res.json();
 
     messages.value.push({
       role: 'assistant',
-      text: data.reply ?? 'No reply received.',
+      text:
+        data.reply ??
+        'В момента не успяхме да получим отговор. Моля, опитайте отново.',
     });
   } catch (error: any) {
     messages.value.push({
       role: 'assistant',
-      text: `Error: ${error?.message ?? 'Unknown error'}`,
+      text:
+        'Възникна проблем при връзката с асистента. Моля, опитайте отново след малко.',
     });
     console.error(error);
   } finally {
@@ -129,83 +189,270 @@ async function sendMessage() {
 <style scoped>
 .widget-shell {
   position: fixed;
-  right: 16px;
-  bottom: 16px;
-  font-family: Arial, sans-serif;
+  right: 18px;
+  bottom: 18px;
+  z-index: 9999;
+  font-family:
+    Inter,
+    Arial,
+    sans-serif;
 }
 
 .launcher {
   border: 0;
   border-radius: 999px;
-  padding: 12px 18px;
+  padding: 14px 18px;
   cursor: pointer;
+  background: linear-gradient(135deg, #1d4ed8, #2563eb);
+  color: white;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+}
+
+.launcher-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #86efac;
+  box-shadow: 0 0 0 4px rgba(134, 239, 172, 0.18);
 }
 
 .panel {
-  width: 340px;
-  height: 500px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  background: #fff;
+  width: 370px;
+  height: 620px;
+  border: 1px solid #d4d4d8;
+  border-radius: 18px;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.18);
 }
 
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px 16px 14px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.header-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title-row {
+  display: flex;
   align-items: center;
-  padding: 12px;
-  border-bottom: 1px solid #ddd;
+  gap: 8px;
+}
+
+.title-row strong {
+  font-size: 15px;
+  color: #111827;
+}
+
+.ai-badge {
+  font-size: 11px;
+  font-weight: 700;
+  color: #1d4ed8;
+  background: #dbeafe;
+  padding: 2px 7px;
+  border-radius: 999px;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: #6b7280;
+  line-height: 1.35;
 }
 
 .close-btn {
   border: 0;
   background: transparent;
-  font-size: 18px;
+  font-size: 22px;
+  line-height: 1;
   cursor: pointer;
+  color: #374151;
+  padding: 0;
 }
 
 .messages {
   flex: 1;
   overflow: auto;
-  padding: 12px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
+  gap: 12px;
+  background: #f8fafc;
+}
+
+.intro-card {
+  border: 1px solid #dbeafe;
+  background: #eff6ff;
+  border-radius: 14px;
+  padding: 14px;
+  color: #1f2937;
+}
+
+.intro-title {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.intro-card ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.intro-note {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.message-row {
+  display: flex;
   gap: 8px;
+  align-items: flex-end;
+}
+
+.message-row.user {
+  justify-content: flex-end;
+}
+
+.avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
 }
 
 .message {
-  max-width: 80%;
+  max-width: 82%;
   padding: 10px 12px;
-  border-radius: 10px;
+  border-radius: 14px;
   white-space: pre-wrap;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
 }
 
 .message.user {
   align-self: flex-end;
   background: #dbeafe;
+  color: #111827;
+  border-bottom-right-radius: 6px;
 }
 
 .message.assistant {
   align-self: flex-start;
-  background: #f3f4f6;
+  background: #ffffff;
+  color: #111827;
+  border: 1px solid #e5e7eb;
+  border-bottom-left-radius: 6px;
+}
+
+.message-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.message-text {
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.typing-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 18px;
+}
+
+.typing-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: #94a3b8;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+
+.typing-dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.typing-dots span:nth-child(3) {
+  animation-delay: 0.3s;
 }
 
 .input-row {
   display: flex;
   gap: 8px;
   padding: 12px;
-  border-top: 1px solid #ddd;
+  border-top: 1px solid #e5e7eb;
+  background: #ffffff;
 }
 
 .input-row input {
   flex: 1;
-  padding: 10px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  outline: none;
+}
+
+.input-row input:focus {
+  border-color: #60a5fa;
 }
 
 .input-row button {
-  padding: 10px 14px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  border: 0;
+  background: #111827;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.input-row button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.footer-note {
+  padding: 0 12px 12px;
+  font-size: 11px;
+  color: #6b7280;
+  background: #ffffff;
+}
+
+@keyframes pulse {
+  0%, 80%, 100% {
+    opacity: 0.3;
+    transform: scale(0.9);
+  }
+  40% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 </style>

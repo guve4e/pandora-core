@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 
 // silent load of env
 dotenv.config({
-  path: path.resolve(__dirname, '../../.env'),
+  path: path.resolve(__dirname, '../../../.env'),
   quiet: true,
 });
 

@@ -83,4 +83,40 @@ export class TenantLeadsService {
 
     return rows;
   }
+
+  async updateStatusForTenant(
+    tenantId: string,
+    leadId: string,
+    status: string,
+  ) {
+    const allowed = new Set(['new', 'contacted', 'scheduled', 'won', 'lost']);
+
+    if (!allowed.has(status)) {
+      throw new NotFoundException('Invalid lead status');
+    }
+
+    const lead = await this.getOneForTenant(tenantId, leadId);
+
+    const { rows } = await this.pool.query(
+      `
+      UPDATE leads
+      SET status = $2
+      WHERE id = $1
+      RETURNING
+        id,
+        tenant_slug,
+        name,
+        phone,
+        city,
+        service_type,
+        summary,
+        source,
+        status,
+        created_at
+      `,
+      [lead.id, status],
+    );
+
+    return rows[0];
+  }
 }

@@ -1,16 +1,17 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
+import { ScheduleModule } from '@nestjs/schedule';
+
+import { LoggingModule } from '@org/backend-logging';
 
 import { AuthModule } from './core/auth/auth.module';
 import { AiModule } from './core/ai/ai.module';
 import { TenantsModule } from './core/tenants/tenants.module';
 import { NotificationsModule } from './core/notifications/notifications.module';
-
-import { LoggingModule } from '@org/backend-logging';
 import { JwtTenantGuard } from './core/auth/jwt-tenant.guard';
 import { TenantContextModule } from './core/tenants/tenant-context.module';
-import { ScheduleModule } from '@nestjs/schedule';
+import { InternalTenantsModule } from './core/internal-tenants/internal-tenants.module';
 
 import { IntakeModule } from './modules/intake/intake.module';
 import { PlatformModule } from './modules/platform/platform.module';
@@ -28,6 +29,7 @@ import { LeadsModule } from './modules/leads/leads.module';
     AiModule,
     TenantsModule,
     NotificationsModule,
+    InternalTenantsModule,
     IntakeModule,
     PlatformModule,
     TenantLeadsModule,

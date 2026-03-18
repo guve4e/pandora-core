@@ -10,23 +10,25 @@ export class AssistantConfigService {
     private readonly tenants: TenantsService,
   ) {}
 
-  private async resolveTenantSlug(tenantId: string): Promise<string> {
+  private async resolveTenant(tenantId: string) {
     const tenant = await this.tenants.getById(tenantId);
 
     if (!tenant?.slug) {
       throw new NotFoundException(`Tenant not found for id: ${tenantId}`);
     }
 
-    return tenant.slug;
+    return tenant;
   }
 
   async getForTenantId(tenantId: string) {
-    const tenantSlug = await this.resolveTenantSlug(tenantId);
-    const row = await this.repo.findByTenantSlug(tenantSlug);
+    const tenant = await this.resolveTenant(tenantId);
+    const row = await this.repo.findByTenantSlug(tenant.slug);
 
     if (!row) {
       return {
-        tenantSlug,
+        tenantId: tenant.id,
+        tenantSlug: tenant.slug,
+        tenantName: tenant.name,
         businessName: '',
         businessDescription: '',
         services: [],
@@ -39,7 +41,9 @@ export class AssistantConfigService {
     }
 
     return {
-      tenantSlug: row.tenant_slug,
+      tenantId: tenant.id,
+      tenantSlug: tenant.slug,
+      tenantName: tenant.name,
       businessName: row.business_name,
       businessDescription: row.business_description,
       services: row.services_json ?? [],
@@ -52,10 +56,10 @@ export class AssistantConfigService {
   }
 
   async upsertForTenantId(tenantId: string, dto: UpsertAssistantConfigDto) {
-    const tenantSlug = await this.resolveTenantSlug(tenantId);
+    const tenant = await this.resolveTenant(tenantId);
 
     const row = await this.repo.upsert({
-      tenantSlug,
+      tenantSlug: tenant.slug,
       businessName: dto.businessName,
       businessDescription: dto.businessDescription,
       services: dto.services ?? [],
@@ -67,7 +71,9 @@ export class AssistantConfigService {
     });
 
     return {
-      tenantSlug: row.tenant_slug,
+      tenantId: tenant.id,
+      tenantSlug: tenant.slug,
+      tenantName: tenant.name,
       businessName: row.business_name,
       businessDescription: row.business_description,
       services: row.services_json ?? [],

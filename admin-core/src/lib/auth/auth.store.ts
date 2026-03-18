@@ -5,7 +5,7 @@ import {
   logoutRequest,
   refreshRequest,
 } from '../api/auth';
-import type { LoginResponse, MeResponse } from '../api/auth';
+import type { LoginResponse, MeResponse, TenantFeatures } from '../api/auth';
 import { clearTokens, getRefreshToken, setAccessToken } from './auth.storage';
 
 interface AuthState {
@@ -15,6 +15,10 @@ interface AuthState {
   email: string | null;
   userId: string | null;
   tenantId: string | null;
+  tenantSlug: string | null;
+  tenantName: string | null;
+  tenantTier: string | null;
+  tenantFeatures: TenantFeatures | null;
   role: string | null;
   refreshPromise: Promise<boolean> | null;
 }
@@ -29,6 +33,10 @@ export const useAuthStore = defineStore('auth', {
     email: null,
     userId: null,
     tenantId: null,
+    tenantSlug: null,
+    tenantName: null,
+    tenantTier: null,
+    tenantFeatures: null,
     role: null,
     refreshPromise: null,
   }),
@@ -50,6 +58,10 @@ export const useAuthStore = defineStore('auth', {
         this.email = parsed.email ?? null;
         this.userId = parsed.userId ?? null;
         this.tenantId = parsed.tenantId ?? null;
+        this.tenantSlug = parsed.tenantSlug ?? null;
+        this.tenantName = parsed.tenantName ?? null;
+        this.tenantTier = parsed.tenantTier ?? null;
+        this.tenantFeatures = parsed.tenantFeatures ?? null;
         this.role = parsed.role ?? null;
       } catch {
         // ignore
@@ -57,23 +69,31 @@ export const useAuthStore = defineStore('auth', {
     },
 
     saveToStorage() {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({
-          accessToken: this.accessToken,
-          refreshToken: this.refreshToken,
-          username: this.username,
-          email: this.email,
-          userId: this.userId,
-          tenantId: this.tenantId,
-          role: this.role,
-        }),
-      );
+      const payload = {
+        accessToken: this.accessToken,
+        refreshToken: this.refreshToken,
+        username: this.username,
+        email: this.email,
+        userId: this.userId,
+        tenantId: this.tenantId,
+        tenantSlug: this.tenantSlug,
+        tenantName: this.tenantName,
+        tenantTier: this.tenantTier,
+        tenantFeatures: this.tenantFeatures,
+        role: this.role,
+      };
+
+      console.log('SAVE_TO_STORAGE_PAYLOAD', payload);
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
     },
 
     setUser(me: MeResponse) {
       this.userId = me.id;
       this.tenantId = me.tenant_id;
+      this.tenantSlug = me.tenant_slug;
+      this.tenantName = me.tenant_name;
+      this.tenantTier = me.tenant_tier;
+      this.tenantFeatures = me.tenant_features;
       this.username = me.username;
       this.email = me.email;
       this.role = me.role;
@@ -92,6 +112,10 @@ export const useAuthStore = defineStore('auth', {
       this.email = null;
       this.userId = null;
       this.tenantId = null;
+      this.tenantSlug = null;
+      this.tenantName = null;
+      this.tenantTier = null;
+      this.tenantFeatures = null;
       this.role = null;
       this.refreshPromise = null;
 

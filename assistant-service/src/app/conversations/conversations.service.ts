@@ -1,6 +1,10 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { ChatService } from '../chat/chat.service';
 import { LeadCaptureService } from '../lead-capture/lead-capture.service';
+import { TenantValidationService } from '../tenant-validation/tenant-validation.service';
 import { ConversationsRepository } from './conversations.repository';
 
 @Injectable()
@@ -9,6 +13,7 @@ export class ConversationsService {
     private readonly repo: ConversationsRepository,
     private readonly chatService: ChatService,
     private readonly leadCapture: LeadCaptureService,
+    private readonly tenantValidation: TenantValidationService,
   ) {}
 
   async createConversation(input: {
@@ -16,6 +21,8 @@ export class ConversationsService {
     visitorId?: string;
     channel?: string;
   }) {
+    await this.tenantValidation.validateTenantSlug(input.tenantSlug);
+
     return this.repo.createConversation(input);
   }
 
@@ -52,7 +59,7 @@ export class ConversationsService {
 
     const finalRows = await this.repo.listMessages(conversationId);
 
-    await this.leadCapture.tryCapture({
+    const captureResult = await this.leadCapture.tryCapture({
       tenantSlug: conversation.tenant_slug,
       conversationId,
       messages: finalRows.map((row) => ({
@@ -62,10 +69,14 @@ export class ConversationsService {
       })),
     });
 
+    if (captureResult.leadId && conversation.lead_id !== captureResult.leadId) {
+      await this.repo.setLeadId(conversationId, captureResult.leadId);
+    }
+
     return {
       conversationId,
       reply: assistantMessage.message_text,
-      leadId: conversation.lead_id,
+      leadId: captureResult.leadId ?? conversation.lead_id ?? null,
     };
   }
 

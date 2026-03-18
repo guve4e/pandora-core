@@ -22,12 +22,32 @@
         <div class="field"><strong>City:</strong> {{ lead?.city || '—' }}</div>
         <div class="field"><strong>Service:</strong> {{ lead?.service_type || '—' }}</div>
         <div class="field"><strong>Source:</strong> {{ lead?.source || '—' }}</div>
-        <div class="field"><strong>Status:</strong> {{ lead?.status || '—' }}</div>
         <div class="field"><strong>Created:</strong> {{ formatDate(lead?.created_at || '') }}</div>
+
+        <div class="field">
+          <strong>Status:</strong>
+          <div class="status-row">
+            <select v-model="statusDraft">
+              <option value="new">new</option>
+              <option value="contacted">contacted</option>
+              <option value="scheduled">scheduled</option>
+              <option value="won">won</option>
+              <option value="lost">lost</option>
+            </select>
+
+            <button class="save-btn" :disabled="savingStatus" @click="saveStatus">
+              {{ savingStatus ? 'Saving...' : 'Save status' }}
+            </button>
+          </div>
+        </div>
 
         <div class="field summary">
           <strong>Summary:</strong>
           <div>{{ lead?.summary || '—' }}</div>
+        </div>
+
+        <div v-if="statusMessage" class="status-message">
+          {{ statusMessage }}
         </div>
       </div>
 
@@ -58,6 +78,7 @@ import { useRoute } from 'vue-router';
 import {
   getTenantLead,
   getTenantLeadMessages,
+  updateTenantLeadStatus,
   type LeadMessageRow,
   type LeadRow,
 } from '../api/leads';
@@ -69,6 +90,9 @@ const loading = ref(true);
 const error = ref('');
 const lead = ref<LeadRow | null>(null);
 const messages = ref<LeadMessageRow[]>([]);
+const statusDraft = ref<'new' | 'contacted' | 'scheduled' | 'won' | 'lost'>('new');
+const savingStatus = ref(false);
+const statusMessage = ref('');
 
 function formatDate(value: string) {
   try {
@@ -89,11 +113,30 @@ async function load() {
     ]);
 
     lead.value = leadData;
+    statusDraft.value = (leadData.status as any) || 'new';
     messages.value = messageData;
   } catch (e: any) {
     error.value = e?.message || 'Failed to load lead';
   } finally {
     loading.value = false;
+  }
+}
+
+async function saveStatus() {
+  if (!lead.value) return;
+
+  savingStatus.value = true;
+  statusMessage.value = '';
+
+  try {
+    const updated = await updateTenantLeadStatus(lead.value.id, statusDraft.value);
+    lead.value = updated;
+    statusDraft.value = (updated.status as any) || 'new';
+    statusMessage.value = 'Lead status updated.';
+  } catch (e: any) {
+    statusMessage.value = e?.message || 'Failed to update status';
+  } finally {
+    savingStatus.value = false;
   }
 }
 
@@ -159,6 +202,42 @@ h2 {
 
 .summary {
   margin-top: 20px;
+}
+
+.status-row {
+  margin-top: 8px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+select {
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #020617;
+  color: #e2e8f0;
+  padding: 10px 12px;
+  font: inherit;
+}
+
+.save-btn {
+  border: 1px solid #334155;
+  border-radius: 10px;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 10px 14px;
+  font: inherit;
+  cursor: pointer;
+}
+
+.save-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.status-message {
+  margin-top: 16px;
+  color: #cbd5e1;
 }
 
 .messages {

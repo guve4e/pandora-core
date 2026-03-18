@@ -5,6 +5,12 @@ export type TenantRow = {
   id: string;
   name: string;
   slug: string;
+  tier: string;
+  assistant_enabled: boolean;
+  lead_forms_enabled: boolean;
+  analytics_enabled: boolean;
+  conversations_enabled: boolean;
+  visitors_enabled: boolean;
   created_at: string;
 };
 
@@ -14,7 +20,17 @@ export class TenantsService {
 
   async list(): Promise<TenantRow[]> {
     const res = await this.db.systemQuery<TenantRow>(
-      `SELECT id, name, slug, created_at
+      `SELECT
+         id,
+         name,
+         slug,
+         tier,
+         assistant_enabled,
+         lead_forms_enabled,
+         analytics_enabled,
+         conversations_enabled,
+         visitors_enabled,
+         created_at
        FROM tenants
        ORDER BY created_at DESC`,
     );
@@ -25,7 +41,17 @@ export class TenantsService {
     const res = await this.db.systemQuery<TenantRow>(
       `INSERT INTO tenants (name, slug)
        VALUES ($1, $2)
-       RETURNING id, name, slug, created_at`,
+       RETURNING
+         id,
+         name,
+         slug,
+         tier,
+         assistant_enabled,
+         lead_forms_enabled,
+         analytics_enabled,
+         conversations_enabled,
+         visitors_enabled,
+         created_at`,
       [input.name, input.slug],
     );
     return res.rows[0];
@@ -33,7 +59,17 @@ export class TenantsService {
 
   async findBySlug(slug: string): Promise<TenantRow | null> {
     const res = await this.db.systemQuery<TenantRow>(
-      `SELECT id, name, slug, created_at
+      `SELECT
+         id,
+         name,
+         slug,
+         tier,
+         assistant_enabled,
+         lead_forms_enabled,
+         analytics_enabled,
+         conversations_enabled,
+         visitors_enabled,
+         created_at
        FROM tenants
        WHERE slug = $1
        LIMIT 1`,
@@ -44,7 +80,17 @@ export class TenantsService {
 
   async getById(id: string): Promise<TenantRow | null> {
     const res = await this.db.systemQuery<TenantRow>(
-      `SELECT id, name, slug, created_at
+      `SELECT
+         id,
+         name,
+         slug,
+         tier,
+         assistant_enabled,
+         lead_forms_enabled,
+         analytics_enabled,
+         conversations_enabled,
+         visitors_enabled,
+         created_at
        FROM tenants
        WHERE id = $1
        LIMIT 1`,
