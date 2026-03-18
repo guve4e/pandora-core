@@ -1,8 +1,6 @@
 <template>
-  <component
-    :is="isPublicRoute ? 'div' : AdminShell"
-    v-bind="isPublicRoute ? {} : shellProps"
-  >
+  <component :is="isPublicRoute ? 'div' : AdminShell"
+    v-bind="isPublicRoute ? {} : shellProps">
     <RouterView />
   </component>
 </template>
@@ -21,11 +19,42 @@ auth.hydrateFromServer();
 const isPlatformOwner = computed(() => auth.role === 'platform_owner');
 const isPublicRoute = computed(() => !!route.meta.public);
 
-const currentMenu = computed(() =>
-  isPlatformOwner.value ? adminModule.platformMenu : adminModule.tenantMenu,
-);
+const tenantFeatures = computed(() => auth.tenantFeatures ?? {
+  assistant_enabled: false,
+  lead_forms_enabled: true,
+  analytics_enabled: true,
+  conversations_enabled: false,
+  visitors_enabled: false,
+});
+
+const currentMenu = computed(() => {
+  if (isPlatformOwner.value) {
+    return adminModule.platformMenu;
+  }
+
+  return adminModule.tenantMenu.filter((item) => {
+    if (item.to === '/leads') {
+      return tenantFeatures.value.lead_forms_enabled;
+    }
+
+    if (item.to === '/visitors') {
+      return tenantFeatures.value.visitors_enabled;
+    }
+
+    if (item.to === '/conversations') {
+      return tenantFeatures.value.conversations_enabled;
+    }
+
+    if (item.to === '/assistant-config') {
+      return tenantFeatures.value.assistant_enabled;
+    }
+
+    return true;
+  });
+});
 
 const tenantDisplayName = computed(() => auth.tenantName || 'Business');
+
 const currentAppName = computed(() =>
   isPlatformOwner.value ? adminModule.appName : tenantDisplayName.value,
 );

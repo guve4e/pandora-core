@@ -13,8 +13,13 @@ async function bootstrap() {
   app.setGlobalPrefix(globalPrefix);
 
   app.enableCors({
-    origin: ['http://localhost:4301'],
-    credentials: false,
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:4201',
+      'https://energrid.ddns.net',
+      'https://voltura.ddns.net',
+    ],
+    credentials: true,
   });
 
   const port = Number(process.env.PORT || 3010);
