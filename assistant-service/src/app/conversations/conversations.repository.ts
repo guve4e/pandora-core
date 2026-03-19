@@ -30,6 +30,38 @@ export interface AssistantMessageRow {
 export class ConversationsRepository {
   constructor(private readonly db: TenantDb) {}
 
+  async updateAnalysis(
+    conversationId: string,
+    data: {
+      summary: string;
+      intent: string;
+      city: string | null;
+      serviceType: string | null;
+      leadScore: number;
+    },
+  ) {
+    await this.db.systemQuery(
+      `
+    UPDATE assistant.conversations
+    SET
+      summary = $2,
+      intent = $3,
+      city = $4,
+      service_type = $5,
+      lead_score = $6
+    WHERE id = $1
+    `,
+      [
+        conversationId,
+        data.summary,
+        data.intent,
+        data.city,
+        data.serviceType,
+        data.leadScore,
+      ],
+    );
+  }
+
   async createConversation(input: {
     tenantSlug: string;
     visitorId?: string;
@@ -59,11 +91,7 @@ export class ConversationsRepository {
         completed_at,
         meta
       `,
-      [
-        input.tenantSlug,
-        input.visitorId ?? null,
-        input.channel ?? 'web',
-      ],
+      [input.tenantSlug, input.visitorId ?? null, input.channel ?? 'web'],
     );
 
     return res.rows[0];
@@ -162,9 +190,7 @@ export class ConversationsRepository {
     return res.rows[0];
   }
 
-  async listMessages(
-    conversationId: string,
-  ): Promise<AssistantMessageRow[]> {
+  async listMessages(conversationId: string): Promise<AssistantMessageRow[]> {
     const res = await this.db.systemQuery<AssistantMessageRow>(
       `
       SELECT

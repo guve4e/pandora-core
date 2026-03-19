@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "migrate:create": "node ./node_modules/.bin/node-pg-migrate create -m api/migrations",
-    "migrate:up": "npm --prefix api run migrate:up",
-    "migrate:down": "npm --prefix api run migrate:down",
-    "migrate:status": "npm --prefix api run migrate:status",
-    "db:seed": "node api/scripts/seed.js",
+    "migrate:create": "node ./node_modules/.bin/node-pg-migrate create -m apps/api/migrations",
+    "migrate:up": "npm --prefix apps/api run migrate:up",
+    "migrate:down": "npm --prefix apps/api run migrate:down",
+    "migrate:status": "npm --prefix apps/api run migrate:status",
+    "db:seed": "node apps/api/scripts/seed.js",
     "db:setup": "npm run migrate:up && npm run db:seed"
   },
   "private": true,

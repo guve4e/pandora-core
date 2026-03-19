@@ -3,9 +3,11 @@ import { OpenAI } from 'openai';
 import type {
   AssistantChatInput,
   AssistantChatResult,
+  AssistantChatTurn,
   BusinessProfile,
 } from './ai.types';
 import { buildSystemPrompt, buildUserPrompt } from './prompts';
+import { buildConversationAnalysisPrompt } from './analysis.prompts';
 
 @Injectable()
 export class AiService {
@@ -25,7 +27,9 @@ export class AiService {
     const apiKey = process.env.OPENAI_API_KEY;
 
     if (!apiKey) {
-      this.logger.warn('OPENAI_API_KEY is missing. Returning fallback response.');
+      this.logger.warn(
+        'OPENAI_API_KEY is missing. Returning fallback response.',
+      );
       return {
         reply:
           'The assistant is not configured yet because OPENAI_API_KEY is missing.',
@@ -56,8 +60,7 @@ export class AiService {
 
       return { reply };
     } catch (error) {
-      const message =
-        error instanceof Error ? error.message : String(error);
+      const message = error instanceof Error ? error.message : String(error);
 
       this.logger.error(`OpenAI chat failed: ${message}`);
 
@@ -71,6 +74,40 @@ export class AiService {
       return {
         reply:
           'There was a problem generating a response. Please try again shortly.',
+      };
+    }
+  }
+
+  async analyzeConversation(
+    tenantSlug: string,
+    history: AssistantChatTurn[],
+  ): Promise<{
+    summary: string;
+    intent: string;
+    city: string | null;
+    serviceType: string | null;
+    leadScore: number;
+  }> {
+    const prompt = buildConversationAnalysisPrompt(tenantSlug, history);
+
+    const res = await this.openai.chat.completions.create({
+      model: this.model,
+      messages: [{ role: 'system', content: prompt }],
+      temperature: 0,
+      max_tokens: 200,
+    });
+
+    const text = res.choices?.[0]?.message?.content ?? '{}';
+
+    try {
+      return JSON.parse(text);
+    } catch {
+      return {
+        summary: '',
+        intent: '',
+        city: null,
+        serviceType: null,
+        leadScore: 0,
       };
     }
   }

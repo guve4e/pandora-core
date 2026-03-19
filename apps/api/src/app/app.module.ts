@@ -18,6 +18,8 @@ import { PlatformModule } from './modules/platform/platform.module';
 import { TenantLeadsModule } from './modules/tenant-leads/tenant-leads.module';
 import { AssistantConfigModule } from './modules/assistant-config/assistant-config.module';
 import { LeadsModule } from './modules/leads/leads.module';
+import { TenantConversationsModule } from './modules/tenant-conversations/tenant-conversations.module';
+import { AuthModule } from './modules/auth.module';
 
 @Module({
   imports: [
@@ -35,6 +37,7 @@ import { LeadsModule } from './modules/leads/leads.module';
     TenantLeadsModule,
     AssistantConfigModule,
     LeadsModule,
+    TenantConversationsModule,
   ],
   providers: [
     {
