@@ -1,7 +1,7 @@
 import DashboardView from './views/DashboardView.vue';
 import AiUsageView from './views/AiUsageView.vue';
 import ConversationsView from './views/ConversationsView.vue';
-import VisitorsView from './views/VisitorsView.vue';
+import TenantVisitorsView from './views/TenantVisitorsView.vue';
 import SettingsView from './views/SettingsView.vue';
 import PlatformTenantsView from './views/PlatformTenantsView.vue';
 import PlatformTenantDetailView from './views/PlatformTenantDetailView.vue';
@@ -73,7 +73,7 @@ export const adminModule = {
     {
       path: '/visitors',
       name: 'visitors',
-      component: VisitorsView,
+      component: TenantVisitorsView,
       meta: { tenantOnly: true, platformOnly: false },
     },
     {

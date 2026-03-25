@@ -7,6 +7,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app/app.module';
 import { LokiLoggerService } from '@org/backend-logging';
 
+function getCorsOrigins(): string[] {
+  const raw = process.env.CORS_ORIGINS ?? '';
+  return raw
+    .split(',')
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
@@ -17,8 +25,21 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
 
+  const corsOrigins = getCorsOrigins();
+
   app.enableCors({
-    origin: ['http://localhost:5173'],
+    origin(origin, callback) {
+      // allow server-to-server / curl / same-origin cases with no Origin header
+      if (!origin) {
+        return callback(null, true);
+      }
+
+      if (corsOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error(`CORS blocked for origin: ${origin}`), false);
+    },
     credentials: true,
   });
 
@@ -31,4 +52,3 @@ async function bootstrap() {
 }
 
 bootstrap();
-

@@ -2,10 +2,8 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
 import { ScheduleModule } from '@nestjs/schedule';
-
 import { LoggingModule } from '@org/backend-logging';
-
-import { AuthModule } from './core/auth/auth.module';
+import { DbModule } from '../db/db.module';
 import { AiModule } from './core/ai/ai.module';
 import { TenantsModule } from './core/tenants/tenants.module';
 import { NotificationsModule } from './core/notifications/notifications.module';
@@ -18,16 +16,15 @@ import { PlatformModule } from './modules/platform/platform.module';
 import { TenantLeadsModule } from './modules/tenant-leads/tenant-leads.module';
 import { AssistantConfigModule } from './modules/assistant-config/assistant-config.module';
 import { LeadsModule } from './modules/leads/leads.module';
-import { TenantConversationsModule } from './modules/tenant-conversations/tenant-conversations.module';
-import { AuthModule } from './modules/auth.module';
+import { VisitorAnalyticsModule } from './modules/visitor-analytics/visitor-analytics.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     ScheduleModule.forRoot(),
     LoggingModule,
+    DbModule,
     TenantContextModule,
-    AuthModule,
     AiModule,
     TenantsModule,
     NotificationsModule,
@@ -37,7 +34,7 @@ import { AuthModule } from './modules/auth.module';
     TenantLeadsModule,
     AssistantConfigModule,
     LeadsModule,
-    TenantConversationsModule,
+    VisitorAnalyticsModule,
   ],
   providers: [
     {
