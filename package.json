@@ -8,7 +8,9 @@
     "migrate:down": "npm --prefix apps/api run migrate:down",
     "migrate:status": "npm --prefix apps/api run migrate:status",
     "db:seed": "node apps/api/scripts/seed.js",
-    "db:setup": "npm run migrate:up && npm run db:seed"
+    "db:setup": "npm run migrate:up && npm run db:seed",
+    "api": "npx nx serve api",
+    "admin": "npx nx serve admin"
   },
   "private": true,
   "devDependencies": {

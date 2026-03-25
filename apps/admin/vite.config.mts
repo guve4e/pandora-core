@@ -29,12 +29,10 @@ export default defineConfig(() => ({
   plugins: [vue()],
 
   build: {
-    outDir: resolve(rootDir, 'dist'),
+    outDir: resolve(rootDir, '../../admin/dist'),
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: { transformMixedEsModules: true },
-    outDir: '../../admin/dist',
-    emptyOutDir: true,
   },
 
   test: {
