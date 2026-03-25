@@ -33,6 +33,8 @@ export default defineConfig(() => ({
     emptyOutDir: true,
     reportCompressedSize: true,
     commonjsOptions: { transformMixedEsModules: true },
+    outDir: '../../admin/dist',
+    emptyOutDir: true,
   },
 
   test: {
