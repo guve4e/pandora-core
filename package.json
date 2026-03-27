@@ -10,7 +10,9 @@
     "db:seed": "node apps/api/scripts/seed.js",
     "db:setup": "npm run migrate:up && npm run db:seed",
     "api": "npx nx serve api",
-    "admin": "npx nx serve admin"
+    "admin": "npx nx serve admin",
+    "assistant": "nx serve assistant-service",
+    "widget": "nx serve assistant-widget"
   },
   "private": true,
   "devDependencies": {

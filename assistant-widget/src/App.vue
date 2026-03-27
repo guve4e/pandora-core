@@ -21,15 +21,27 @@
       </div>
 
       <div class="messages" ref="messagesEl">
-        <div class="intro-card" v-if="messages.length === 1">
-          <div class="intro-title">Как можем да помогнем</div>
+        <div
+          class="intro-card"
+          v-if="
+            messages.length === 1 &&
+            messages[0]?.role === 'assistant' &&
+            config.introItems?.length
+          "
+        >
+          <div class="intro-title">
+            {{ config.introTitle || 'Как можем да помогнем' }}
+          </div>
+
           <ul>
-            <li>електроинсталации</li>
-            <li>електрически табла</li>
-            <li>огледи и оферти</li>
-            <li>консултация за обект</li>
+            <li v-for="item in config.introItems" :key="item">
+              {{ item }}
+            </li>
           </ul>
-          <div class="intro-note">{{ config.disclaimer }}</div>
+
+          <div v-if="config.introNote" class="intro-note">
+            {{ config.introNote }}
+          </div>
         </div>
 
         <div
@@ -71,14 +83,15 @@
       </form>
 
       <div class="footer-note">
-        AI асистент за първоначални запитвания. При нужда екипът ще се свърже с вас.
+        AI асистент за първоначални запитвания. При нужда екипът ще се свърже с
+        вас.
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { nextTick, ref, watch } from 'vue';
+import { nextTick, ref, watch, onMounted } from 'vue';
 import { getWidgetConfig } from './widget.config';
 
 type ChatMessage = {
@@ -88,7 +101,7 @@ type ChatMessage = {
 
 const config = getWidgetConfig();
 
-const isOpen = ref(true);
+const isOpen = ref(false);
 const loading = ref(false);
 const draft = ref('');
 const conversationId = ref<string | null>(null);
@@ -100,6 +113,10 @@ const messages = ref<ChatMessage[]>([
     text: config.welcomeMessage,
   },
 ]);
+
+onMounted(() => {
+  isOpen.value = window.innerWidth >= 768;
+});
 
 function scrollToBottom() {
   nextTick(() => {
@@ -152,13 +169,16 @@ async function sendMessage() {
   try {
     const id = await ensureConversation();
 
-    const res = await fetch(`${config.apiBaseUrl}/conversations/${id}/messages`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
+    const res = await fetch(
+      `${config.apiBaseUrl}/conversations/${id}/messages`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: text }),
       },
-      body: JSON.stringify({ message: text }),
-    });
+    );
 
     if (!res.ok) {
       const body = await res.text();
@@ -176,8 +196,7 @@ async function sendMessage() {
   } catch (error: any) {
     messages.value.push({
       role: 'assistant',
-      text:
-        'Възникна проблем при връзката с асистента. Моля, опитайте отново след малко.',
+      text: 'Възникна проблем при връзката с асистента. Моля, опитайте отново след малко.',
     });
     console.error(error);
   } finally {
@@ -192,10 +211,7 @@ async function sendMessage() {
   right: 18px;
   bottom: 18px;
   z-index: 9999;
-  font-family:
-    Inter,
-    Arial,
-    sans-serif;
+  font-family: Inter, Arial, sans-serif;
 }
 
 .launcher {
@@ -221,8 +237,8 @@ async function sendMessage() {
 }
 
 .panel {
-  width: 370px;
-  height: 620px;
+  width: min(370px, calc(100vw - 24px));
+  height: min(620px, calc(100vh - 32px));
   border: 1px solid #d4d4d8;
   border-radius: 18px;
   background: #ffffff;
@@ -245,12 +261,14 @@ async function sendMessage() {
   display: flex;
   flex-direction: column;
   gap: 6px;
+  min-width: 0;
 }
 
 .title-row {
   display: flex;
   align-items: center;
   gap: 8px;
+  min-width: 0;
 }
 
 .title-row strong {
@@ -265,6 +283,7 @@ async function sendMessage() {
   background: #dbeafe;
   padding: 2px 7px;
   border-radius: 999px;
+  flex-shrink: 0;
 }
 
 .subtitle {
@@ -281,6 +300,7 @@ async function sendMessage() {
   cursor: pointer;
   color: #374151;
   padding: 0;
+  flex-shrink: 0;
 }
 
 .messages {
@@ -412,6 +432,7 @@ async function sendMessage() {
 
 .input-row input {
   flex: 1;
+  min-width: 0;
   padding: 12px 14px;
   border-radius: 12px;
   border: 1px solid #d1d5db;
@@ -431,6 +452,7 @@ async function sendMessage() {
   color: white;
   font-weight: 600;
   cursor: pointer;
+  flex-shrink: 0;
 }
 
 .input-row button:disabled {
@@ -446,13 +468,55 @@ async function sendMessage() {
 }
 
 @keyframes pulse {
-  0%, 80%, 100% {
+  0%,
+  80%,
+  100% {
     opacity: 0.3;
     transform: scale(0.9);
   }
   40% {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@media (max-width: 767px) {
+  .widget-shell {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+  }
+
+  .launcher {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 16px;
+  }
+
+  .panel {
+    width: 100%;
+    height: min(72vh, 620px);
+    border-radius: 16px;
+  }
+
+  .messages {
+    padding: 12px;
+  }
+
+  .message {
+    max-width: 88%;
+  }
+
+  .message-text {
+    font-size: 14px;
+  }
+
+  .input-row {
+    padding: 10px;
+  }
+
+  .input-row button {
+    padding: 12px 14px;
   }
 }
 </style>
