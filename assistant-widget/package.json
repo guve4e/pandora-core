@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:prod": "vite build",
+    "deploy:prod": "bash -lc 'if [ \"${DEPLOY_ENV}\" != \"prod\" ]; then echo \"Skipping deploy: DEPLOY_ENV is not prod\"; exit 1; fi; if [ \"$(hostname)\" != \"pi\" ]; then echo \"Skipping deploy: not running on pi\"; exit 1; fi; npm run build:prod && sudo mkdir -p /var/www/static/assistant-widget && sudo rm -rf /var/www/static/assistant-widget/* && sudo cp -R dist/* /var/www/static/assistant-widget/ && echo \"Deployed widget files:\" && find /var/www/static/assistant-widget -maxdepth 3 -type f | sort && echo \"Verification:\" && grep -R \"Опишете накратко какво планирате\\|introItems\\|launcherLabel\" -n /var/www/static/assistant-widget || true'"
   },
   "dependencies": {
     "vue": "^3.5.24"
