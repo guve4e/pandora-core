@@ -1,19 +1,22 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'node:path';
-
-const rootDir = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  root: rootDir,
   plugins: [vue()],
-  server: {
-    port: 4301,
-    host: 'localhost',
-  },
   build: {
-    outDir: resolve(rootDir, 'dist'),
-    emptyOutDir: true,
+    outDir: 'dist',
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        entryFileNames: 'assets/assistant-widget.js',
+        chunkFileNames: 'assets/assistant-widget.js',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.endsWith('.css')) {
+            return 'assets/assistant-widget.css';
+          }
+          return 'assets/[name][extname]';
+        },
+      },
+    },
   },
 });
