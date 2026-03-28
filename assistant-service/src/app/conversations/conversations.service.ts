@@ -1,5 +1,3 @@
-// ⚠️ FULL FILE REWRITE (clean + gated)
-
 import {
   Injectable,
   NotFoundException,
@@ -8,6 +6,7 @@ import { ChatService } from '../chat/chat.service';
 import { LeadCaptureService } from '../lead-capture/lead-capture.service';
 import { TenantValidationService } from '../tenant-validation/tenant-validation.service';
 import { ConversationsRepository } from './conversations.repository';
+import { AiService } from '../ai/ai.service';
 
 @Injectable()
 export class ConversationsService {
@@ -16,6 +15,7 @@ export class ConversationsService {
     private readonly chatService: ChatService,
     private readonly leadCapture: LeadCaptureService,
     private readonly tenantValidation: TenantValidationService,
+    private readonly aiService: AiService,
   ) {}
 
   async createConversation(input: {
@@ -59,17 +59,38 @@ export class ConversationsService {
       messageText: result.reply,
     });
 
-    // 🔥 GATED LEAD CAPTURE (SMART, NOT DUMB)
+    const finalRows = await this.repo.listMessages(conversationId);
+    const finalHistory = finalRows.map((row) => ({
+      role: row.role,
+      text: row.message_text,
+    }));
+
+    // --- Conversation analysis (gated)
+    const shouldAnalyzeConversation =
+      finalRows.length >= 4;
+
+    if (shouldAnalyzeConversation) {
+      try {
+        const analysis = await this.aiService.analyzeConversation(
+          conversation.tenant_slug,
+          finalHistory,
+        );
+
+        await this.repo.updateAnalysis(conversationId, analysis);
+      } catch {
+        // swallow for now; analysis should not break reply path
+      }
+    }
+
+    // --- Lead capture (gated)
     let leadId = conversation.lead_id ?? null;
 
     const shouldAttemptLeadCapture =
-      !conversation.lead_id && // no lead yet
-      historyRows.length >= 2 && // at least 2 messages already
+      !conversation.lead_id &&
+      historyRows.length >= 2 &&
       this.containsContactSignal(message);
 
     if (shouldAttemptLeadCapture) {
-      const finalRows = await this.repo.listMessages(conversationId);
-
       const captureResult = await this.leadCapture.tryCapture({
         tenantSlug: conversation.tenant_slug,
         conversationId,
@@ -108,10 +129,8 @@ export class ConversationsService {
     };
   }
 
-  // 🔥 SIMPLE HEURISTIC (GOOD ENOUGH FOR NOW)
   private containsContactSignal(message: string): boolean {
     const lower = message.toLowerCase();
-
     const phoneRegex = /(\+?\d[\d\s\-]{6,})/;
 
     return (
