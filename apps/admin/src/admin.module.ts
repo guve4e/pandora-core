@@ -1,5 +1,6 @@
 import DashboardView from './views/DashboardView.vue';
 import AiUsageView from './views/AiUsageView.vue';
+import TenantAiUsageView from './views/TenantAiUsageView.vue';
 import ConversationsView from './views/ConversationsView.vue';
 import TenantVisitorsView from './views/TenantVisitorsView.vue';
 import SettingsView from './views/SettingsView.vue';
@@ -20,9 +21,7 @@ export const adminModule = {
 
   platformMenu: [
     { to: '/', label: 'Dashboard' },
-    { to: '/ai-usage', label: 'AI Usage' },
-    { to: '/conversations', label: 'Conversations' },
-    { to: '/visitors', label: 'Visitors' },
+    { to: '/platform/ai-usage', label: 'AI Usage' },
     { to: '/platform/tenants', label: 'Platform · Tenants' },
     { to: '/platform/users', label: 'Platform · Users' },
     { to: '/platform/leads', label: 'Platform · Leads' },
@@ -32,6 +31,7 @@ export const adminModule = {
 
   tenantMenu: [
     { to: '/', label: 'Dashboard' },
+    { to: '/ai-usage', label: 'AI Usage' },
     { to: '/leads', label: 'Leads' },
     { to: '/conversations', label: 'Conversations' },
     { to: '/visitors', label: 'Visitors' },
@@ -47,10 +47,16 @@ export const adminModule = {
       meta: { tenantOnly: true, platformOnly: false },
     },
     {
-      path: '/ai-usage',
-      name: 'ai-usage',
+      path: '/platform/ai-usage',
+      name: 'platform-ai-usage',
       component: AiUsageView,
       meta: { tenantOnly: false, platformOnly: true },
+    },
+    {
+      path: '/ai-usage',
+      name: 'tenant-ai-usage',
+      component: TenantAiUsageView,
+      meta: { tenantOnly: true, platformOnly: false },
     },
     {
       path: '/leads',

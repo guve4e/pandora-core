@@ -17,9 +17,12 @@ import { TenantLeadsModule } from './modules/tenant-leads/tenant-leads.module';
 import { AssistantConfigModule } from './modules/assistant-config/assistant-config.module';
 import { LeadsModule } from './modules/leads/leads.module';
 import { VisitorAnalyticsModule } from './modules/visitor-analytics/visitor-analytics.module';
+import { PlatformAiUsageModule } from './platform-ai-usage/platform-ai-usage.module';
+import { TenantAiUsageModule } from './tenant-ai-usage/tenant-ai-usage.module';
 
 @Module({
   imports: [
+    TenantAiUsageModule,
     ConfigModule.forRoot({ isGlobal: true }),
     ScheduleModule.forRoot(),
     LoggingModule,
@@ -35,6 +38,7 @@ import { VisitorAnalyticsModule } from './modules/visitor-analytics/visitor-anal
     AssistantConfigModule,
     LeadsModule,
     VisitorAnalyticsModule,
+    PlatformAiUsageModule,
   ],
   providers: [
     {

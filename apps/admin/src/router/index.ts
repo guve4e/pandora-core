@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import type { RouteRecordRaw } from 'vue-router';
+import AiUsageView from '../views/AiUsageView.vue';
+import TenantAiUsageView from '../views/TenantAiUsageView.vue';
 import {
   LoginView,
   AcceptInviteView,
@@ -12,6 +14,16 @@ import TenantLeadsView from '../views/TenantLeadsView.vue';
 import LeadDetailView from '../views/LeadDetailView.vue';
 
 const routes: RouteRecordRaw[] = [
+  {
+    path: '/ai-usage',
+    name: 'tenant-ai-usage',
+    component: TenantAiUsageView,
+  },
+  {
+    path: '/platform/ai-usage',
+    name: 'platform-ai-usage',
+    component: AiUsageView,
+  },
   {
     path: '/login',
     name: 'login',

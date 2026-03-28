@@ -21,4 +21,20 @@ export interface BusinessProfile {
 
 export interface AssistantChatResult {
   reply: string;
+  model: string | null;
+  tokensInput: number | null;
+  tokensOutput: number | null;
+  meta?: Record<string, unknown>;
+}
+
+export interface ConversationAnalysisResult {
+  summary: string;
+  intent: string;
+  city: string | null;
+  serviceType: string | null;
+  leadScore: number;
+  model: string | null;
+  tokensInput: number | null;
+  tokensOutput: number | null;
+  meta?: Record<string, unknown>;
 }

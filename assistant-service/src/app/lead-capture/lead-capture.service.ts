@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { OpenAI } from 'openai';
+import { OpenAiChatClient } from '@org/backend-ai';
 import { getCoreApiConfig, getOpenAiConfig } from '../config';
 
 type ChatMsg = {
@@ -19,6 +19,12 @@ type ExtractedLead = {
 type CapturedLeadResult = {
   leadId: string | null;
   extracted: ExtractedLead | null;
+  usage?: {
+    model: string | null;
+    tokensInput: number | null;
+    tokensOutput: number | null;
+    meta?: Record<string, unknown>;
+  };
 };
 
 @Injectable()
@@ -27,17 +33,25 @@ export class LeadCaptureService {
   private readonly openAiConfig = getOpenAiConfig();
   private readonly coreApiConfig = getCoreApiConfig();
 
-  private readonly openai = new OpenAI({
-    apiKey: this.openAiConfig.apiKey ?? undefined,
-    timeout: this.openAiConfig.timeoutMs,
-  });
+  private readonly chatClient = this.openAiConfig.apiKey
+    ? new OpenAiChatClient({
+        apiKey: this.openAiConfig.apiKey,
+        timeoutMs: this.openAiConfig.timeoutMs,
+      })
+    : null;
 
   async tryCapture(input: {
     tenantSlug: string;
     conversationId: string;
     messages: ChatMsg[];
   }): Promise<CapturedLeadResult> {
-    const extracted = await this.extractLead(input.messages);
+    const extraction = await this.extractLead(
+      input.tenantSlug,
+      input.conversationId,
+      input.messages,
+    );
+
+    const extracted = extraction.extracted;
 
     if (!extracted?.phone?.trim()) {
       this.logger.log(
@@ -46,6 +60,7 @@ export class LeadCaptureService {
       return {
         leadId: null,
         extracted,
+        usage: extraction.usage,
       };
     }
 
@@ -71,6 +86,7 @@ export class LeadCaptureService {
       return {
         leadId: null,
         extracted,
+        usage: extraction.usage,
       };
     }
 
@@ -83,13 +99,37 @@ export class LeadCaptureService {
     return {
       leadId: lead.id ?? null,
       extracted,
+      usage: extraction.usage,
     };
   }
 
-  private async extractLead(messages: ChatMsg[]): Promise<ExtractedLead | null> {
-    if (!this.openAiConfig.apiKey) {
+  private async extractLead(
+    tenantSlug: string,
+    conversationId: string,
+    messages: ChatMsg[],
+  ): Promise<{
+    extracted: ExtractedLead | null;
+    usage?: {
+      model: string | null;
+      tokensInput: number | null;
+      tokensOutput: number | null;
+      meta?: Record<string, unknown>;
+    };
+  }> {
+    if (!this.openAiConfig.apiKey || !this.chatClient) {
       this.logger.warn('OPENAI_API_KEY missing; skipping lead extraction');
-      return null;
+      return {
+        extracted: null,
+        usage: {
+          model: null,
+          tokensInput: null,
+          tokensOutput: null,
+          meta: {
+            provider: 'openai',
+            configured: false,
+          },
+        },
+      };
     }
 
     const convo = messages
@@ -118,29 +158,64 @@ ${convo}
 `.trim();
 
     try {
-      const res = await this.openai.chat.completions.create({
+      const result = await this.chatClient.generateText({
         model: this.openAiConfig.model,
-        temperature: 0.1,
-        response_format: { type: 'json_object' },
         messages: [
           { role: 'system', content: system },
           { role: 'user', content: user },
         ],
+        temperature: 0.1,
+        maxTokens: 200,
+        context: {
+          app: 'assistant',
+          feature: 'lead_extraction',
+          tenantSlug,
+          conversationId,
+        },
       });
 
-      const text = res.choices?.[0]?.message?.content ?? '{}';
-      const parsed = JSON.parse(text);
+      let parsed: Record<string, unknown> = {};
+      try {
+        parsed = JSON.parse(result.data.text);
+      } catch {
+        parsed = {};
+      }
 
       return {
-        name: parsed.name ?? null,
-        phone: parsed.phone ?? null,
-        city: parsed.city ?? null,
-        serviceType: parsed.serviceType ?? null,
-        summary: parsed.summary ?? null,
+        extracted: {
+          name: (parsed.name as string | null) ?? null,
+          phone: (parsed.phone as string | null) ?? null,
+          city: (parsed.city as string | null) ?? null,
+          serviceType: (parsed.serviceType as string | null) ?? null,
+          summary: (parsed.summary as string | null) ?? null,
+        },
+        usage: {
+          model: result.meta.model,
+          tokensInput: result.usage.inputTokens,
+          tokensOutput: result.usage.outputTokens,
+          meta: {
+            provider: result.meta.provider,
+            latencyMs: result.meta.latencyMs,
+            estimatedCostUsd: result.usage.estimatedCostUsd,
+            totalTokens: result.usage.totalTokens,
+            raw: result.raw ?? null,
+          },
+        },
       };
     } catch (error: any) {
       this.logger.error(`Lead extraction failed: ${error?.message}`, error?.stack);
-      return null;
+      return {
+        extracted: null,
+        usage: {
+          model: this.openAiConfig.model,
+          tokensInput: null,
+          tokensOutput: null,
+          meta: {
+            provider: 'openai',
+            error: true,
+          },
+        },
+      };
     }
   }
 }

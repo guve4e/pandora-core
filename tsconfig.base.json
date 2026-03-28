@@ -2,17 +2,30 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@org/backend-logging": ["libs/backend/logging/src/index.ts"],
-      "@org/backend-db": ["libs/backend/db/src/index.ts"],
-      "@org/backend-messaging": ["libs/backend/messaging/src/index.ts"],
-      "@org/shared-contracts": ["libs/shared/contracts/src/index.ts"]
+      "@org/backend-logging": [
+        "libs/backend/logging/src/index.ts"
+      ],
+      "@org/backend-db": [
+        "libs/backend/db/src/index.ts"
+      ],
+      "@org/backend-messaging": [
+        "libs/backend/messaging/src/index.ts"
+      ],
+      "@org/shared-contracts": [
+        "libs/shared/contracts/src/index.ts"
+      ],
+      "@org/backend-ai": [
+        "libs/backend/ai/src/index.ts"
+      ]
     },
     "composite": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
     "importHelpers": true,
     "isolatedModules": true,
-    "lib": ["es2022"],
+    "lib": [
+      "es2022"
+    ],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "noEmitOnError": true,
@@ -23,6 +36,8 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es2022",
-    "customConditions": ["@org/source"]
+    "customConditions": [
+      "@org/source"
+    ]
   }
 }

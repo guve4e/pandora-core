@@ -23,6 +23,9 @@
     },
     {
       "path": "./assistant-widget"
+    },
+    {
+      "path": "./libs/backend/ai"
     }
   ]
 }

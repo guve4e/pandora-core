@@ -1,10 +1,14 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { OpenAI } from 'openai';
+import {
+  OpenAiChatClient,
+  type ChatMessageInput,
+} from '@org/backend-ai';
 import type {
   AssistantChatInput,
   AssistantChatResult,
   AssistantChatTurn,
   BusinessProfile,
+  ConversationAnalysisResult,
 } from './ai.types';
 import { buildSystemPrompt, buildUserPrompt } from './prompts';
 import { buildConversationAnalysisPrompt } from './analysis.prompts';
@@ -15,22 +19,31 @@ export class AiService {
   private readonly logger = new Logger(AiService.name);
   private readonly config = getOpenAiConfig();
 
-  private readonly openai = new OpenAI({
-    apiKey: this.config.apiKey ?? undefined,
-    timeout: this.config.timeoutMs,
-  });
+  private readonly chatClient = this.config.apiKey
+    ? new OpenAiChatClient({
+        apiKey: this.config.apiKey,
+        timeoutMs: this.config.timeoutMs,
+      })
+    : null;
 
   async chat(
     input: AssistantChatInput,
     profile: BusinessProfile,
   ): Promise<AssistantChatResult> {
-    if (!this.config.apiKey) {
+    if (!this.config.apiKey || !this.chatClient) {
       this.logger.warn(
         'OPENAI_API_KEY is missing. Returning fallback response.',
       );
       return {
         reply:
           'The assistant is not configured yet because OPENAI_API_KEY is missing.',
+        model: null,
+        tokensInput: null,
+        tokensOutput: null,
+        meta: {
+          provider: 'openai',
+          configured: false,
+        },
       };
     }
 
@@ -42,21 +55,34 @@ export class AiService {
     );
 
     try {
-      const res = await this.openai.chat.completions.create({
+      const result = await this.chatClient.generateText({
         model: this.config.model,
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
         ],
         temperature: 0.1,
-        max_tokens: 300,
+        maxTokens: 300,
+        context: {
+          app: 'assistant',
+          feature: 'chat_reply',
+          tenantSlug: input.tenantSlug,
+        },
       });
 
-      const reply =
-        res.choices?.[0]?.message?.content?.trim() ||
-        'I could not generate a valid answer.';
-
-      return { reply };
+      return {
+        reply: result.data.text,
+        model: result.meta.model,
+        tokensInput: result.usage.inputTokens,
+        tokensOutput: result.usage.outputTokens,
+        meta: {
+          provider: result.meta.provider,
+          latencyMs: result.meta.latencyMs,
+          estimatedCostUsd: result.usage.estimatedCostUsd,
+          totalTokens: result.usage.totalTokens,
+          raw: result.raw ?? null,
+        },
+      };
     } catch (error) {
       const message = error instanceof Error ? error.message : String(error);
 
@@ -66,12 +92,26 @@ export class AiService {
         return {
           reply:
             'The assistant is taking too long to respond right now. Please try again in a moment.',
+          model: this.config.model,
+          tokensInput: null,
+          tokensOutput: null,
+          meta: {
+            provider: 'openai',
+            timeout: true,
+          },
         };
       }
 
       return {
         reply:
           'There was a problem generating a response. Please try again shortly.',
+        model: this.config.model,
+        tokensInput: null,
+        tokensOutput: null,
+        meta: {
+          provider: 'openai',
+          error: true,
+        },
       };
     }
   }
@@ -79,14 +119,8 @@ export class AiService {
   async analyzeConversation(
     tenantSlug: string,
     history: AssistantChatTurn[],
-  ): Promise<{
-    summary: string;
-    intent: string;
-    city: string | null;
-    serviceType: string | null;
-    leadScore: number;
-  }> {
-    if (!this.config.apiKey) {
+  ): Promise<ConversationAnalysisResult> {
+    if (!this.config.apiKey || !this.chatClient) {
       this.logger.warn('OPENAI_API_KEY missing; skipping conversation analysis');
       return {
         summary: '',
@@ -94,29 +128,79 @@ export class AiService {
         city: null,
         serviceType: null,
         leadScore: 0,
+        model: null,
+        tokensInput: null,
+        tokensOutput: null,
+        meta: {
+          provider: 'openai',
+          configured: false,
+        },
       };
     }
 
     const prompt = buildConversationAnalysisPrompt(tenantSlug, history);
 
-    const res = await this.openai.chat.completions.create({
-      model: this.config.model,
-      messages: [{ role: 'system', content: prompt }],
-      temperature: 0,
-      max_tokens: 200,
-    });
-
-    const text = res.choices?.[0]?.message?.content ?? '{}';
-
     try {
-      return JSON.parse(text);
-    } catch {
+      const result = await this.chatClient.generateText({
+        model: this.config.model,
+        messages: [{ role: 'system', content: prompt } satisfies ChatMessageInput],
+        temperature: 0,
+        maxTokens: 200,
+        context: {
+          app: 'assistant',
+          feature: 'conversation_analysis',
+          tenantSlug,
+        },
+      });
+
+      let parsed: {
+        summary?: string;
+        intent?: string;
+        city?: string | null;
+        serviceType?: string | null;
+        leadScore?: number;
+      } = {};
+
+      try {
+        parsed = JSON.parse(result.data.text);
+      } catch {
+        parsed = {};
+      }
+
+      return {
+        summary: parsed.summary ?? '',
+        intent: parsed.intent ?? '',
+        city: parsed.city ?? null,
+        serviceType: parsed.serviceType ?? null,
+        leadScore: Number.isFinite(parsed.leadScore) ? Number(parsed.leadScore) : 0,
+        model: result.meta.model,
+        tokensInput: result.usage.inputTokens,
+        tokensOutput: result.usage.outputTokens,
+        meta: {
+          provider: result.meta.provider,
+          latencyMs: result.meta.latencyMs,
+          estimatedCostUsd: result.usage.estimatedCostUsd,
+          totalTokens: result.usage.totalTokens,
+          raw: result.raw ?? null,
+        },
+      };
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Conversation analysis failed: ${message}`);
+
       return {
         summary: '',
         intent: '',
         city: null,
         serviceType: null,
         leadScore: 0,
+        model: this.config.model,
+        tokensInput: null,
+        tokensOutput: null,
+        meta: {
+          provider: 'openai',
+          error: true,
+        },
       };
     }
   }

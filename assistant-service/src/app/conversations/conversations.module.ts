@@ -7,6 +7,7 @@ import { TenantValidationModule } from '../tenant-validation/tenant-validation.m
 import { ConversationsController } from './conversations.controller';
 import { ConversationsRepository } from './conversations.repository';
 import { ConversationsService } from './conversations.service';
+import { AiUsageRepository } from './ai-usage.repository';
 
 @Module({
   imports: [
@@ -17,7 +18,11 @@ import { ConversationsService } from './conversations.service';
     TenantValidationModule,
   ],
   controllers: [ConversationsController],
-  providers: [ConversationsRepository, ConversationsService],
+  providers: [
+    ConversationsRepository,
+    ConversationsService,
+    AiUsageRepository,
+  ],
   exports: [ConversationsService],
 })
 export class ConversationsModule {}

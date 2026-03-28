@@ -22,6 +22,9 @@
     },
     {
       "path": "../libs/backend/logging/tsconfig.lib.json"
+    },
+    {
+      "path": "../libs/backend/ai/tsconfig.lib.json"
     }
   ]
 }
