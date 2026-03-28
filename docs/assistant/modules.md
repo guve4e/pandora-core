@@ -33,7 +33,7 @@ Thin façade.
 
 ### Responsibilities
 
-- load tenant profile
+- load tenant assistant profile
 - call AI service
 
 ### Note
@@ -54,7 +54,7 @@ Handles OpenAI interaction and prompt building.
 
 ---
 
-## Knowledge Module
+## Assistant Config Module
 
 Loads tenant assistant configuration.
 
@@ -65,7 +65,7 @@ Loads tenant assistant configuration.
 
 ### Note
 
-This is NOT a knowledge/RAG module. It is config.
+This is not a retrieval or RAG module. It provides tenant-specific assistant configuration used to shape responses.
 
 ---
 
