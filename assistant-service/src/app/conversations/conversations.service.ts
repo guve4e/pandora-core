@@ -1,3 +1,5 @@
+// ⚠️ FULL FILE REWRITE (clean + gated)
+
 import {
   Injectable,
   NotFoundException,
@@ -57,26 +59,37 @@ export class ConversationsService {
       messageText: result.reply,
     });
 
-    const finalRows = await this.repo.listMessages(conversationId);
+    // 🔥 GATED LEAD CAPTURE (SMART, NOT DUMB)
+    let leadId = conversation.lead_id ?? null;
 
-    const captureResult = await this.leadCapture.tryCapture({
-      tenantSlug: conversation.tenant_slug,
-      conversationId,
-      messages: finalRows.map((row) => ({
-        role: row.role,
-        text: row.message_text,
-        created_at: row.created_at,
-      })),
-    });
+    const shouldAttemptLeadCapture =
+      !conversation.lead_id && // no lead yet
+      historyRows.length >= 2 && // at least 2 messages already
+      this.containsContactSignal(message);
 
-    if (captureResult.leadId && conversation.lead_id !== captureResult.leadId) {
-      await this.repo.setLeadId(conversationId, captureResult.leadId);
+    if (shouldAttemptLeadCapture) {
+      const finalRows = await this.repo.listMessages(conversationId);
+
+      const captureResult = await this.leadCapture.tryCapture({
+        tenantSlug: conversation.tenant_slug,
+        conversationId,
+        messages: finalRows.map((row) => ({
+          role: row.role,
+          text: row.message_text,
+          created_at: row.created_at,
+        })),
+      });
+
+      if (captureResult.leadId) {
+        await this.repo.setLeadId(conversationId, captureResult.leadId);
+        leadId = captureResult.leadId;
+      }
     }
 
     return {
       conversationId,
       reply: assistantMessage.message_text,
-      leadId: captureResult.leadId ?? conversation.lead_id ?? null,
+      leadId,
     };
   }
 
@@ -93,5 +106,22 @@ export class ConversationsService {
       conversation,
       messages,
     };
+  }
+
+  // 🔥 SIMPLE HEURISTIC (GOOD ENOUGH FOR NOW)
+  private containsContactSignal(message: string): boolean {
+    const lower = message.toLowerCase();
+
+    const phoneRegex = /(\+?\d[\d\s\-]{6,})/;
+
+    return (
+      phoneRegex.test(message) ||
+      lower.includes('call me') ||
+      lower.includes('phone') ||
+      lower.includes('номер') ||
+      lower.includes('обади') ||
+      lower.includes('връзка') ||
+      lower.includes('contact')
+    );
   }
 }
