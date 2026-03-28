@@ -8,25 +8,23 @@ import type {
 } from './ai.types';
 import { buildSystemPrompt, buildUserPrompt } from './prompts';
 import { buildConversationAnalysisPrompt } from './analysis.prompts';
+import { getOpenAiConfig } from '../config';
 
 @Injectable()
 export class AiService {
   private readonly logger = new Logger(AiService.name);
-  private readonly model = process.env.OPENAI_MODEL || 'gpt-4.1-mini';
-  private readonly timeoutMs = Number(process.env.OPENAI_TIMEOUT_MS || 20000);
+  private readonly config = getOpenAiConfig();
 
   private readonly openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-    timeout: this.timeoutMs,
+    apiKey: this.config.apiKey ?? undefined,
+    timeout: this.config.timeoutMs,
   });
 
   async chat(
     input: AssistantChatInput,
     profile: BusinessProfile,
   ): Promise<AssistantChatResult> {
-    const apiKey = process.env.OPENAI_API_KEY;
-
-    if (!apiKey) {
+    if (!this.config.apiKey) {
       this.logger.warn(
         'OPENAI_API_KEY is missing. Returning fallback response.',
       );
@@ -40,12 +38,12 @@ export class AiService {
     const userPrompt = buildUserPrompt(input.message, input.history ?? []);
 
     this.logger.log(
-      `Calling OpenAI model=${this.model} tenant=${input.tenantSlug} timeoutMs=${this.timeoutMs}`,
+      `Calling OpenAI model=${this.config.model} tenant=${input.tenantSlug} timeoutMs=${this.config.timeoutMs}`,
     );
 
     try {
       const res = await this.openai.chat.completions.create({
-        model: this.model,
+        model: this.config.model,
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: userPrompt },
@@ -88,10 +86,21 @@ export class AiService {
     serviceType: string | null;
     leadScore: number;
   }> {
+    if (!this.config.apiKey) {
+      this.logger.warn('OPENAI_API_KEY missing; skipping conversation analysis');
+      return {
+        summary: '',
+        intent: '',
+        city: null,
+        serviceType: null,
+        leadScore: 0,
+      };
+    }
+
     const prompt = buildConversationAnalysisPrompt(tenantSlug, history);
 
     const res = await this.openai.chat.completions.create({
-      model: this.model,
+      model: this.config.model,
       messages: [{ role: 'system', content: prompt }],
       temperature: 0,
       max_tokens: 200,

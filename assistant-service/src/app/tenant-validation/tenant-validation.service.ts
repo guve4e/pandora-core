@@ -4,6 +4,7 @@ import {
   Logger,
   ServiceUnavailableException,
 } from '@nestjs/common';
+import { getCoreApiConfig } from '../config';
 
 export interface ValidTenantResult {
   id: string;
@@ -14,18 +15,16 @@ export interface ValidTenantResult {
 @Injectable()
 export class TenantValidationService {
   private readonly logger = new Logger(TenantValidationService.name);
+  private readonly coreApiConfig = getCoreApiConfig();
 
   async validateTenantSlug(slug: string): Promise<ValidTenantResult> {
-    const apiBase = process.env.CORE_API_BASE_URL || 'http://localhost:3001/api';
-    const internalToken = process.env.INTERNAL_API_TOKEN || '';
-
     try {
       const res = await fetch(
-        `${apiBase}/internal/tenants/slug/${encodeURIComponent(slug)}`,
+        `${this.coreApiConfig.baseUrl}/internal/tenants/slug/${encodeURIComponent(slug)}`,
         {
           method: 'GET',
           headers: {
-            'x-internal-token': internalToken,
+            'x-internal-token': this.coreApiConfig.internalToken,
           },
         },
       );

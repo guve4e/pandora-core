@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { OpenAI } from 'openai';
+import { getCoreApiConfig, getOpenAiConfig } from '../config';
 
 type ChatMsg = {
   role: 'user' | 'assistant';
@@ -23,10 +24,12 @@ type CapturedLeadResult = {
 @Injectable()
 export class LeadCaptureService {
   private readonly logger = new Logger(LeadCaptureService.name);
-  private readonly model = process.env.OPENAI_MODEL || 'gpt-4.1-mini';
+  private readonly openAiConfig = getOpenAiConfig();
+  private readonly coreApiConfig = getCoreApiConfig();
 
   private readonly openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
+    apiKey: this.openAiConfig.apiKey ?? undefined,
+    timeout: this.openAiConfig.timeoutMs,
   });
 
   async tryCapture(input: {
@@ -46,14 +49,11 @@ export class LeadCaptureService {
       };
     }
 
-    const apiBase = process.env.CORE_API_BASE_URL || 'http://localhost:3001/api';
-    const internalToken = process.env.INTERNAL_API_TOKEN || '';
-
-    const res = await fetch(`${apiBase}/internal/leads/assistant`, {
+    const res = await fetch(`${this.coreApiConfig.baseUrl}/internal/leads/assistant`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-internal-token': internalToken,
+        'x-internal-token': this.coreApiConfig.internalToken,
       },
       body: JSON.stringify({
         tenantSlug: input.tenantSlug,
@@ -87,8 +87,7 @@ export class LeadCaptureService {
   }
 
   private async extractLead(messages: ChatMsg[]): Promise<ExtractedLead | null> {
-    const apiKey = process.env.OPENAI_API_KEY;
-    if (!apiKey) {
+    if (!this.openAiConfig.apiKey) {
       this.logger.warn('OPENAI_API_KEY missing; skipping lead extraction');
       return null;
     }
@@ -120,7 +119,7 @@ ${convo}
 
     try {
       const res = await this.openai.chat.completions.create({
-        model: this.model,
+        model: this.openAiConfig.model,
         temperature: 0.1,
         response_format: { type: 'json_object' },
         messages: [
