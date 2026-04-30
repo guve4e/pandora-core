@@ -98,8 +98,12 @@ export async function getVisitors(): Promise<VisitorsResponse> {
   return data;
 }
 
-export async function getVisitorDetail(visitorId: string): Promise<VisitorDetailResponse | null> {
-  const { data } = await http.get<VisitorDetailResponse | null>(`/analytics/visitors/${visitorId}`);
+export async function getVisitorDetail(
+  visitorId: string,
+): Promise<VisitorDetailResponse | null> {
+  const { data } = await http.get<VisitorDetailResponse | null>(
+    `/analytics/visitors/${visitorId}`,
+  );
   return data;
 }
 
@@ -109,5 +113,23 @@ export async function getDailyTraffic(
   const { data } = await http.get<DailyTrafficRow[]>('/analytics/daily', {
     params,
   });
+  return data;
+}
+
+export async function markVisitorInternal(
+  visitorId: string,
+  isInternal = true,
+): Promise<{
+  success: true;
+  visitorId: string;
+  isInternal: boolean;
+  updatedEvents: number;
+}> {
+  const { data } = await http.patch(
+    `/analytics/visitors/${visitorId}/internal`,
+    {
+      isInternal,
+    },
+  );
   return data;
 }

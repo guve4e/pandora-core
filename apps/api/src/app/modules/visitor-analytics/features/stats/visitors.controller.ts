@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Req, UnauthorizedException } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Req, UnauthorizedException } from '@nestjs/common';
 import { VisitorsService } from './visitors.service';
 
 @Controller('analytics')
@@ -25,5 +25,24 @@ export class VisitorsController {
     }
 
     return this.service.getVisitorDetail(tenantId, visitorId);
+  }
+
+  @Patch('visitors/:visitorId/internal')
+  async markVisitorInternal(
+    @Req() req: any,
+    @Param('visitorId') visitorId: string,
+    @Body() body: { isInternal?: boolean },
+  ) {
+    const tenantId = req.user?.tenant_id ?? req.user?.tenantId;
+
+    if (!tenantId) {
+      throw new UnauthorizedException('Missing tenant_id');
+    }
+
+    return this.service.markVisitorInternal(
+      tenantId,
+      visitorId,
+      body.isInternal ?? true,
+    );
   }
 }

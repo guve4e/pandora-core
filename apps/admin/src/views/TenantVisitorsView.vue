@@ -8,6 +8,7 @@ import {
   type VisitorDetailResponse,
   type VisitorItem,
   type VisitorsResponse,
+  markVisitorInternal,
 } from '../api/analytics';
 
 const loading = ref(true);
@@ -16,7 +17,7 @@ const data = ref<VisitorsResponse | null>(null);
 const daily = ref<DailyTrafficRow[]>([]);
 const selectedVisitor = ref<VisitorDetailResponse | null>(null);
 
-const trafficFilter = ref('all');
+const trafficFilter = ref('likely_human');
 const visitorLimit = ref(25);
 
 const filteredVisitors = computed(() => {
@@ -173,6 +174,25 @@ function trafficBadgeClass(type: string | null | undefined) {
     default:
       return 'border-slate-600 bg-slate-800/60 text-slate-300';
   }
+}
+
+async function onMarkInternal(visitorId: string) {
+  const confirmed = window.confirm(
+    'Mark this visitor as internal/test traffic? This will hide their events from analytics.',
+  );
+
+  if (!confirmed) return;
+
+  await markVisitorInternal(visitorId, true);
+
+  const [visitorsData, dailyData] = await Promise.all([
+    getVisitors(),
+    getDailyTraffic({ days: 7 }),
+  ]);
+
+  data.value = visitorsData;
+  daily.value = dailyData;
+  selectedVisitor.value = null;
 }
 
 onMounted(async () => {
@@ -497,13 +517,24 @@ onMounted(async () => {
             </p>
           </div>
 
-          <button
-            type="button"
-            class="rounded-lg border border-slate-700 px-3 py-1 text-sm text-slate-300 hover:bg-slate-900"
-            @click="closeVisitor"
-          >
-            Close
-          </button>
+          <div class="flex items-center gap-2">
+            <button
+              v-if="selectedVisitor"
+              type="button"
+              class="rounded-lg border border-amber-500/40 bg-amber-500/10 px-3 py-1 text-sm text-amber-300 hover:bg-amber-500/20"
+              @click="onMarkInternal(selectedVisitor.visitor.visitorId)"
+            >
+              Mark internal
+            </button>
+
+            <button
+              type="button"
+              class="rounded-lg border border-slate-700 px-3 py-1 text-sm text-slate-300 hover:bg-slate-900"
+              @click="closeVisitor"
+            >
+              Close
+            </button>
+          </div>
         </div>
 
         <div v-if="detailLoading" class="text-slate-400">

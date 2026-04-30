@@ -29,7 +29,11 @@ export class DailyTrafficService {
           on ip.ip_address = e.ip_address
         where e.tenant_id = $1
           and e.created_at >= current_date - ($2::int - 1)
-          and coalesce(ip.traffic_type, 'unknown') = 'likely_human'
+          and coalesce(e.is_internal, false) = false
+          and (
+          ip.traffic_type = 'likely_human'
+          or ip.traffic_type is null
+        )
         group by date(e.created_at)
       )
       select
