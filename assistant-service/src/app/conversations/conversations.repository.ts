@@ -134,6 +134,20 @@ export class ConversationsRepository {
     );
   }
 
+  async updateMeta(
+    conversationId: string,
+    meta: Record<string, unknown>,
+  ): Promise<void> {
+    await this.db.systemQuery(
+      `
+      UPDATE assistant.conversations
+      SET meta = $2::jsonb
+      WHERE id = $1
+      `,
+      [conversationId, JSON.stringify(meta ?? {})],
+    );
+  }
+
   async insertMessage(input: {
     conversationId: string;
     role: 'user' | 'assistant';

@@ -17,6 +17,15 @@ export interface BusinessProfile {
   contactPrompt: string | null;
   tone: string | null;
   language: string;
+  features: {
+    estimatorEnabled: boolean;
+  };
+  estimator: {
+    provider: string | null;
+    tenantKey: string | null;
+    mode: string | null;
+    hints: string[];
+  };
 }
 
 export interface AssistantChatResult {

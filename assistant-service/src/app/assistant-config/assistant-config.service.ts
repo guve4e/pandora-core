@@ -10,6 +10,15 @@ export interface TenantAssistantProfile {
   contactPrompt: string | null;
   tone: string | null;
   language: string;
+  features: {
+    estimatorEnabled: boolean;
+  };
+  estimator: {
+    provider: string | null;
+    tenantKey: string | null;
+    mode: string | null;
+    hints: string[];
+  };
 }
 
 @Injectable()
@@ -34,8 +43,20 @@ export class AssistantConfigService {
           'If useful, invite the user to leave contact details for follow-up.',
         tone: 'helpful and practical',
         language: 'bg',
+        features: {
+          estimatorEnabled: false,
+        },
+        estimator: {
+          provider: null,
+          tenantKey: null,
+          mode: null,
+          hints: [],
+        },
       };
     }
+
+    const features = (row.features_json ?? {}) as Record<string, unknown>;
+    const estimator = (row.estimator_json ?? {}) as Record<string, unknown>;
 
     return {
       tenantSlug: row.tenant_slug,
@@ -46,6 +67,19 @@ export class AssistantConfigService {
       contactPrompt: row.contact_prompt,
       tone: row.tone,
       language: row.language ?? 'bg',
+      features: {
+        estimatorEnabled: features.estimatorEnabled === true,
+      },
+      estimator: {
+        provider:
+          typeof estimator.provider === 'string' ? estimator.provider : null,
+        tenantKey:
+          typeof estimator.tenantKey === 'string' ? estimator.tenantKey : null,
+        mode: typeof estimator.mode === 'string' ? estimator.mode : null,
+        hints: Array.isArray(estimator.hints)
+          ? estimator.hints.filter((x): x is string => typeof x === 'string')
+          : [],
+      },
     };
   }
 }

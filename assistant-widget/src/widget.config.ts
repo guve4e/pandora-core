@@ -8,11 +8,11 @@ declare global {
 
 const defaults: AssistantWidgetConfig = {
   apiBaseUrl: 'http://localhost:3010/assistant',
-  tenantSlug: 'voltura',
-  title: 'Voltura Assistant',
+  tenantSlug: 'energrid',
+  title: 'Energrid Assistant',
   subtitle: 'AI асистент за запитвания, огледи и оферти',
   welcomeMessage:
-    'Здравейте! Аз съм AI асистентът на Voltura. Мога да помогна със запитвания за електроинсталации, табла, огледи и оферти.',
+    'Здравейте! Аз съм AI асистентът на Energrid. Мога да помогна със запитвания за електроинсталации, табла, огледи и ориентировъчни оферти.',
   disclaimer:
     'Оставете телефон и кратко описание, за да се свържем с вас по-бързо.',
   launcherLabel: 'Запитване',

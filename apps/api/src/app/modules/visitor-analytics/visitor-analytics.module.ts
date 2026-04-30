@@ -15,21 +15,29 @@ import { GetOverviewService } from './features/get-overview/get-overview.service
 import { GetOverviewController } from './features/get-overview/get-overview.controller'
 import { StatsController } from './features/stats/stats.controller';
 import { StatsService } from './features/stats/stats.service';
+import { EnrichIpController } from './features/enrich-ip/enrich-ip.controller';
+import { EnrichIpService } from './features/enrich-ip/enrich-ip.service';
 
 @Module({
   imports: [DbModule],
-  controllers: [VisitorsController, DailyTrafficController,
+  controllers: [
+    VisitorsController,
+    DailyTrafficController,
     TrackEventsController,
     GetOverviewController,
     GetSdkController,
     StatsController,
+    EnrichIpController,
   ],
-  providers: [VisitorsService, DailyTrafficService,
+  providers: [
+    VisitorsService,
+    DailyTrafficService,
     TrackEventsService,
     GetOverviewService,
     GetSdkService,
     SessionResolutionService,
     StatsService,
+    EnrichIpService,
   ],
 })
 export class VisitorAnalyticsModule {}

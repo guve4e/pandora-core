@@ -68,7 +68,23 @@
     };
   }
 
+  function isLocalhost() {
+    var host = window.location.hostname;
+
+    return (
+      host === 'localhost' ||
+      host === '127.0.0.1' ||
+      host === '0.0.0.0' ||
+      host === '::1' ||
+      host.endsWith('.local')
+    );
+  }
+
   function sendEvents(events) {
+    if (isLocalhost()) {
+      return Promise.resolve();
+    }
+
     if (!apiBaseUrl || !siteKey) {
       warn('[PandoraAnalytics] missing apiBaseUrl or siteKey');
       return Promise.resolve();

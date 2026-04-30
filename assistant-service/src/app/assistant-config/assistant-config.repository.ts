@@ -8,11 +8,14 @@ export interface AssistantConfigRow {
   business_description: string;
   services_json: string[] | null;
   facts_json: string[] | null;
+  features_json: Record<string, unknown> | null;
+  estimator_json: Record<string, unknown> | null;
   contact_prompt: string | null;
   tone: string | null;
   is_active: boolean;
   created_at: string;
   updated_at: string;
+  language: string | null;
 }
 
 @Injectable()
@@ -29,11 +32,14 @@ export class AssistantConfigRepository {
         business_description,
         services_json,
         facts_json,
+        features_json,
+        estimator_json,
         contact_prompt,
         tone,
         is_active,
         created_at,
-        updated_at
+        updated_at,
+        language
       FROM assistant.assistant_configs
       WHERE tenant_slug = $1
         AND is_active = true

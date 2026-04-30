@@ -1,15 +1,20 @@
 <!doctype html>
-<html lang="en">
+<html lang="bg">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Assistant Widget</title>
+    <title>Energrid Assistant Widget</title>
     <script>
       window.AssistantWidgetConfig = {
         apiBaseUrl: 'http://localhost:3010/assistant',
-        tenantSlug: 'default',
-        title: 'Default Assistant',
-        welcomeMessage: 'Здравейте! С какво можем да помогнем?'
+        tenantSlug: 'energrid',
+        title: 'Energrid Assistant',
+        subtitle: 'AI асистент за запитвания, огледи и оферти',
+        welcomeMessage:
+          'Здравейте! Аз съм AI асистентът на Energrid. Мога да помогна със запитвания за електроинсталации, табла, огледи и ориентировъчни оферти.',
+        disclaimer:
+          'Оставете телефон и кратко описание, за да се свържем с вас по-бързо.',
+        launcherLabel: 'Запитване',
       };
     </script>
   </head>

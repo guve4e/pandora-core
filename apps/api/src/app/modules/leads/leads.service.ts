@@ -25,23 +25,6 @@ export class LeadsService {
 
     const phone = data.phone.trim();
 
-    const existing = await this.repo.findRecentByPhone(data.tenantSlug, phone);
-
-    if (existing) {
-      const updated = await this.repo.updatePartial(existing.id, {
-        name: data.name ?? null,
-        city: data.city ?? null,
-        serviceType: data.serviceType ?? null,
-        summary: data.summary ?? null,
-      });
-
-      if (Array.isArray(data.messages) && data.messages.length > 0) {
-        await this.leadMessagesRepo.createMany(updated.id, data.messages);
-      }
-
-      return updated;
-    }
-
     const lead = await this.repo.create({
       tenantSlug: data.tenantSlug,
       name: data.name ?? null,
