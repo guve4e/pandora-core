@@ -14,18 +14,19 @@ export class EnrichIpService {
   async enrichMissing(limit = 25) {
     const { rows } = await this.pool.query<{ ip_address: string }>(
       `
-      select distinct e.ip_address
-      from analytics.tracking_events e
-      left join analytics.tracking_ip_enrichments ip
-        on ip.ip_address = e.ip_address
-      where e.ip_address is not null
-        and ip.ip_address is null
-        and e.ip_address not like '10.%'
-        and e.ip_address not like '192.168.%'
-        and e.ip_address not like '127.%'
-        and e.ip_address not like '::%'
-      order by e.ip_address
-      limit $1
+        select e.ip_address
+        from analytics.tracking_events e
+               left join analytics.tracking_ip_enrichments ip
+                         on ip.ip_address = e.ip_address
+        where e.ip_address is not null
+          and ip.ip_address is null
+          and e.ip_address not like '10.%'
+          and e.ip_address not like '192.168.%'
+          and e.ip_address not like '127.%'
+          and e.ip_address not like '::%'
+        group by e.ip_address
+        order by max(e.created_at) desc
+          limit $1
       `,
       [limit],
     );
