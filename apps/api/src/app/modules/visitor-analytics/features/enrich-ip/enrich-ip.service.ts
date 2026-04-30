@@ -20,10 +20,13 @@ export class EnrichIpService {
                          on ip.ip_address = e.ip_address
         where e.ip_address is not null
           and ip.ip_address is null
+          and e.ip_address <> ''
           and e.ip_address not like '10.%'
           and e.ip_address not like '192.168.%'
           and e.ip_address not like '127.%'
           and e.ip_address not like '::%'
+          and e.ip_address <> '::1'
+          and e.ip_address <> '0.0.0.0'
         group by e.ip_address
         order by max(e.created_at) desc
           limit $1
@@ -38,7 +41,9 @@ export class EnrichIpService {
         await this.enrichIp(row.ip_address);
         enriched++;
       } catch (error) {
-        this.logger.warn(`Failed to enrich IP ${row.ip_address}: ${String(error)}`);
+        this.logger.warn(
+          `Failed to enrich IP ${row.ip_address}: ${String(error)}`,
+        );
       }
     }
 
@@ -70,62 +75,63 @@ export class EnrichIpService {
       raw.privacy?.tor === true;
 
     const isProxy =
-      raw.privacy?.proxy === true ||
-      raw.privacy?.hosting === true;
+      raw.privacy?.proxy === true || raw.privacy?.hosting === true;
+
+    const org = raw.org ?? raw.as_name ?? '';
 
     const classification = this.classifyTraffic({
-      org: raw.org ?? raw.as_name ?? '',
+      org,
       isVpn,
       isProxy,
     });
 
     await this.pool.query(
       `
-      insert into analytics.tracking_ip_enrichments (
-        ip_address,
-        country,
-        region,
-        city,
-        postal,
-        timezone,
-        latitude,
-        longitude,
-        org,
-        asn,
-        is_vpn,
-        is_proxy,
-        traffic_type,
-        traffic_score,
-        traffic_reason,
-        source,
-        raw,
-        enriched_at,
-        updated_at
-      )
-      values (
-        $1, $2, $3, $4, $5, $6, $7, $8,
-        $9, $10, $11, $12, $13, $14, $15, 'ipinfo', $16::jsonb, now(), now()
-      )
-      on conflict (ip_address)
+        insert into analytics.tracking_ip_enrichments (
+          ip_address,
+          country,
+          region,
+          city,
+          postal,
+          timezone,
+          latitude,
+          longitude,
+          org,
+          asn,
+          is_vpn,
+          is_proxy,
+          traffic_type,
+          traffic_score,
+          traffic_reason,
+          source,
+          raw,
+          enriched_at,
+          updated_at
+        )
+        values (
+                 $1, $2, $3, $4, $5, $6, $7, $8,
+                 $9, $10, $11, $12, $13, $14, $15, 'ipinfo', $16::jsonb, now(), now()
+               )
+          on conflict (ip_address)
       do update set
-        country = excluded.country,
-        region = excluded.region,
-        city = excluded.city,
-        postal = excluded.postal,
-        timezone = excluded.timezone,
-        latitude = excluded.latitude,
-        longitude = excluded.longitude,
-        org = excluded.org,
-        asn = excluded.asn,
-        is_vpn = excluded.is_vpn,
-        is_proxy = excluded.is_proxy,
-        traffic_type = excluded.traffic_type,
-        traffic_score = excluded.traffic_score,
-        traffic_reason = excluded.traffic_reason,
-        source = excluded.source,
-        raw = excluded.raw,
-        enriched_at = now(),
-        updated_at = now()
+          country = excluded.country,
+                     region = excluded.region,
+                     city = excluded.city,
+                     postal = excluded.postal,
+                     timezone = excluded.timezone,
+                     latitude = excluded.latitude,
+                     longitude = excluded.longitude,
+                     org = excluded.org,
+                     asn = excluded.asn,
+                     is_vpn = excluded.is_vpn,
+                     is_proxy = excluded.is_proxy,
+                     traffic_type = excluded.traffic_type,
+                     traffic_score = excluded.traffic_score,
+                     traffic_reason = excluded.traffic_reason,
+                     source = excluded.source,
+                     raw = excluded.raw,
+                     enriched_at = now(),
+                     updated_at = now()
       `,
       [
         ipAddress,
@@ -136,7 +142,7 @@ export class EnrichIpService {
         raw.timezone ?? null,
         Number.isFinite(latitude) ? latitude : null,
         Number.isFinite(longitude) ? longitude : null,
-        raw.org ?? raw.as_name ?? null,
+        org || null,
         raw.asn ?? null,
         isVpn,
         isProxy,
@@ -145,6 +151,10 @@ export class EnrichIpService {
         classification.reason,
         JSON.stringify(raw),
       ],
+    );
+
+    this.logger.log(
+      `Enriched IP ${ipAddress}: ${raw.country ?? '??'} ${raw.city ?? '??'} ${org || 'unknown org'} -> ${classification.type}`,
     );
 
     return { success: true };
@@ -197,7 +207,11 @@ export class EnrichIpService {
 
     const telecomMarkers = [
       'vivacom',
+      'btk',
+      'bulgarian telecommunications company',
       'a1',
+      'a1 bulgaria',
+      'mobiltel',
       'yettel',
       't-mobile',
       'vodafone',
@@ -252,5 +266,4 @@ export class EnrichIpService {
       reason: 'No strong classifier match',
     };
   }
-
 }
