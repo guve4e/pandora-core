@@ -10,15 +10,56 @@ export class VisitorsService {
   ) {}
 
   async getVisitors(tenantId: string) {
+    const humanTrafficWhere = `
+      e.tenant_id = $1
+      and coalesce(ip.traffic_type, 'unknown') = 'likely_human'
+    `;
+
     const summaryResult = await this.pool.query(
       `
+      with human_events as (
+        select e.*
+        from analytics.tracking_events e
+        left join analytics.tracking_ip_enrichments ip
+          on ip.ip_address = e.ip_address
+        where ${humanTrafficWhere}
+      ),
+      session_stats as (
+        select
+          session_id,
+          visitor_id,
+          count(*) filter (where event_type = 'page_view') as page_views,
+          count(*) filter (
+            where event_type in ('conversion', 'cta_click', 'lead_submitted', 'phone_click', 'estimator_opened', 'assistant_opened')
+              or event_name in ('phone_click', 'estimator_opened', 'assistant_opened', 'lead_submitted')
+          ) as intent_events
+        from human_events
+        group by session_id, visitor_id
+      ),
+      visitor_stats as (
+        select
+          visitor_id,
+          count(distinct session_id) as sessions
+        from human_events
+        group by visitor_id
+      )
       select
-        count(distinct visitor_id) as visitors,
-        count(distinct session_id) as sessions,
-        count(*) filter (where event_type = 'page_view') as page_views,
-        count(*) filter (where event_type = 'conversion') as conversions
-      from analytics.tracking_events
-      where tenant_id = $1
+        count(distinct e.visitor_id) as visitors,
+        count(distinct e.session_id) as sessions,
+        count(*) filter (where e.event_type = 'page_view') as page_views,
+        count(*) filter (where e.event_type = 'conversion') as conversions,
+        coalesce(round(
+          count(*) filter (where e.event_type = 'page_view')::numeric
+          / nullif(count(distinct e.session_id), 0), 2
+        ), 0) as avg_pages_per_session,
+        count(distinct e.visitor_id) filter (where vs.sessions > 1) as returning_visitors,
+        coalesce(round(
+          count(distinct ss.session_id) filter (where ss.page_views <= 1 and ss.intent_events = 0)::numeric
+          / nullif(count(distinct ss.session_id), 0) * 100, 1
+        ), 0) as bounce_rate
+      from human_events e
+      left join visitor_stats vs on vs.visitor_id = e.visitor_id
+      left join session_stats ss on ss.session_id = e.session_id
       `,
       [tenantId],
     );
@@ -27,30 +68,30 @@ export class VisitorsService {
       `
       with visitor_stats as (
         select
-          visitor_id,
-          min(created_at) as first_seen_at,
-          max(created_at) as last_seen_at,
-          count(distinct session_id) as sessions,
-          count(*) filter (where event_type = 'page_view') as page_views,
-          count(*) filter (where event_type = 'conversion') as conversions,
+          e.visitor_id,
+          min(e.created_at) as first_seen_at,
+          max(e.created_at) as last_seen_at,
+          count(distinct e.session_id) as sessions,
+          count(*) filter (where e.event_type = 'page_view') as page_views,
+          count(*) filter (where e.event_type = 'conversion') as conversions,
           count(*) filter (
-            where event_type in ('conversion', 'cta_click', 'lead_submitted', 'phone_click', 'estimator_opened', 'assistant_opened')
-              or event_name in ('phone_click', 'estimator_opened', 'assistant_opened', 'lead_submitted')
+            where e.event_type in ('conversion', 'cta_click', 'lead_submitted', 'phone_click', 'estimator_opened', 'assistant_opened')
+              or e.event_name in ('phone_click', 'estimator_opened', 'assistant_opened', 'lead_submitted')
           ) as intent_events
-        from analytics.tracking_events
-        where tenant_id = $1
-        group by visitor_id
+        from analytics.tracking_events e
+        where e.tenant_id = $1
+        group by e.visitor_id
       ),
       last_events as (
-        select distinct on (visitor_id)
-          visitor_id,
-          page_path,
-          ip_address,
-          user_agent,
-          referrer
-        from analytics.tracking_events
-        where tenant_id = $1
-        order by visitor_id, created_at desc
+        select distinct on (e.visitor_id)
+          e.visitor_id,
+          e.page_path,
+          e.ip_address,
+          e.user_agent,
+          e.referrer
+        from analytics.tracking_events e
+        where e.tenant_id = $1
+        order by e.visitor_id, e.created_at desc
       )
       select
         v.visitor_id,
@@ -83,12 +124,87 @@ export class VisitorsService {
       [tenantId],
     );
 
+    const topPagesResult = await this.pool.query(
+      `
+      select e.page_path, count(*)::int as views
+      from analytics.tracking_events e
+      left join analytics.tracking_ip_enrichments ip
+        on ip.ip_address = e.ip_address
+      where e.tenant_id = $1
+        and e.event_type = 'page_view'
+        and e.page_path is not null
+        and coalesce(ip.traffic_type, 'unknown') = 'likely_human'
+      group by e.page_path
+      order by count(*) desc
+      limit 10
+      `,
+      [tenantId],
+    );
+
+    const topReferrersResult = await this.pool.query(
+      `
+      select coalesce(nullif(e.referrer, ''), 'direct') as referrer, count(*)::int as visits
+      from analytics.tracking_events e
+      left join analytics.tracking_ip_enrichments ip
+        on ip.ip_address = e.ip_address
+      where e.tenant_id = $1
+        and e.event_type = 'page_view'
+        and coalesce(ip.traffic_type, 'unknown') = 'likely_human'
+      group by coalesce(nullif(e.referrer, ''), 'direct')
+      order by count(*) desc
+      limit 10
+      `,
+      [tenantId],
+    );
+
+    const topIntentResult = await this.pool.query(
+      `
+      select coalesce(e.event_name, e.event_type) as name, count(*)::int as count
+      from analytics.tracking_events e
+      left join analytics.tracking_ip_enrichments ip
+        on ip.ip_address = e.ip_address
+      where e.tenant_id = $1
+        and coalesce(ip.traffic_type, 'unknown') = 'likely_human'
+        and (
+          e.event_type in ('conversion', 'cta_click', 'lead_submitted', 'phone_click', 'estimator_opened', 'assistant_opened')
+          or e.event_name in ('phone_click', 'estimator_opened', 'assistant_opened', 'lead_submitted')
+        )
+      group by coalesce(e.event_name, e.event_type)
+      order by count(*) desc
+      limit 10
+      `,
+      [tenantId],
+    );
+
+    const s = summaryResult.rows[0];
+
     return {
       summary: {
-        visitors: Number(summaryResult.rows[0].visitors),
-        sessions: Number(summaryResult.rows[0].sessions),
-        pageViews: Number(summaryResult.rows[0].page_views),
-        conversions: Number(summaryResult.rows[0].conversions),
+        visitors: Number(s.visitors),
+        sessions: Number(s.sessions),
+        pageViews: Number(s.page_views),
+        conversions: Number(s.conversions),
+        avgPagesPerSession: Number(s.avg_pages_per_session),
+        returningVisitors: Number(s.returning_visitors),
+        bounceRate: Number(s.bounce_rate),
+      },
+      acquisition: {
+        topReferrers: topReferrersResult.rows.map((r) => ({
+          referrer: r.referrer,
+          visits: Number(r.visits),
+        })),
+      },
+      behavior: {
+        topPages: topPagesResult.rows.map((r) => ({
+          pagePath: r.page_path,
+          views: Number(r.views),
+        })),
+      },
+      businessIntent: {
+        topEvents: topIntentResult.rows.map((r) => ({
+          name: r.name,
+          count: Number(r.count),
+        })),
       },
       items: itemsResult.rows.map((r) => ({
         visitorId: r.visitor_id,
@@ -186,8 +302,8 @@ export class VisitorsService {
           s.entry_referrer,
           count(e.id) filter (where e.event_type = 'page_view') as page_views,
           count(e.id) filter (
-            where event_type in ('conversion', 'cta_click', 'lead_submitted', 'phone_click', 'estimator_opened', 'assistant_opened')
-              or event_name in ('phone_click', 'estimator_opened', 'assistant_opened', 'lead_submitted')
+            where e.event_type in ('conversion', 'cta_click', 'lead_submitted', 'phone_click', 'estimator_opened', 'assistant_opened')
+              or e.event_name in ('phone_click', 'estimator_opened', 'assistant_opened', 'lead_submitted')
           ) as intent_events,
           min(e.occurred_at) as first_event_at,
           max(e.occurred_at) as last_event_at

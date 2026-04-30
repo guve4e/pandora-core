@@ -21,13 +21,16 @@ export class DailyTrafficService {
       ),
       traffic as (
         select
-          date(created_at) as day,
-          count(*) filter (where event_type = 'page_view') as page_views,
-          count(distinct visitor_id) filter (where event_type = 'page_view') as unique_visitors
-        from analytics.tracking_events
-        where tenant_id = $1
-          and created_at >= current_date - ($2::int - 1)
-        group by date(created_at)
+          date(e.created_at) as day,
+          count(*) filter (where e.event_type = 'page_view') as page_views,
+          count(distinct e.visitor_id) filter (where e.event_type = 'page_view') as unique_visitors
+        from analytics.tracking_events e
+        left join analytics.tracking_ip_enrichments ip
+          on ip.ip_address = e.ip_address
+        where e.tenant_id = $1
+          and e.created_at >= current_date - ($2::int - 1)
+          and coalesce(ip.traffic_type, 'unknown') = 'likely_human'
+        group by date(e.created_at)
       )
       select
         ds.day::text as day,

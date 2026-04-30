@@ -202,6 +202,7 @@ onMounted(async () => {
     <div v-if="loading" class="text-slate-400">Loading...</div>
 
     <template v-else-if="data">
+      <!-- KPI CARDS -->
       <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-7">
         <div class="rounded-2xl border border-slate-700 bg-slate-950 p-5">
           <p class="text-xs uppercase tracking-wide text-slate-400">Visitors</p>
@@ -272,84 +273,96 @@ onMounted(async () => {
       </div>
 
       <template v-else>
-        <div class="grid grid-cols-1 gap-4 xl:grid-cols-3">
+        <!-- FULL WIDTH GRAPH -->
+        <div class="rounded-2xl border border-slate-700 bg-slate-950 p-5">
           <div
-            class="rounded-2xl border border-slate-700 bg-slate-950 p-5 xl:col-span-2"
+            class="mb-4 flex flex-col gap-1 md:flex-row md:items-end md:justify-between"
           >
-            <div class="mb-4">
+            <div>
               <h2 class="text-lg font-semibold text-white">Last 7 days</h2>
               <p class="text-sm text-slate-400">
                 Visitors and page views over time.
               </p>
             </div>
 
-            <apexchart
-              type="line"
-              height="320"
-              :options="chartOptions"
-              :series="chartSeries"
-            />
-          </div>
-
-          <div class="space-y-4">
-            <div class="rounded-2xl border border-slate-700 bg-slate-950 p-5">
-              <h2 class="text-sm font-semibold text-white">Top Referrers</h2>
-              <div class="mt-4 space-y-3">
-                <div
-                  v-for="r in topReferrers"
-                  :key="r.referrer"
-                  class="flex justify-between gap-3 text-sm"
-                >
-                  <span class="truncate text-slate-300">{{
-                    cleanReferrer(r.referrer)
-                  }}</span>
-                  <span class="text-slate-400">{{ r.visits }}</span>
-                </div>
-                <p v-if="!topReferrers.length" class="text-sm text-slate-500">
-                  No referrer data yet.
-                </p>
-              </div>
-            </div>
-
-            <div class="rounded-2xl border border-slate-700 bg-slate-950 p-5">
-              <h2 class="text-sm font-semibold text-white">Business Intent</h2>
-              <div class="mt-4 space-y-3">
-                <div
-                  v-for="e in topIntentEvents"
-                  :key="e.name"
-                  class="flex justify-between gap-3 text-sm"
-                >
-                  <span class="truncate text-slate-300">{{ e.name }}</span>
-                  <span class="text-emerald-300">{{ e.count }}</span>
-                </div>
-                <p
-                  v-if="!topIntentEvents.length"
-                  class="text-sm text-slate-500"
-                >
-                  No intent events yet.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="rounded-2xl border border-slate-700 bg-slate-950 p-5">
-          <h2 class="text-sm font-semibold text-white">Top Pages</h2>
-          <div class="mt-4 grid gap-3 md:grid-cols-2">
-            <div
-              v-for="p in topPages"
-              :key="p.pagePath"
-              class="flex justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900/50 px-4 py-3 text-sm"
-            >
-              <span class="truncate text-slate-300">{{ p.pagePath }}</span>
-              <span class="text-slate-400">{{ p.views }}</span>
-            </div>
-            <p v-if="!topPages.length" class="text-sm text-slate-500">
-              No page data yet.
+            <p class="text-xs text-slate-500">
+              Raw traffic, including bots and previews.
             </p>
           </div>
+
+          <apexchart
+            type="line"
+            height="400"
+            :options="chartOptions"
+            :series="chartSeries"
+          />
         </div>
 
+        <!-- INSIGHT STRIP -->
+        <div
+          class="grid grid-cols-1 gap-4"
+          :class="topIntentEvents.length ? 'xl:grid-cols-3' : 'xl:grid-cols-2'"
+        >
+          <div class="rounded-2xl border border-slate-700 bg-slate-950 p-5">
+            <h2 class="text-sm font-semibold text-white">Top Referrers</h2>
+
+            <div class="mt-4 space-y-3">
+              <div
+                v-for="r in topReferrers"
+                :key="r.referrer"
+                class="flex justify-between gap-3 text-sm"
+              >
+                <span class="truncate text-slate-300">
+                  {{ cleanReferrer(r.referrer) }}
+                </span>
+                <span class="text-slate-400">{{ r.visits }}</span>
+              </div>
+
+              <p v-if="!topReferrers.length" class="text-sm text-slate-500">
+                No referrer data yet.
+              </p>
+            </div>
+          </div>
+
+          <div class="rounded-2xl border border-slate-700 bg-slate-950 p-5">
+            <h2 class="text-sm font-semibold text-white">Top Pages</h2>
+
+            <div class="mt-4 space-y-3">
+              <div
+                v-for="p in topPages"
+                :key="p.pagePath"
+                class="flex justify-between gap-3 rounded-xl border border-slate-800 bg-slate-900/50 px-4 py-3 text-sm"
+              >
+                <span class="truncate text-slate-300">{{ p.pagePath }}</span>
+                <span class="text-slate-400">{{ p.views }}</span>
+              </div>
+
+              <p v-if="!topPages.length" class="text-sm text-slate-500">
+                No page data yet.
+              </p>
+            </div>
+          </div>
+
+          <div
+            v-if="topIntentEvents.length"
+            class="rounded-2xl border border-slate-700 bg-slate-950 p-5"
+          >
+            <h2 class="text-sm font-semibold text-white">High Intent</h2>
+
+            <div class="mt-4 space-y-3">
+              <div
+                v-for="e in topIntentEvents"
+                :key="e.name"
+                class="flex justify-between gap-3 text-sm"
+              >
+                <span class="truncate text-slate-300">{{ e.name }}</span>
+                <span class="text-emerald-300">{{ e.count }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VISITOR TABLE -->
         <div class="rounded-2xl border border-slate-700 bg-slate-950">
           <div
             class="flex flex-col gap-3 border-b border-slate-800 px-4 py-4 md:flex-row md:items-center md:justify-between"
@@ -467,6 +480,7 @@ onMounted(async () => {
       </template>
     </template>
 
+    <!-- DRAWER -->
     <div
       v-if="detailLoading || selectedVisitor"
       class="fixed inset-0 z-50 flex justify-end bg-black/60"
@@ -511,9 +525,9 @@ onMounted(async () => {
                 </div>
                 <div class="mt-1 text-slate-200">
                   {{ selectedVisitor.visitor.geo?.city || 'Unknown' }}
-                  <span v-if="selectedVisitor.visitor.geo?.country"
-                    >, {{ selectedVisitor.visitor.geo.country }}</span
-                  >
+                  <span v-if="selectedVisitor.visitor.geo?.country">
+                    , {{ selectedVisitor.visitor.geo.country }}
+                  </span>
                 </div>
               </div>
 
