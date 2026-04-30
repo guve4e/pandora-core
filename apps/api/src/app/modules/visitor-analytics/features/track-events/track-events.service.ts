@@ -4,6 +4,7 @@ import { Pool } from 'pg'
 import { PG_POOL } from '../../../../../db/pg.pool'
 import { TrackEventsDto } from './track-events.dto'
 import { SessionResolutionService } from '../../shared/session-resolution.service'
+import { EnrichIpService } from '../enrich-ip/enrich-ip.service'
 
 type TrackingSiteRow = {
   id: string
@@ -31,6 +32,7 @@ export class TrackEventsService {
     @Inject(PG_POOL)
     private readonly pool: Pool,
     private readonly sessionResolver: SessionResolutionService,
+    private readonly enrichIpService: EnrichIpService,
   ) {}
 
   async track(
@@ -165,6 +167,11 @@ export class TrackEventsService {
       }
 
       await client.query('COMMIT')
+
+      void this.enrichIpService.enrichMissing(5).catch((error) => {
+        console.warn('[VisitorAnalytics] Failed to enrich missing IPs', error)
+      })
+
       return { success: true }
     } catch (error) {
       await client.query('ROLLBACK')
