@@ -51,7 +51,10 @@ export class LeadCaptureService {
       input.messages,
     );
 
-    const extracted = extraction.extracted;
+    const extracted = this.withHeuristicFallback(
+      extraction.extracted,
+      input.messages,
+    );
 
     if (!extracted?.phone?.trim()) {
       this.logger.log(
@@ -217,5 +220,63 @@ ${convo}
         },
       };
     }
+  }
+
+  private withHeuristicFallback(
+    extracted: ExtractedLead | null,
+    messages: ChatMsg[],
+  ): ExtractedLead | null {
+    const fallback = this.extractLeadHeuristics(messages);
+
+    if (!extracted) {
+      return fallback;
+    }
+
+    return {
+      name: extracted.name || fallback?.name || null,
+      phone: extracted.phone || fallback?.phone || null,
+      city: extracted.city || fallback?.city || null,
+      serviceType: extracted.serviceType || fallback?.serviceType || null,
+      summary: extracted.summary || fallback?.summary || null,
+    };
+  }
+
+  private extractLeadHeuristics(messages: ChatMsg[]): ExtractedLead | null {
+    const text = messages.map((message) => message.text).join('\n');
+    const phone = this.extractPhone(text);
+
+    if (!phone) {
+      return null;
+    }
+
+    return {
+      name: null,
+      phone,
+      city: this.extractCity(text),
+      serviceType: null,
+      summary: this.extractSummary(messages),
+    };
+  }
+
+  private extractPhone(text: string): string | null {
+    const match = text.match(/(?:\+359|0)\s?\d(?:[\s-]?\d){7,8}/);
+    return match ? match[0].replace(/[\s-]/g, '') : null;
+  }
+
+  private extractCity(text: string): string | null {
+    const cityMatch = text.match(
+      /\b(?:във|в|гр\.?|град|район)\s+([А-ЯA-Z][а-яa-zА-ЯA-Z-]{2,})/u,
+    );
+
+    return cityMatch?.[1] ?? null;
+  }
+
+  private extractSummary(messages: ChatMsg[]): string | null {
+    const userMessages = messages
+      .filter((message) => message.role === 'user')
+      .map((message) => message.text.trim())
+      .filter(Boolean);
+
+    return userMessages.length ? userMessages.join(' | ') : null;
   }
 }

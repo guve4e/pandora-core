@@ -1,4 +1,77 @@
-# New Nx Repository
+# Pandora Core
+
+## Raspberry Pi deploy
+
+Production currently lives at:
+
+```sh
+cd /var/www/pandora-core
+```
+
+After pulling changes, build the API with Nx:
+
+```sh
+git pull
+npm install
+npx nx build api
+```
+
+There is no root `npm run build` script in this workspace. Use `npx nx build api` for
+the public/admin API.
+
+If the change touches the embedded assistant, lead extraction, or chat capture, also
+build the assistant service:
+
+```sh
+npx nx build assistant-service
+```
+
+If you forget the systemd service name, find it with:
+
+```sh
+systemctl list-units --type=service --all | grep -Ei 'pandora|api|assistant|node'
+```
+
+Then restart the API service:
+
+```sh
+sudo systemctl restart <service-name>
+sudo systemctl status <service-name> --no-pager
+```
+
+Common production service names on the Pi:
+
+```sh
+sudo systemctl restart pandora-core.service
+sudo systemctl restart pandora-assistant.service
+```
+
+Check logs if it does not come back cleanly:
+
+```sh
+sudo journalctl -u <service-name> -n 80 --no-pager
+```
+
+For the analytics endpoint specifically, verify that a production event is accepted,
+not ignored:
+
+```sh
+curl -sS -i -X POST https://admin-pandora.ddns.net/api/public/track \
+  -H 'Content-Type: application/json' \
+  -H 'Origin: https://energrid.bg' \
+  --data '{"siteKey":"pk_energrid_main","visitorId":"anon_readme_check","sessionId":"sess_readme_check","events":[{"type":"page_view","eventName":"page_view","occurredAt":"2026-07-30T16:30:00.000Z","pageUrl":"https://energrid.bg/","pagePath":"/","properties":{"title":"Energrid","path":"/"}}]}'
+```
+
+Expected response:
+
+```json
+{"success":true}
+```
+
+If the response includes `"ignored": true`, the analytics deploy/restart did not take
+effect or the request is still being treated as local/dev traffic.
+
+## Nx workspace reference
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
 
