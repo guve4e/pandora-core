@@ -13,7 +13,7 @@ export class TrackEventsController {
   async track(@Req() req: any, @Body() dto: TrackEventsDto) {
     const ipAddress = this.resolveClientIp(req);
 
-    if (this.shouldIgnoreRequest(req, dto, ipAddress)) {
+    if (this.shouldIgnoreRequest(req, dto)) {
       return { success: true, ignored: true };
     }
 
@@ -50,7 +50,6 @@ export class TrackEventsController {
   private shouldIgnoreRequest(
     req: any,
     dto: TrackEventsDto,
-    ipAddress: string | null,
   ): boolean {
     const origin = String(req.headers.origin || '').toLowerCase();
     const host = String(req.headers.host || '').toLowerCase();
@@ -80,24 +79,7 @@ export class TrackEventsController {
       return true;
     }
 
-    return this.isPrivateOrLocalIp(ipAddress);
-  }
-
-  private isPrivateOrLocalIp(ipAddress: string | null): boolean {
-    if (!ipAddress) return false;
-
-    const ip = ipAddress.replace(/^::ffff:/, '');
-
-    if (ip === '::1' || ip === '127.0.0.1' || ip === '0.0.0.0') return true;
-    if (ip.startsWith('10.')) return true;
-    if (ip.startsWith('192.168.')) return true;
-
-    const match = ip.match(/^172\.(\d+)\./);
-    if (match) {
-      const second = Number(match[1]);
-      if (second >= 16 && second <= 31) return true;
-    }
-
     return false;
   }
+
 }

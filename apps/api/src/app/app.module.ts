@@ -19,6 +19,7 @@ import { LeadsModule } from './modules/leads/leads.module';
 import { VisitorAnalyticsModule } from './modules/visitor-analytics/visitor-analytics.module';
 import { PlatformAiUsageModule } from './platform-ai-usage/platform-ai-usage.module';
 import { TenantAiUsageModule } from './tenant-ai-usage/tenant-ai-usage.module';
+import { InstallationsModule } from './installations/installations.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { TenantAiUsageModule } from './tenant-ai-usage/tenant-ai-usage.module';
     LeadsModule,
     VisitorAnalyticsModule,
     PlatformAiUsageModule,
+    InstallationsModule,
   ],
   providers: [
     {
