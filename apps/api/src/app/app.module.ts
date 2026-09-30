@@ -20,9 +20,11 @@ import { VisitorAnalyticsModule } from './modules/visitor-analytics/visitor-anal
 import { PlatformAiUsageModule } from './platform-ai-usage/platform-ai-usage.module';
 import { TenantAiUsageModule } from './tenant-ai-usage/tenant-ai-usage.module';
 import { InstallationsModule } from './installations/installations.module';
+import { TenantConversationsModule } from './modules/tenant-conversations/tenant-conversations.module';
 
 @Module({
   imports: [
+    TenantConversationsModule,
     TenantAiUsageModule,
     ConfigModule.forRoot({ isGlobal: true }),
     ScheduleModule.forRoot(),

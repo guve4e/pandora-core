@@ -22,6 +22,7 @@ export class EstimatorOrchestratorService {
   async runStep(input: {
     tenantSlug: string;
     message: string;
+    customerHistory?: string[];
     conversationMeta?: Record<string, unknown> | null;
     profile: TenantAssistantProfile;
   }): Promise<EstimatorOrchestratorResult> {
@@ -29,13 +30,14 @@ export class EstimatorOrchestratorService {
     const existingCoreDraft = meta.estimator?.coreDraft;
 
     this.logger.log(
-      `runStep tenant=${input.tenantSlug} message="${input.message}" hasDraft=${Boolean(existingCoreDraft)}`,
+      `runStep tenant=${input.tenantSlug} hasDraft=${Boolean(existingCoreDraft)}`,
     );
 
     const result = await this.estimatorClient.assistantStep({
       tenantSlug: input.profile.estimator.tenantKey || input.tenantSlug,
       message: input.message,
       draft: existingCoreDraft,
+      customerHistory: input.customerHistory,
     });
 
     const previewSummary: EstimatorPreviewSummary | undefined = result.preview
@@ -45,10 +47,10 @@ export class EstimatorOrchestratorService {
           needsInspection: result.preview.needsInspection,
           linesCount: result.preview.lines.length,
         }
-      : meta.estimator?.lastPreview;
+      : result.rangePreview ? { min: result.rangePreview.min, max: result.rangePreview.max, confidence: 'low', needsInspection: true, linesCount: result.rangePreview.lines.length } : undefined;
 
     const stage =
-      result.status === 'needs_input'
+      result.status === 'proposal' ? 'proposed' : result.status === 'needs_input' || result.status === 'needs_inspection'
         ? 'drafting'
         : result.status === 'explanation'
           ? 'explained'

@@ -1,5 +1,7 @@
 export interface EstimatorPreviewSummary {
-  subtotal: number;
+  subtotal?: number;
+  min?: number;
+  max?: number;
   confidence: 'low' | 'medium' | 'high';
   needsInspection: boolean;
   linesCount: number;
@@ -10,7 +12,7 @@ export interface EstimatorExplanationSummary {
   summaryBg: string;
 }
 
-export type EstimatorStage = 'drafting' | 'previewed' | 'explained';
+export type EstimatorStage = 'drafting' | 'previewed' | 'explained' | 'proposed';
 
 export interface EstimatorConversationMeta {
   stage?: EstimatorStage;

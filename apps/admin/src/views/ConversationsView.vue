@@ -1,148 +1,274 @@
 <template>
   <div class="page">
-    <div class="page-header">
+    <header class="page-header">
       <div>
         <h1>Conversations</h1>
-        <p>All assistant conversations for this tenant.</p>
+        <p>Review customer chats and clean up test conversations.</p>
       </div>
+      <button :disabled="loading || deleting" @click="loadConversations">
+        Refresh
+      </button>
+    </header>
+    <div class="toolbar">
+      <label
+        >Search<input
+          v-model="search"
+          type="search"
+          placeholder="Message, visitor or conversation ID"
+      /></label>
+      <label
+        >Channel<select v-model="channel">
+          <option value="all">All conversations</option>
+          <option value="pilot">Pilot conversations</option>
+          <option value="other">Other channels</option>
+        </select></label
+      >
+      <span class="muted" role="status"
+        >{{ filtered.length }} of {{ conversations.length }}</span
+      >
     </div>
-
-    <div v-if="loading" class="card">Loading conversations...</div>
-
-    <div v-else-if="error" class="card error">{{ error }}</div>
-
+    <p v-if="error" class="error" role="alert">{{ error }}</p>
+    <p v-if="notice" role="status">{{ notice }}</p>
+    <div v-if="loading" class="empty">Loading conversations…</div>
     <div v-else class="layout">
-      <div class="card">
-        <table class="table">
-          <thead>
-            <tr>
-              <th>Last activity</th>
-              <th>Visitor</th>
-              <th>Last message</th>
-              <th>Lead</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            <tr
-              v-for="conversation in conversations"
-              :key="conversation.id"
-              :class="{ selected: selectedConversationId === conversation.id }"
-              @click="selectConversation(conversation.id)"
+      <aside class="card conversation-list" aria-label="Conversations">
+        <button
+          v-for="conversation in filtered"
+          :key="conversation.id"
+          class="conversation"
+          :class="{ selected: selectedConversationId === conversation.id }"
+          :aria-pressed="selectedConversationId === conversation.id"
+          :disabled="deleting"
+          @click="selectConversation(conversation.id)"
+        >
+          <span class="row"
+            ><strong>{{
+              conversation.channel === 'pilot'
+                ? 'Pilot conversation'
+                : 'Customer conversation'
+            }}</strong
+            ><time>{{ formatDate(conversation.last_message_at) }}</time></span
+          >
+          <span class="preview">{{
+            conversation.last_message || 'No messages yet'
+          }}</span>
+          <span class="row muted"
+            ><span>{{
+              conversation.visitor_id
+                ? truncate(conversation.visitor_id, 24)
+                : conversation.id.slice(0, 8)
+            }}</span
+            ><span
+              v-if="conversation.has_lead || conversation.lead_id"
+              class="badge"
+              >Linked lead</span
+            ><span v-else>{{ conversation.channel || 'Web' }}</span></span
+          >
+        </button>
+        <div v-if="!filtered.length" class="empty">
+          {{
+            conversations.length
+              ? 'No matching conversations.'
+              : 'No conversations yet.'
+          }}
+        </div>
+      </aside>
+      <section class="card detail" aria-label="Conversation messages">
+        <template v-if="selectedConversation">
+          <header class="detail-header">
+            <div>
+              <h2>
+                {{
+                  selectedConversation.channel === 'pilot'
+                    ? 'Pilot conversation'
+                    : 'Conversation'
+                }}
+              </h2>
+              <span class="muted conversation-id">{{
+                selectedConversationId
+              }}</span>
+            </div>
+            <button
+              class="danger"
+              :disabled="
+                deleting ||
+                !!selectedConversation.has_lead ||
+                !!selectedConversation.lead_id
+              "
+              @click="confirming = true"
             >
-              <td>{{ formatDate(conversation.last_message_at) }}</td>
-              <td>{{ conversation.visitor_id || '—' }}</td>
-              <td class="last-message-cell">
-                {{ truncate(conversation.last_message || '—', 90) }}
-              </td>
-              <td>{{ conversation.lead_id ? 'Yes' : 'No' }}</td>
-            </tr>
-
-            <tr v-if="conversations.length === 0">
-              <td colspan="4" class="empty">No conversations yet.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="card">
-        <template v-if="selectedConversationId">
-          <div class="detail-header">
-            <h2>Conversation</h2>
-            <div class="detail-meta">
-              <div><strong>ID:</strong> {{ selectedConversationId }}</div>
+              Delete
+            </button>
+          </header>
+          <p
+            v-if="selectedConversation.has_lead || selectedConversation.lead_id"
+            class="muted"
+          >
+            This conversation has a linked lead and is protected from deletion.
+          </p>
+          <div
+            v-if="confirming"
+            class="confirmation"
+            role="alertdialog"
+            aria-labelledby="delete-title"
+            aria-describedby="delete-description"
+          >
+            <h3 id="delete-title">Delete this conversation?</h3>
+            <p id="delete-description">
+              This permanently removes this chat, all its messages and its saved
+              estimate state. It cannot be undone.
+            </p>
+            <div class="actions">
+              <button :disabled="deleting" @click="confirming = false">
+                Cancel</button
+              ><button
+                class="danger"
+                :disabled="deleting"
+                @click="removeSelected"
+              >
+                {{ deleting ? 'Deleting…' : 'Permanently delete' }}
+              </button>
             </div>
           </div>
-
-          <div v-if="messagesLoading" class="messages-loading">
-            Loading messages...
-          </div>
-
+          <p v-if="messageError" class="error" role="alert">
+            {{ messageError }}
+          </p>
+          <div v-if="messagesLoading" class="empty">Loading messages…</div>
           <div v-else class="messages">
-            <div
+            <article
               v-for="(msg, index) in messages"
               :key="`${msg.created_at}-${index}`"
               :class="['msg', msg.role]"
             >
-              <div class="msg-role">{{ msg.role }}</div>
+              <div class="row">
+                <strong>{{
+                  msg.role === 'user' ? 'Customer' : 'Energrid Assistant'
+                }}</strong
+                ><time>{{ formatDate(msg.created_at) }}</time>
+              </div>
               <div class="msg-text">{{ msg.message_text }}</div>
-              <div class="msg-time">{{ formatDate(msg.created_at) }}</div>
+            </article>
+            <div v-if="!messages.length && !messageError" class="empty">
+              No messages.
             </div>
-
-            <div v-if="messages.length === 0" class="empty">No messages.</div>
           </div>
         </template>
-
-        <template v-else>
-          <div class="empty-state">
-            Select a conversation to view messages.
-          </div>
-        </template>
-      </div>
+        <div v-else class="empty">
+          Select a conversation to read its messages.
+        </div>
+      </section>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import {
+  deleteTenantConversation,
   getTenantConversationMessages,
   getTenantConversations,
   type ConversationMessageRow,
   type ConversationRow,
 } from '../api/conversations';
-
 const loading = ref(true);
 const error = ref('');
+const messageError = ref('');
+const notice = ref('');
+const search = ref('');
+const channel = ref('all');
 const conversations = ref<ConversationRow[]>([]);
-const selectedConversationId = ref<string>('');
+const selectedConversationId = ref('');
+const selectedConversation = computed(() =>
+  conversations.value.find((c) => c.id === selectedConversationId.value),
+);
+const filtered = computed(() =>
+  conversations.value.filter((c) => {
+    const channelMatches =
+      channel.value === 'all' ||
+      (channel.value === 'pilot'
+        ? c.channel === 'pilot'
+        : c.channel !== 'pilot');
+    return (
+      channelMatches &&
+      [c.id, c.visitor_id, c.last_message].some((v) =>
+        v?.toLowerCase().includes(search.value.trim().toLowerCase()),
+      )
+    );
+  }),
+);
 const messages = ref<ConversationMessageRow[]>([]);
 const messagesLoading = ref(false);
-
+const confirming = ref(false);
+const deleting = ref(false);
+let messageRequest = 0;
 function formatDate(value: string) {
-  try {
-    return new Date(value).toLocaleString();
-  } catch {
-    return value;
-  }
+  return new Date(value).toLocaleString(undefined, {
+    dateStyle: 'short',
+    timeStyle: 'short',
+  });
 }
-
-function truncate(value: string, max = 80) {
-  if (!value) return '';
+function truncate(value: string, max: number) {
   return value.length > max ? `${value.slice(0, max)}…` : value;
 }
-
+function errorText(e: any, fallback: string) {
+  return e?.response?.data?.message || e?.message || fallback;
+}
 async function loadConversations() {
   loading.value = true;
   error.value = '';
-
+  notice.value = '';
   try {
     conversations.value = await getTenantConversations();
-
-    if (conversations.value.length > 0) {
-      await selectConversation(conversations.value[0].id);
-    }
-  } catch (e: any) {
-    error.value = e?.message || 'Failed to load conversations';
+    const id = conversations.value.some(
+      (c) => c.id === selectedConversationId.value,
+    )
+      ? selectedConversationId.value
+      : conversations.value[0]?.id;
+    await selectConversation(id || '');
+  } catch (e) {
+    error.value = errorText(e, 'Failed to load conversations');
   } finally {
     loading.value = false;
   }
 }
-
 async function selectConversation(id: string) {
+  const request = ++messageRequest;
   selectedConversationId.value = id;
-  messagesLoading.value = true;
-
+  confirming.value = false;
+  messages.value = [];
+  messageError.value = '';
+  messagesLoading.value = !!id;
+  if (!id) return;
   try {
-    messages.value = await getTenantConversationMessages(id);
-  } catch (e: any) {
-    error.value = e?.message || 'Failed to load conversation messages';
-    messages.value = [];
+    const result = await getTenantConversationMessages(id);
+    if (request === messageRequest) messages.value = result;
+  } catch (e) {
+    if (request === messageRequest)
+      messageError.value = errorText(e, 'Failed to load messages');
   } finally {
-    messagesLoading.value = false;
+    if (request === messageRequest) messagesLoading.value = false;
   }
 }
-
+async function removeSelected() {
+  const id = selectedConversationId.value;
+  if (!id || deleting.value) return;
+  deleting.value = true;
+  messageError.value = '';
+  notice.value = '';
+  try {
+    await deleteTenantConversation(id);
+    conversations.value = conversations.value.filter((c) => c.id !== id);
+    notice.value = 'Conversation and messages deleted.';
+    await selectConversation(filtered.value[0]?.id || '');
+  } catch (e) {
+    messageError.value = errorText(
+      e,
+      'Could not delete the conversation. Nothing was removed.',
+    );
+  } finally {
+    deleting.value = false;
+  }
+}
 onMounted(loadConversations);
 </script>
 
@@ -151,137 +277,201 @@ onMounted(loadConversations);
   padding: 24px;
   color: #e5e7eb;
 }
-
+.page-header,
+.row,
+.detail-header,
+.toolbar,
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
 .page-header {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
-
-.page-header h1 {
-  margin: 0 0 6px 0;
+h1 {
+  margin: 0 0 6px;
   font-size: 28px;
-  font-weight: 700;
 }
-
-.page-header p {
-  margin: 0;
-  color: #94a3b8;
-}
-
-.layout {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  gap: 16px;
-}
-
-.card {
-  background: rgba(15, 23, 42, 0.75);
-  border: 1px solid rgba(51, 65, 85, 0.9);
-  border-radius: 16px;
-  padding: 20px;
-  min-height: 420px;
-}
-
-.error {
-  color: #f87171;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-th,
-td {
-  padding: 12px 10px;
-  text-align: left;
-  border-bottom: 1px solid #1e293b;
-  vertical-align: top;
-}
-
-th {
-  color: #94a3b8;
-  font-size: 13px;
-}
-
-td {
-  color: #e2e8f0;
-  font-size: 14px;
-}
-
-tbody tr {
-  cursor: pointer;
-}
-
-tbody tr:hover {
-  background: rgba(30, 41, 59, 0.45);
-}
-
-tbody tr.selected {
-  background: rgba(37, 99, 235, 0.16);
-}
-
-.last-message-cell {
-  max-width: 360px;
-  color: #cbd5e1;
-}
-
-.detail-header {
-  margin-bottom: 16px;
-}
-
-.detail-header h2 {
-  margin: 0 0 10px 0;
+h2 {
+  margin: 0 0 6px;
   font-size: 18px;
 }
-
-.detail-meta {
+h3 {
+  margin: 0;
+}
+p,
+.muted,
+time {
+  color: #94a3b8;
+}
+p {
+  line-height: 1.5;
+}
+button,
+input,
+select {
+  font: inherit;
+  color: #e2e8f0;
+  background: #0f172a;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+button {
+  cursor: pointer;
+}
+button:hover {
+  background: #1e293b;
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #60a5fa;
+  outline-offset: 2px;
+}
+.toolbar {
+  justify-content: flex-start;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+label {
+  display: grid;
+  gap: 6px;
   font-size: 13px;
-  color: #94a3b8;
 }
-
-.messages-loading,
-.empty-state,
-.empty {
-  color: #94a3b8;
+label:first-child {
+  flex: 1;
+  min-width: 220px;
 }
-
+.toolbar .muted {
+  align-self: flex-end;
+  padding-bottom: 12px;
+}
+.layout {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) minmax(0, 1.2fr);
+  gap: 16px;
+  align-items: start;
+}
+.card {
+  background: #0f172a;
+  border: 1px solid #334155;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.conversation-list {
+  max-height: 72vh;
+  overflow-y: auto;
+}
+.conversation {
+  display: grid;
+  width: 100%;
+  gap: 10px;
+  border: 0;
+  border-bottom: 1px solid #334155;
+  border-radius: 0;
+  text-align: left;
+  padding: 16px;
+}
+.conversation.selected {
+  background: #172b48;
+  box-shadow: inset 3px 0 #60a5fa;
+}
+.row {
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+.row strong {
+  font-size: 13px;
+}
+.preview {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.5;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+.badge {
+  color: #a7f3d0;
+}
+.detail {
+  padding: 20px;
+}
+.detail-header {
+  align-items: start;
+  margin-bottom: 20px;
+}
+.conversation-id {
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
 .messages {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 4px;
 }
-
 .msg {
-  border-radius: 12px;
-  padding: 12px;
   border: 1px solid #334155;
-}
-
-.msg.user {
-  background: #0f172a;
-}
-
-.msg.assistant {
   background: #111827;
+  padding: 14px;
+  border-radius: 12px;
+  margin-right: 24px;
 }
-
-.msg-role {
-  font-size: 12px;
-  font-weight: 700;
-  color: #93c5fd;
-  margin-bottom: 6px;
-  text-transform: uppercase;
+.msg.user {
+  background: #172b48;
+  margin-left: 24px;
+  margin-right: 0;
 }
-
 .msg-text {
-  color: #e2e8f0;
   white-space: pre-wrap;
-  line-height: 1.5;
+  overflow-wrap: anywhere;
+  line-height: 1.6;
+  margin-top: 10px;
+  font-size: 14px;
 }
-
-.msg-time {
-  margin-top: 8px;
-  font-size: 12px;
+.empty {
   color: #94a3b8;
+  padding: 32px 20px;
+}
+.error {
+  color: #fca5a5;
+}
+.danger {
+  color: #fca5a5;
+  border-color: #9f4545;
+}
+.confirmation {
+  padding: 16px;
+  border: 1px solid #9f4545;
+  border-radius: 10px;
+  margin-bottom: 16px;
+}
+.actions {
+  justify-content: flex-end;
+}
+@media (max-width: 850px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .conversation-list {
+    max-height: 35vh;
+  }
+  .page {
+    padding: 16px;
+  }
+  .page-header {
+    align-items: start;
+  }
 }
 </style>

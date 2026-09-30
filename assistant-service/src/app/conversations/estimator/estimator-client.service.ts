@@ -21,6 +21,7 @@ export interface EstimatorAssistantStepRequest {
   tenantSlug: string;
   message: string;
   draft?: unknown | null;
+  customerHistory?: string[];
 }
 
 export interface EstimatorExplanationResult {
@@ -29,7 +30,8 @@ export interface EstimatorExplanationResult {
 }
 
 export interface EstimatorAssistantStepResponse {
-  status: 'needs_input' | 'preview' | 'updated_preview' | 'explanation';
+  status: 'needs_input' | 'preview' | 'updated_preview' | 'explanation' | 'proposal' | 'needs_inspection';
+  rangePreview?: { min: number; max: number; currency: 'EUR'; needsInspection: boolean; lines: unknown[] };
   operation?:
     | 'start_estimate'
     | 'fill_missing_field'
@@ -54,15 +56,16 @@ export class EstimatorClientService {
   async assistantStep(
     input: EstimatorAssistantStepRequest,
   ): Promise<EstimatorAssistantStepResponse> {
-    const res = await fetch(`${this.config.baseUrl}/estimator/assistant-step`, {
+    const endpoint = input.tenantSlug === 'energrid' ? 'assistant-step-v2' : 'assistant-step';
+    const res = await fetch(`${this.config.baseUrl}/estimator/${endpoint}`, {
       method: 'POST',
+      signal: AbortSignal.timeout(25000),
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(input),
     });
 
     if (!res.ok) {
-      const text = await res.text();
-      this.logger.error(`Energrid assistant-step failed: ${res.status} ${text}`);
+      this.logger.error(`Energrid assistant-step failed: ${res.status}`);
       throw new Error(`Energrid assistant-step failed: ${res.status}`);
     }
 

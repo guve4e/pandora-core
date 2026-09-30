@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Logger } from '@nestjs/common';
+import { Injectable, NotFoundException, Logger, BadRequestException } from '@nestjs/common';
 import { ChatService } from '../chat/chat.service';
 import { LeadCaptureService } from '../lead-capture/lead-capture.service';
 import { TenantValidationService } from '../tenant-validation/tenant-validation.service';
@@ -41,6 +41,7 @@ export class ConversationsService {
     if (!conversation) {
       throw new NotFoundException('Conversation not found');
     }
+    if (conversation.meta?.pilot) throw new BadRequestException('Use the pilot endpoint for this conversation');
 
     await this.repo.insertMessage({
       conversationId,
@@ -83,7 +84,8 @@ export class ConversationsService {
       const estimatorReply = await this.runEstimatorTool({
         conversationId,
         tenantSlug: conversation.tenant_slug,
-        message: chatResult.toolInput.message,
+        message,
+        customerHistory: history.filter(item => item.role === 'user').slice(0, -1).slice(-12).map(item => item.text.slice(-600)),
         conversationMeta: conversation.meta ?? {},
         leadId: conversation.lead_id ?? null,
         profile,
@@ -230,6 +232,7 @@ export class ConversationsService {
     conversationId: string;
     tenantSlug: string;
     message: string;
+    customerHistory?: string[];
     conversationMeta: Record<string, unknown> | null;
     leadId: string | null;
     profile: Awaited<ReturnType<AssistantConfigService['getTenantProfile']>>;
@@ -246,12 +249,37 @@ export class ConversationsService {
       `checking estimator branch for conversation=${input.conversationId}`,
     );
 
-    const estimatorResult = await this.estimatorOrchestrator.runStep({
-      tenantSlug: input.tenantSlug,
-      message: input.message,
-      conversationMeta: input.conversationMeta,
-      profile: input.profile,
-    });
+    let estimatorResult: Awaited<
+      ReturnType<EstimatorOrchestratorService['runStep']>
+    >;
+
+    try {
+      estimatorResult = await this.estimatorOrchestrator.runStep({
+        tenantSlug: input.tenantSlug,
+        message: input.message,
+        customerHistory: input.customerHistory,
+        conversationMeta: input.conversationMeta,
+        profile: input.profile,
+      });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+
+      this.logger.warn(
+        `Estimator branch failed for conversation=${input.conversationId}: ${errorMessage}`,
+      );
+
+      estimatorResult = {
+        handled: true,
+        reply:
+          'Оценката временно е недостъпна. Детайлите от разговора са запазени; опитайте отново. Не е изготвена или изпратена оферта.',
+        assistantMeta: {
+          estimator: true,
+          estimatorUnavailable: true,
+          error: errorMessage,
+        },
+      };
+    }
 
     if (!estimatorResult.handled || !estimatorResult.reply) {
       return null;

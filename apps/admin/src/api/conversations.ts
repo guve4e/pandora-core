@@ -5,6 +5,8 @@ export interface ConversationRow {
   visitor_id: string | null;
   status: string;
   lead_id: string | null;
+  has_lead: boolean;
+  channel: string | null;
   started_at: string;
   last_message_at: string;
   last_message: string | null;
@@ -19,6 +21,10 @@ export interface ConversationMessageRow {
 export async function getTenantConversations(): Promise<ConversationRow[]> {
   const { data } = await http.get<ConversationRow[]>('/tenant/conversations');
   return data;
+}
+
+export async function deleteTenantConversation(id: string): Promise<void> {
+  await http.delete(`/tenant/conversations/${id}`);
 }
 
 export async function getTenantConversationMessages(

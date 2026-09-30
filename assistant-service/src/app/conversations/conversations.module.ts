@@ -1,4 +1,7 @@
 import { Module } from '@nestjs/common';
+import { PilotController } from './pilot/pilot.controller';
+import { PilotService } from './pilot/pilot.service';
+import { PilotModelService } from './pilot/pilot-model.service';
 import { PgModule } from '@org/backend-db';
 import { AiModule } from '../ai/ai.module';
 import { ChatModule } from '../chat/chat.module';
@@ -21,8 +24,10 @@ import { EstimatorOrchestratorService } from './estimator/estimator-orchestrator
     TenantValidationModule,
     AssistantConfigModule,
   ],
-  controllers: [ConversationsController],
+  controllers: [ConversationsController, PilotController],
   providers: [
+    PilotService,
+    PilotModelService,
     ConversationsRepository,
     ConversationsService,
     AiUsageRepository,

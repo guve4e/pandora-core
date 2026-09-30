@@ -28,16 +28,30 @@ function hasAny(text: string, values: string[]): boolean {
   return values.some((x) => text.includes(x));
 }
 
-function shouldForceEstimatorRoute(input: {
+export function shouldForceEstimatorRoute(input: {
   message: string;
   estimatorEnabled: boolean;
   hasDraft: boolean;
+  customerHistory?: string[];
 }): boolean {
   if (!input.estimatorEnabled) {
     return false;
   }
 
   const text = input.message.toLowerCase().trim();
+  const dwelling = /къщ|ku[6s]t|kasht|house|село|selo|апартамент|apartament|гарсониер|garsioner|garsonier/;
+  const renovation = /ремонт|remont|инсталац|instalaci|всичко ново|vsi[4c]h?ko novo/;
+  const priceQuestion = /цена|cena|струва|struva|ориентир|orientir|колко.*пари|kolko.*pari/;
+  if (dwelling.test(text) && renovation.test(text)) return true;
+  const history = (input.customerHistory ?? []).slice(-12).join(' ').toLowerCase();
+  if (priceQuestion.test(text) && (input.hasDraft || (dwelling.test(history) && renovation.test(history)))) return true;
+  if (input.hasDraft && /умно.*реле|umno.*rele|кърт|kurt|стен|sten/.test(text)) return true;
+  if (input.hasDraft && /ценора[зс]пис|cenorazpis|cenoraspis|price list|kakvo.*to[4c]ka|ozna[4c]ava.*to[4c]ka|какво.*точка|бушон|bu[6s]on|кръгов|krugov|схема|shema|^(да|da|yes|може|moje)(\s|[.!?,]|$)/.test(text)) return true;
+  const home = /гарсониер|gar[si]*onier|garsonier|garsioner|апартамент|apartament|aprtament|жилищ|тристаен|двустаен|[234]\s*[- ]?стаен|[234]\s*[- ]?staen|tristaen|dvustaen/.test(text);
+  if (input.hasDraft && /коридор|koridor|баня|banq|кухня|kiuhnq|kuhnq|тераса|terasa/.test(text)) return true;
+  const roughPrice = /горе\s*[ -]?долу|gore\s*d[oou]+l[uou]*|приблизител|priblizitel|колко пари|kolko pari|cena|цена/.test(text);
+  if (home && /ремонт|remont|инсталац|instalaci|цена|cena/.test(text)) return true;
+  if (input.hasDraft && (roughPrice || /разбив|razbiv|детайл|detail|защо|zashto|za kakvo|материал|material|включ|vkl|без |bez |shelly/.test(text))) return true;
   const hasNumber = /\b\d+(?:[.,]\d+)?\b/.test(text);
 
   const priceIntentSignals = [
@@ -134,22 +148,23 @@ export class ChatService {
     const hasDraft = Boolean(meta.estimator?.coreDraft);
 
     this.logger.log(
-      `route check tenant=${input.tenantSlug} message="${input.message}" estimatorEnabled=${estimatorEnabled} hasDraft=${hasDraft}`,
+      `route check tenant=${input.tenantSlug} estimatorEnabled=${estimatorEnabled} hasDraft=${hasDraft}`,
     );
 
     const forcedEstimator = shouldForceEstimatorRoute({
       message: input.message,
       estimatorEnabled,
       hasDraft,
+      customerHistory: input.history?.filter(turn => turn.role === 'user').map(turn => turn.text),
     });
 
     this.logger.log(
-      `forced estimator decision tenant=${input.tenantSlug} message="${input.message}" forced=${forcedEstimator}`,
+      `forced estimator decision tenant=${input.tenantSlug} forced=${forcedEstimator}`,
     );
 
     if (forcedEstimator) {
       this.logger.log(
-        `forcing estimator route tenant=${input.tenantSlug} message="${input.message}"`,
+        `forcing estimator route tenant=${input.tenantSlug}`,
       );
 
       return {
@@ -168,7 +183,7 @@ export class ChatService {
     }
 
     this.logger.log(
-      `falling back to ai routing tenant=${input.tenantSlug} message="${input.message}"`,
+      `falling back to ai routing tenant=${input.tenantSlug}`,
     );
 
     return this.ai.chatWithRouting(
